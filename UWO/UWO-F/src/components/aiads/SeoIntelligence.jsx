@@ -163,6 +163,10 @@ export default function SeoIntelligence() {
             </div>
           </div>
         </div>
+
+        <p style={{ marginTop: '20px', fontSize: '0.8rem', color: '#64748b', textAlign: 'center', fontStyle: 'italic' }}>
+          *Illustrative demonstration data. Search volumes, CPC metrics, and cluster difficulty depend on chosen data providers, target regions, and live campaign configurations.
+        </p>
       </div>
     </section>
   );

@@ -236,17 +236,13 @@ export default function AiLegalHero({ onExploreClick, onDownloadClick }) {
               <motion.button
                 type="button"
                 className="al-btn al-btn-primary"
-                onClick={onExploreClick}
-                aria-label="Explore AI Legal Features"
+                onClick={onDownloadClick}
+                aria-label="Download AI Legal"
                 whileHover={btnMotion.hover}
                 whileTap={btnMotion.tap}
               >
-                <motion.i
-                  className="fa-solid fa-compass"
-                  whileHover={{ rotate: 90 }}
-                  transition={{ duration: 0.4, ease: EASE_PREMIUM }}
-                />
-                <span>Explore AI LEGAL</span>
+                <i className="fa-solid fa-download"></i>
+                <span>Download AI Legal</span>
               </motion.button>
 
               <motion.a
@@ -265,13 +261,17 @@ export default function AiLegalHero({ onExploreClick, onDownloadClick }) {
               <motion.button
                 type="button"
                 className="al-btn al-btn-outline-gold"
-                onClick={onDownloadClick}
-                aria-label="Download AI Legal Mobile App"
+                onClick={onExploreClick}
+                aria-label="Explore AI Legal Features"
                 whileHover={btnMotion.hover}
                 whileTap={btnMotion.tap}
               >
-                <i className="fa-solid fa-mobile-screen"></i>
-                <span>Download App</span>
+                <motion.i
+                  className="fa-solid fa-compass"
+                  whileHover={{ rotate: 90 }}
+                  transition={{ duration: 0.4, ease: EASE_PREMIUM }}
+                />
+                <span>Explore Features</span>
               </motion.button>
             </motion.div>
 

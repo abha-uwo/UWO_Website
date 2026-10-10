@@ -18,7 +18,7 @@ const DEFAULT_FALLBACK_BLOGS = [
       <p>Every day, professionals switch between multiple apps just to complete one task. One tool to search for information, one to write, one to analyze data, another to manage tasks—the list goes on. This constant context switching leads to cognitive fatigue, fragmented information, and significant time loss.</p>
       
       <h2>The Multitasking Illusion</h2>
-      <p>Studies show that switching between applications can cost up to 40% of a worker's productive time. When your workflow is scattered across ten different software subscriptions, context is lost in translation, search is inefficient, and collaboration breaks down.</p>
+      <p>Frequent switching between disconnected tools and browser tabs fragments cognitive focus, causes context loss, and introduces operational friction into everyday workflows. When tasks are scattered across ten different standalone apps, information gets siloed and collaboration slows down.</p>
       
       <blockquote>
         "The future of software is not adding more siloed tools to your dock, but creating an ambient intelligence layer that orchestrates them all seamlessly."
@@ -34,7 +34,7 @@ const DEFAULT_FALLBACK_BLOGS = [
       </ul>
       
       <h2>The Result: True Cognitive Focus</h2>
-      <p>By bringing every essential tool into one unified AI assistant, professionals report saving over 12 hours every week while producing higher-quality, context-aware work.</p>
+      <p>By centralizing research, drafting, analysis, and execution into one unified AI workspace, knowledge workers eliminate redundant tool hops and maintain deep, uninterrupted workflow focus.</p>
     `,
     author: 'UWO Intelligence Desk'
   },
@@ -94,13 +94,13 @@ const DEFAULT_FALLBACK_BLOGS = [
       <p>What if one company could give you the AI tools to create, automate, connect, empower, and transform - all under a single ecosystem?</p>
       <p>That is exactly what UWO™ (Unified Web Options & Services Pvt Ltd) has built from the heart of Madhya Pradesh. This is not just another software company. This is India's most ambitious AI movement.</p>
       
-      <h2>The Five Pillars of the UWO™ Ecosystem</h2>
+      <h2>The Pillars of the UWO™ Ecosystem</h2>
       <ul>
-        <li><strong>AISA™:</strong> Next-generation AI Super Assistant powering cognitive productivity.</li>
-        <li><strong>AISA Connect:</strong> Decentralized networking connecting businesses and AI capabilities.</li>
-        <li><strong>AI Mall™:</strong> The unified digital marketplace for enterprise intelligence models.</li>
-        <li><strong>EFV™:</strong> High-performance architecture framework for scalable intelligent systems.</li>
-        <li><strong>A-Series™:</strong> Enterprise-grade intelligence appliances tailored for emerging industry verticals.</li>
+        <li><strong>AISA™:</strong> Next-generation AI Super Assistant powering personal and enterprise cognitive productivity.</li>
+        <li><strong>UWO Connect™:</strong> Unified business communication and multi-channel workflow automation platform.</li>
+        <li><strong>AI Legal™:</strong> AI-assisted legal drafting, statutory research, and case analysis platform.</li>
+        <li><strong>UWO™ AI Ecosystem for Education:</strong> Institution-isolated campus intelligence and personalized academic workflows.</li>
+        <li><strong>EFV™:</strong> Cognitive frequency and intelligent systems framework authored by Gurumukh P. Ahuja.</li>
       </ul>
     `,
     author: 'Gurumukh P. Ahuja'

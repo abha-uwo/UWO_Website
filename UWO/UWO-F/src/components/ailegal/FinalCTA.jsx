@@ -60,13 +60,13 @@ export default function FinalCTA({ onExploreClick, onDownloadClick }) {
             <motion.button
               type="button"
               className="al-btn al-btn-primary"
-              onClick={onExploreClick}
-              aria-label="Explore AI Legal Core Capabilities"
+              onClick={onDownloadClick}
+              aria-label="Download AI Legal Applications"
               whileHover={btnMotion.hover}
               whileTap={btnMotion.tap}
             >
-              <i className="fa-solid fa-compass"></i>
-              <span>Explore AI LEGAL™</span>
+              <i className="fa-solid fa-download"></i>
+              <span>Download AI Legal</span>
             </motion.button>
 
             <motion.a
@@ -85,13 +85,13 @@ export default function FinalCTA({ onExploreClick, onDownloadClick }) {
             <motion.button
               type="button"
               className="al-btn al-btn-outline-gold"
-              onClick={onDownloadClick}
-              aria-label="Download AI Legal Mobile Applications"
+              onClick={onExploreClick}
+              aria-label="Explore AI Legal Core Capabilities"
               whileHover={btnMotion.hover}
               whileTap={btnMotion.tap}
             >
-              <i className="fa-solid fa-mobile-screen"></i>
-              <span>Download the App</span>
+              <i className="fa-solid fa-compass"></i>
+              <span>Explore Features</span>
             </motion.button>
           </motion.div>
 
@@ -105,10 +105,10 @@ export default function FinalCTA({ onExploreClick, onDownloadClick }) {
             AI LEGAL™ by <span>UWO™</span>
           </motion.div>
 
-          {/* Mandatory Legal Disclaimer */}
+          {/* Mandatory Legal & Citation Disclaimers */}
           <div className="al-legal-disclaimer-card">
             <p>
-              <strong>Legal Disclaimer:</strong> AI LEGAL™ provides AI-assisted legal information and workflow support. It is designed to assist legal professionals and does not replace professional legal judgment or constitute legal advice.
+              <strong>Legal Disclaimer:</strong> AI LEGAL™ provides AI-assisted research and workflow intelligence to assist legal professionals. <strong>Drafting notice:</strong> Generate editable legal drafts for professional review. <strong>Citation notice:</strong> Review cited authorities against their original sources before relying on them. AI LEGAL™ does not constitute formal legal counsel or create an attorney-client relationship.
             </p>
           </div>
         </motion.div>

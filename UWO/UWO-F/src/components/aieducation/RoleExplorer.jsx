@@ -33,7 +33,7 @@ export default function RoleExplorer() {
             <span className="aied-gradient-emerald">Every Campus Stakeholder.</span>
           </h2>
           <p className="aied-section-subtitle">
-            Convee Education enforces strict organizational isolation across 11 institutional roles, 
+            UWO™ AI Ecosystem for Education enforces strict organizational isolation across 11 institutional roles, 
             delivering bespoke operational toolsets whether you are a university Dean, classroom teacher, 
             undergraduate student, or parent.
           </p>
@@ -163,7 +163,7 @@ export default function RoleExplorer() {
                 <div style={{ background: 'rgba(0,0,0,0.35)', border: '1px solid var(--aied-border)', borderRadius: '8px', padding: '10px 12px', marginBottom: '12px', fontSize: '0.72rem' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px', color: 'var(--aied-text-muted)' }}>
                     <span>Tenancy State</span>
-                    <span style={{ color: 'var(--aied-emerald)', fontWeight: 700 }}>ORGASM_ISOLATED</span>
+                    <span style={{ color: 'var(--aied-emerald)', fontWeight: 700 }}>Institution-Isolated Workspace</span>
                   </div>
                   <div style={{ color: '#ffffff', fontFamily: 'var(--aied-font-mono)', fontSize: '0.68rem', lineHeight: 1.4 }}>
                     <span style={{ color: 'var(--aied-cyan)' }}>[AUDIT_LOG]:</span> Tally XML sync synced 128 vouchers · Zero BOLA violations recorded

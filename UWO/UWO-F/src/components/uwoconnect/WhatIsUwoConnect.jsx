@@ -34,8 +34,8 @@ export default function WhatIsUwoConnect() {
       desc: 'Incoming messages automatically qualify leads, draft quotations, and log transactions.',
     },
     {
-      title: 'Zero Operational Leakage',
-      desc: 'No forgotten customer inquiries, zero missed follow-ups, and complete team transparency.',
+      title: 'High-Visibility Follow-Ups',
+      desc: 'Reduce missed enquiries, improve follow-up visibility, and maintain complete team accountability across channels.',
     },
   ];
 

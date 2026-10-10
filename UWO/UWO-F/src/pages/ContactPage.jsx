@@ -5,7 +5,10 @@ export default function ContactPage() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    purpose: 'Business',
+    phone: '',
+    organization: '',
+    purpose: 'Product Demo',
+    productOfInterest: 'AISA™ (AI Super Assistant)',
     message: ''
   });
   const [selectOpen, setSelectOpen] = useState(false);
@@ -72,7 +75,10 @@ export default function ContactPage() {
       await submitContact({
         name: formData.name.trim(),
         email: formData.email.trim(),
+        phone: formData.phone.trim(),
+        organization: formData.organization.trim(),
         purpose: formData.purpose,
+        productOfInterest: formData.productOfInterest,
         message: formData.message.trim(),
         affiliateCode,
         productSlug
@@ -81,14 +87,17 @@ export default function ContactPage() {
       setModalState({
         open: true,
         type: 'success',
-        title: 'Message Sent',
-        message: "Your message has been sent. We'll get back to you shortly."
+        title: 'Enquiry Received',
+        message: "Thank you for reaching out. A UWO specialist will review your enquiry and respond within 1 business day."
       });
 
       setFormData({
         name: '',
         email: '',
-        purpose: 'Business',
+        phone: '',
+        organization: '',
+        purpose: 'Product Demo',
+        productOfInterest: 'AISA™ (AI Super Assistant)',
         message: ''
       });
     } catch (err) {
@@ -121,7 +130,23 @@ export default function ContactPage() {
     }
   };
 
-  const purposes = ['Business', 'Partnership', 'Media'];
+  const purposes = [
+    'Product Demo',
+    'Institutional Demo',
+    'Business Partnership',
+    'Technical Support',
+    'Media Enquiry'
+  ];
+
+  const products = [
+    'AISA™ (AI Super Assistant)',
+    'AI Legal™ (Drafting & Intelligence)',
+    'UWO Connect™ (Unified Communication)',
+    'UWO™ AI Ecosystem for Education',
+    'AI ADS™ (Autonomous Advertising)',
+    'EFV™ Framework',
+    'Other / General Partnership'
+  ];
 
   return (
     <>
@@ -143,8 +168,7 @@ export default function ContactPage() {
         <div className="hero-content-centered">
           <h1>Get in Touch</h1>
           <p>
-            Whether you are exploring partnerships, platforms, or opportunities &trade;
-            we&trade;d love to hear from you.
+            Whether you are exploring our products, partnerships or business opportunities, we would love to hear from you.
           </p>
         </div>
       </section>
@@ -155,15 +179,18 @@ export default function ContactPage() {
         style={{ borderTop: '4px solid var(--primary)', borderBottom: '4px solid var(--primary)' }}
       >
         <div className="container">
-          <div style={{ maxWidth: '600px', margin: '0 auto' }}>
-            <h2 className="section-title-left">
-              Contact Form
+          <div style={{ maxWidth: '640px', margin: '0 auto' }}>
+            <h2 className="section-title-left" style={{ marginBottom: '8px' }}>
+              Let's Find the Right UWO Solution for You
             </h2>
+            <p style={{ color: '#475569', fontSize: '0.98rem', marginBottom: '24px' }}>
+              Connect directly with our solutions team for live product demonstrations, institutional pilots, technical support, or partnership inquiries.
+            </p>
 
             <form className="contact-form" style={{ maxWidth: '100%' }} onSubmit={handleSubmit}>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '10px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '14px' }}>
                 <div>
-                  <label htmlFor="name">Full Name</label>
+                  <label htmlFor="name">Full Name *</label>
                   <input
                     type="text"
                     id="name"
@@ -171,123 +198,168 @@ export default function ContactPage() {
                     placeholder="Your name"
                     value={formData.name}
                     onChange={handleChange}
+                    required
                   />
                 </div>
 
-                <div>
-                  <label htmlFor="email">Email Address</label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    placeholder="your@email.com"
-                    value={formData.email}
-                    onChange={handleChange}
-                  />
-                </div>
-
-                <div style={{ position: 'relative', zIndex: 50 }}>
-                  <label htmlFor="purpose">Purpose</label>
-                  <div
-                    ref={selectWrapRef}
-                    className={`csel-wrap${selectOpen ? ' csel-open' : ''}`}
-                    id="cselWrap"
-                  >
-                    {/* Native select hidden */}
-                    <select
-                      id="purpose"
-                      name="purpose"
-                      className="csel-native"
-                      aria-hidden="true"
-                      value={formData.purpose}
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '14px' }}>
+                  <div>
+                    <label htmlFor="email">Email Address *</label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      placeholder="your@email.com"
+                      value={formData.email}
                       onChange={handleChange}
-                    >
-                      {purposes.map((p) => (
-                        <option key={p} value={p}>{p}</option>
-                      ))}
-                    </select>
+                      required
+                    />
+                  </div>
 
-                    {/* Custom visual trigger button */}
-                    <button
-                      type="button"
-                      id="cselTrigger"
-                      className="csel-trigger"
-                      aria-haspopup="listbox"
-                      aria-expanded={selectOpen}
-                      onClick={() => setSelectOpen(!selectOpen)}
-                    >
-                      <span className="csel-t-label" id="cselLabel">{formData.purpose}</span>
-                      <svg
-                        className="csel-arrow"
-                        id="cselArrow"
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="#D6A559"
-                        strokeWidth="2.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        style={{
-                          transform: selectOpen ? 'rotate(180deg)' : 'rotate(0deg)',
-                          transition: 'transform 0.28s cubic-bezier(0.4, 0, 0.2, 1)'
-                        }}
-                      >
-                        <polyline points="6 9 12 15 18 9"></polyline>
-                      </svg>
-                    </button>
-
-                    {/* Custom options panel */}
-                    <div
-                      id="cselPanel"
-                      className="csel-panel"
-                      role="listbox"
-                      style={{
-                        maxHeight: selectOpen ? '160px' : '0',
-                        overflowY: 'auto'
-                      }}
-                    >
-                      {purposes.map((opt) => (
-                        <div
-                          key={opt}
-                          className={`csel-option${formData.purpose === opt ? ' csel-selected' : ''}`}
-                          role="option"
-                          aria-selected={formData.purpose === opt}
-                          onClick={() => handlePurposePick(opt)}
-                        >
-                          <span className="cso-label">{opt}</span>
-                          {formData.purpose === opt && (
-                            <svg
-                              className="cso-check"
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="15"
-                              height="15"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="#D6A559"
-                              strokeWidth="2.8"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            >
-                              <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
-                          )}
-                        </div>
-                      ))}
-                    </div>
+                  <div>
+                    <label htmlFor="phone">Phone / WhatsApp (Optional)</label>
+                    <input
+                      type="tel"
+                      id="phone"
+                      name="phone"
+                      placeholder="+91 98765 43210"
+                      value={formData.phone}
+                      onChange={handleChange}
+                    />
                   </div>
                 </div>
 
                 <div>
-                  <label htmlFor="message">Message</label>
+                  <label htmlFor="organization">Organisation / Institution (Optional)</label>
+                  <input
+                    type="text"
+                    id="organization"
+                    name="organization"
+                    placeholder="Company or University name"
+                    value={formData.organization}
+                    onChange={handleChange}
+                  />
+                </div>
+
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '14px' }}>
+                  <div style={{ position: 'relative', zIndex: 50 }}>
+                    <label htmlFor="purpose">Purpose of Enquiry</label>
+                    <div
+                      ref={selectWrapRef}
+                      className={`csel-wrap${selectOpen ? ' csel-open' : ''}`}
+                      id="cselWrap"
+                    >
+                      {/* Native select hidden */}
+                      <select
+                        id="purpose"
+                        name="purpose"
+                        className="csel-native"
+                        aria-hidden="true"
+                        value={formData.purpose}
+                        onChange={handleChange}
+                      >
+                        {purposes.map((p) => (
+                          <option key={p} value={p}>{p}</option>
+                        ))}
+                      </select>
+
+                      {/* Custom visual trigger button */}
+                      <button
+                        type="button"
+                        id="cselTrigger"
+                        className="csel-trigger"
+                        aria-haspopup="listbox"
+                        aria-expanded={selectOpen}
+                        onClick={() => setSelectOpen(!selectOpen)}
+                      >
+                        <span className="csel-t-label" id="cselLabel">{formData.purpose}</span>
+                        <svg
+                          className="csel-arrow"
+                          id="cselArrow"
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="#D6A559"
+                          strokeWidth="2.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          style={{
+                            transform: selectOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                            transition: 'transform 0.28s cubic-bezier(0.4, 0, 0.2, 1)'
+                          }}
+                        >
+                          <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                      </button>
+
+                      {/* Custom options panel */}
+                      <div
+                        id="cselPanel"
+                        className="csel-panel"
+                        role="listbox"
+                        style={{
+                          maxHeight: selectOpen ? '200px' : '0',
+                          overflowY: 'auto'
+                        }}
+                      >
+                        {purposes.map((opt) => (
+                          <div
+                            key={opt}
+                            className={`csel-option${formData.purpose === opt ? ' csel-selected' : ''}`}
+                            role="option"
+                            aria-selected={formData.purpose === opt}
+                            onClick={() => handlePurposePick(opt)}
+                          >
+                            <span className="cso-label">{opt}</span>
+                            {formData.purpose === opt && (
+                              <svg
+                                className="cso-check"
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="15"
+                                height="15"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="#D6A559"
+                                strokeWidth="2.8"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              >
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                              </svg>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label htmlFor="productOfInterest">Product of Interest</label>
+                    <select
+                      id="productOfInterest"
+                      name="productOfInterest"
+                      value={formData.productOfInterest}
+                      onChange={handleChange}
+                    >
+                      {products.map((prd) => (
+                        <option key={prd} value={prd}>{prd}</option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+
+                <div>
+                  <label htmlFor="message">Message *</label>
                   <textarea
                     rows="4"
                     id="message"
                     name="message"
-                    placeholder="Write your message..."
+                    placeholder="Tell us about your requirements or enquiry..."
                     value={formData.message}
                     onChange={handleChange}
+                    required
                   ></textarea>
                 </div>
               </div>

@@ -233,7 +233,7 @@ export const BRAND_DNA_SIMULATION = {
   url: 'https://aeropulse.io',
   pillars: [
     { title: 'Zero-Emission Urban Air Mobility', confidence: '99%' },
-    { title: 'Autonomous Autonomous Vertiport Routing', confidence: '97%' },
+    { title: 'Autonomous Vertiport Routing', confidence: '97%' },
     { title: 'Enterprise Fleet Electrification', confidence: '95%' }
   ],
   personas: [
@@ -462,7 +462,7 @@ export const AI_ADS_USE_CASES = [
 
 // 📊 Live Telemetry & Metrics
 export const AI_ADS_TELEMETRY = [
-  { value: 10, label: 'Marketing Modules', suffix: '+ Engines' },
+  { value: 8, label: 'Marketing Modules', suffix: ' Core Engines' },
   { value: 8, label: 'Pipeline Stages', suffix: ' Connected' },
   { value: 100, label: 'Brand Alignment', suffix: '% Scoped' },
   { value: 3, label: 'Creative Ratios', suffix: ' Native (1:1, 16:9, 9:16)' }

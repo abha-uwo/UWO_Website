@@ -224,15 +224,22 @@ select:focus {
   background: rgba(255, 255, 255, 0.12);
   backdrop-filter: blur(16px) saturate(180%);
   -webkit-backdrop-filter: blur(16px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.20);
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.25);
   transition: all 0.3s ease;
 }
 
 .navbar:hover {
   background: rgba(255, 255, 255, 0.18);
   border-color: rgba(214, 165, 89, 0.4);
-  box-shadow: 0 12px 35px -5px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  box-shadow: 0 12px 35px -5px rgba(0, 0, 0, 0.3);
+}
+
+.navbar.navbar-dark.is-scrolled {
+  background: rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(20px) saturate(190%);
+  -webkit-backdrop-filter: blur(20px) saturate(190%);
+  box-shadow: 0 14px 40px -5px rgba(0, 0, 0, 0.35);
 }
 
 .nav-container {
@@ -403,42 +410,108 @@ select:focus {
 
 
 /* ==========================================================================
-   UNIFIED LIGHT THEME NAVBARS (UWO Connect, Blogs, AI Legal, AI Ads)
-   Crisp, non-blurry typography, high contrast, zero shadow smudging
+   UNIFIED HEADER DROPDOWN & CONSISTENCY ACROSS ALL PROJECTS
+   ========================================================================== */
+.projects-menu {
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  background: #FFFFFF !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1px solid #E2E8F0 !important;
+  min-width: 220px !important;
+  border-radius: 14px !important;
+  padding: 8px !important;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  box-shadow: 0 20px 45px -8px rgba(15, 23, 42, 0.18), 0 0 1px 1px rgba(15, 23, 42, 0.06) !important;
+  z-index: 999999 !important;
+}
+
+.projects-dropdown:hover .projects-menu,
+.projects-dropdown.is-open .projects-menu,
+.projects-menu.open {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: translateX(-50%) translateY(0) !important;
+  pointer-events: auto !important;
+}
+
+.projects-menu a,
+.nav-links .projects-menu a,
+.navbar .projects-menu a {
+  display: block !important;
+  padding: 10px 16px !important;
+  border-radius: 8px !important;
+  color: #0F172A !important;
+  font-weight: 700 !important;
+  font-size: 0.94rem !important;
+  line-height: 1.3 !important;
+  text-shadow: none !important;
+  filter: none !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+  text-decoration: none !important;
+  transform: none !important;
+  transition: all 0.18s ease !important;
+}
+
+.projects-menu a:hover,
+.projects-menu a:focus,
+.projects-menu a.active,
+.nav-links .projects-menu a:hover,
+.nav-links .projects-menu a:focus,
+.nav-links .projects-menu a.active,
+.navbar .projects-menu a:hover,
+.navbar .projects-menu a:focus,
+.navbar .projects-menu a.active {
+  background: #F8FAFC !important;
+  color: #B88E2D !important;
+  text-shadow: none !important;
+  filter: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  transform: translateX(3px) !important;
+}
+/* ==========================================================================
+   UNIFIED LIGHT THEME NAVBARS (Blogs / Generic light)
+   Crisp typography, true translucent glassmorphism, NO harsh inset white line
    ========================================================================== */
 .navbar.navbar-light,
-.navbar.navbar-uwo-connect,
-header.navbar-blogs,
-.navbar.navbar-ai-legal,
-.navbar.navbar-ai-ads {
-  background: rgba(255, 255, 255, 0.90) !important;
-  backdrop-filter: blur(20px) saturate(180%) !important;
-  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
-  border: 1px solid rgba(226, 232, 240, 0.9) !important;
-  box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.95) !important;
+header.navbar-blogs {
+  background: rgba(255, 255, 255, 0.72) !important;
+  backdrop-filter: blur(18px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(180%) !important;
+  border: 1px solid rgba(226, 232, 240, 0.85) !important;
+  box-shadow: 0 8px 25px -5px rgba(15, 23, 42, 0.07) !important;
+  transition: all 0.3s ease;
 }
 
 .navbar.navbar-light:hover,
-.navbar.navbar-uwo-connect:hover,
-header.navbar-blogs:hover,
-.navbar.navbar-ai-legal:hover,
-.navbar.navbar-ai-ads:hover {
-  background: rgba(255, 255, 255, 0.96) !important;
-  border-color: rgba(203, 213, 225, 1) !important;
-  box-shadow: 0 14px 35px -5px rgba(15, 23, 42, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.95) !important;
+header.navbar-blogs:hover {
+  background: rgba(255, 255, 255, 0.88) !important;
+  border-color: rgba(203, 213, 225, 0.95) !important;
+  box-shadow: 0 12px 30px -5px rgba(15, 23, 42, 0.10) !important;
+}
+
+/* Translucent glassmorphism when scrolling dynamically */
+.navbar.navbar-light.is-scrolled,
+header.navbar-blogs.is-scrolled {
+  background: rgba(255, 255, 255, 0.84) !important;
+  backdrop-filter: blur(22px) saturate(190%) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(190%) !important;
+  border-color: rgba(203, 213, 225, 0.9) !important;
+  box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.09) !important;
 }
 
 /* Nav links on light navbar — ZERO text shadow, ultra-crisp slate typography */
 .navbar.navbar-light .nav-links a,
 .navbar.navbar-light .projects-link,
-.navbar.navbar-uwo-connect .nav-links a,
-.navbar.navbar-uwo-connect .projects-link,
 header.navbar-blogs .nav-links a,
-header.navbar-blogs .projects-link,
-.navbar.navbar-ai-legal .nav-links a,
-.navbar.navbar-ai-legal .projects-link,
-.navbar.navbar-ai-ads .nav-links a,
-.navbar.navbar-ai-ads .projects-link {
+header.navbar-blogs .projects-link {
   color: #1e293b !important;
   font-weight: 600 !important;
   text-shadow: none !important;
@@ -453,34 +526,125 @@ header.navbar-blogs .projects-link,
 .navbar.navbar-light .nav-links a.active,
 header.navbar-blogs .nav-links a:hover,
 header.navbar-blogs .projects-link:hover,
-header.navbar-blogs .nav-links a.active,
-.navbar.navbar-ai-legal .nav-links a:hover,
-.navbar.navbar-ai-legal .projects-link:hover,
-.navbar.navbar-ai-legal .nav-links a.active {
+header.navbar-blogs .nav-links a.active {
   color: #B8955A !important;
   text-shadow: none !important;
   filter: none !important;
   transform: translateY(-2px);
 }
 
-/* UWO Connect emerald hover */
-.navbar.navbar-uwo-connect .nav-links a:hover,
-.navbar.navbar-uwo-connect .projects-link:hover,
-.navbar.navbar-uwo-connect .nav-links a.active {
-  color: #0B8F78 !important;
-  text-shadow: none !important;
-  filter: none !important;
-  transform: translateY(-2px);
+/* ==========================================================================
+   TRANSLUCENT GLASSMORPHIC NAVBARS (AI Legal, AI Ads, UWO Connect)
+   True translucent frosted glassmorphism that dynamically responds to scroll
+   ========================================================================== */
+.navbar.navbar-ai-legal,
+.navbar.navbar-ai-ads,
+.navbar.navbar-uwo-connect {
+  background: rgba(255, 255, 255, 0.25) !important;
+  backdrop-filter: blur(14px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(180%) !important;
+  border: 1px solid rgba(226, 232, 240, 0.65) !important;
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04) !important;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
-/* AI Ads purple hover */
+.navbar.navbar-ai-legal:hover,
+.navbar.navbar-ai-ads:hover,
+.navbar.navbar-uwo-connect:hover {
+  background: rgba(255, 255, 255, 0.38) !important;
+  border-color: rgba(203, 213, 225, 0.85) !important;
+  box-shadow: 0 8px 25px -4px rgba(15, 23, 42, 0.08) !important;
+}
+
+/* Dynamic translucent frosted glass elevation when scrolling */
+.navbar.navbar-ai-legal.is-scrolled,
+.navbar.navbar-ai-ads.is-scrolled,
+.navbar.navbar-uwo-connect.is-scrolled {
+  background: rgba(255, 255, 255, 0.45) !important;
+  backdrop-filter: blur(24px) saturate(200%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(200%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+  box-shadow: 0 16px 40px -6px rgba(15, 23, 42, 0.12), 0 0 1px 1px rgba(255, 255, 255, 0.7) !important;
+}
+
+.navbar.navbar-ai-legal .nav-links a,
+.navbar.navbar-ai-legal .projects-link,
+.navbar.navbar-ai-ads .nav-links a,
+.navbar.navbar-ai-ads .projects-link,
+.navbar.navbar-uwo-connect .nav-links a,
+.navbar.navbar-uwo-connect .projects-link {
+  color: #0F172A !important;
+  font-weight: 600 !important;
+  text-shadow: none !important;
+  filter: none !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+}
+
+.navbar.navbar-ai-legal .hamburger div,
+.navbar.navbar-ai-ads .hamburger div,
+.navbar.navbar-uwo-connect .hamburger div {
+  background: #0F172A !important;
+}
+
+.navbar.navbar-ai-legal .earn-refer-btn,
+.navbar.navbar-ai-ads .earn-refer-btn,
+.navbar.navbar-uwo-connect .earn-refer-btn {
+  background: rgba(255, 255, 255, 0.92) !important;
+  color: #0F172A !important;
+  border: 1.5px solid #1E293B !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* AI Legal Gold hover & active */
+.navbar.navbar-ai-legal .nav-links a:hover,
+.navbar.navbar-ai-legal .projects-link:hover,
+.navbar.navbar-ai-legal .nav-links a.active {
+  color: #B88E2D !important;
+  text-shadow: none !important;
+  filter: none !important;
+  transform: translateY(-2px) !important;
+}
+.navbar.navbar-ai-legal .earn-refer-btn:hover {
+  background: #0F172A !important;
+  color: #FFFFFF !important;
+  border-color: #0F172A !important;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.18) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* AI Ads Purple hover & active */
 .navbar.navbar-ai-ads .nav-links a:hover,
 .navbar.navbar-ai-ads .projects-link:hover,
 .navbar.navbar-ai-ads .nav-links a.active {
   color: #7c3aed !important;
   text-shadow: none !important;
   filter: none !important;
-  transform: translateY(-2px);
+  transform: translateY(-2px) !important;
+}
+.navbar.navbar-ai-ads .earn-refer-btn:hover {
+  background: #7c3aed !important;
+  color: #FFFFFF !important;
+  border-color: #7c3aed !important;
+  box-shadow: 0 4px 16px rgba(124, 58, 237, 0.25) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* UWO Connect Emerald hover & active */
+.navbar.navbar-uwo-connect .nav-links a:hover,
+.navbar.navbar-uwo-connect .projects-link:hover,
+.navbar.navbar-uwo-connect .nav-links a.active {
+  color: #0B8F78 !important;
+  text-shadow: none !important;
+  filter: none !important;
+  transform: translateY(-2px) !important;
+}
+.navbar.navbar-uwo-connect .earn-refer-btn:hover {
+  background: #0B8F78 !important;
+  color: #FFFFFF !important;
+  border-color: #0B8F78 !important;
+  box-shadow: 0 4px 16px rgba(11, 143, 120, 0.25) !important;
+  transform: translateY(-2px) !important;
 }
 
 /* Logo on light navbar — remove any dark drop shadow */
@@ -578,8 +742,6 @@ header.navbar-blogs .projects-menu a:active,
   filter: none !important;
   outline: none !important;
 }
-
-
 
 .hamburger {
   display: none;
@@ -934,13 +1096,14 @@ header.navbar-blogs .projects-menu a:active,
   flex: 0 0 calc((100% - 40px) / 3);
   min-width: 280px;
   max-width: 370px;
-  height: 250px;
+  min-height: 275px;
+  height: auto;
   box-sizing: border-box;
   scroll-snap-align: start;
   color: #0f172a;
   background: #ffffff;
   border-radius: 20px;
-  padding: 20px 22px 18px 22px;
+  padding: 16px 20px 16px 20px;
   border: 1px solid rgba(214, 165, 89, 0.35);
   display: flex;
   flex-direction: column;
@@ -1092,7 +1255,8 @@ header.navbar-blogs .projects-menu a:active,
   .project-carousel-card {
     flex: 0 0 85%;
     min-width: 240px;
-    height: 235px;
+    min-height: 260px;
+    height: auto;
   }
 }
 
@@ -3343,6 +3507,7 @@ select#purpose:focus {
 .earn-refer-btn {
   display: inline-flex !important;
   align-items: center !important;
+  justify-content: center !important;
   gap: 8px !important;
   padding: 8px 18px !important;
   border-radius: 9999px !important;
@@ -3357,7 +3522,7 @@ select#purpose:focus {
   line-height: 1 !important;
   cursor: pointer !important;
   text-decoration: none !important;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05) !important;
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
   white-space: nowrap !important;
   margin-left: 6px;

@@ -72,10 +72,7 @@
    NAVBAR ON AI ADS PAGE
    ========================================================================== */
 .navbar.navbar-ai-ads {
-  background: rgba(255, 255, 255, 0.92) !important;
-  backdrop-filter: blur(16px) saturate(180%);
-  border-bottom: 1px solid rgba(124, 58, 237, 0.12) !important;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+  /* Inherits dynamic translucent frosted glassmorphism from style.css */
 }
 
 .navbar.navbar-ai-ads .nav-links a {

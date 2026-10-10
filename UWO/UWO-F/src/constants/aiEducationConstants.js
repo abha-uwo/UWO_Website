@@ -13,10 +13,10 @@ export const AI_EDUCATION_META = {
 // 🏛️ Verified Pre-Configured Seeded Institutions (from 11_INSTITUTIONS_AND_CREDENTIALS.md)
 export const SEEDED_INSTITUTIONS = [
   {
-    id: 'chanakya-national-law',
-    name: 'Chanakya National Law University',
-    shortName: 'CNLU New Delhi',
-    domain: '@cnlu.ac.in',
+    id: 'uwo-demo-campus',
+    name: 'UWO Demo Campus',
+    shortName: 'UWO Demo Campus (Illustrative)',
+    domain: '@demo.uwo24.com',
     category: 'National Law University',
     accentColor: '#16B8E8',
     stats: { members: 42, departments: 4, classes: 12 },

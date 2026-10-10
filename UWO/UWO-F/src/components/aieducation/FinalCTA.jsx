@@ -78,7 +78,7 @@ export default function FinalCTA({ onExploreClick }) {
           </div>
 
           <div style={{ marginTop: '24px', color: 'var(--aied-text-subtle)', fontSize: '0.72rem', fontFamily: 'var(--aied-font-mono)' }}>
-            UWO™ · Unified Web Options &amp; Services Pvt. Ltd. · Convee AI Education Operating System
+            UWO™ · Unified Web Options &amp; Services Pvt. Ltd. · UWO™ AI Ecosystem for Education
           </div>
         </motion.div>
       </div>

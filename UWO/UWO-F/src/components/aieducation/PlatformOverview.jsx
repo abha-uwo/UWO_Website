@@ -11,7 +11,7 @@ const FLOW_STEPS = [
   { id: 'client', label: 'Web & Mobile', sub: 'React 19 & Expo Native', icon: Smartphone, color: '#16b8e8' },
   { id: 'api', label: 'API Gateway', sub: 'Express & FastAPI Bridge', icon: Server, color: '#00b87a' },
   { id: 'services', label: 'Academic Services', sub: 'Timetables, Roll Call, Exams', icon: Layers, color: '#8b5cf6' },
-  { id: 'db', label: 'PostgreSQL DB', sub: '44 Scoped Entities', icon: Database, color: '#16b8e8' },
+  { id: 'db', label: 'PostgreSQL DB', sub: 'Academic Workflows', icon: Database, color: '#16b8e8' },
   { id: 'ai', label: 'AI Services', sub: 'Vertex & OpenAI RAG', icon: Cpu, color: '#00b87a' }
 ];
 
@@ -266,7 +266,7 @@ export default function PlatformOverview() {
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '5px' }}>
                   <span style={{ fontSize: '0.72rem', color: 'var(--aied-purple)', fontWeight: 700, fontFamily: 'var(--aied-font-mono)' }}>03 // DATA &amp; STATE PERSISTENCE</span>
                   <span style={{ fontSize: '0.7rem', color: 'var(--aied-text-muted)' }}>
-                    <CountUpNumber end={44} duration={1.2} /> Relational Entities
+                    <CountUpNumber end={40} duration={1.2} />+ Academic Workflows
                   </span>
                 </div>
                 <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>

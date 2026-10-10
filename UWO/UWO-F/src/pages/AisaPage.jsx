@@ -343,7 +343,7 @@ export default function AisaPage() {
                 textDecoration: 'none'
               }}
             >
-              Get Early Access <i className="fa-solid fa-arrow-right"></i>
+              Start Using AISA <i className="fa-solid fa-arrow-right"></i>
             </a>
 
             <button
@@ -892,8 +892,8 @@ export default function AisaPage() {
                 <i className="fa-solid fa-star"></i>
                 <i className="fa-solid fa-star"></i>
               </span>
-              <span style={{ color: '#fff', fontWeight: 700 }}>5.0 Rating</span>
-              <span>• Multilingual AI Reasoning &amp; Instant Sync</span>
+              <span style={{ color: '#fff', fontWeight: 700 }}>Verified Release</span>
+              <span>• Multilingual AI Reasoning &amp; Cross-Platform Sync</span>
             </div>
           </div>
         </div>
@@ -925,9 +925,8 @@ export default function AisaPage() {
             <span style={{ color: '#D6A559' }}>Backed by Proven Expertise.</span>
           </h2>
           <p style={{ fontSize: '1.1rem', color: 'rgba(255,255,255,0.75)', lineHeight: 1.8 }}>
-            AISA™ is the flagship AI innovation from <strong style={{ color: '#fff' }}>UWO™ (Unified Web Options &amp; Services Pvt. Ltd.)</strong>,
-            an IT-registered technology company founded in 2020 in Jabalpur, India. As pioneers in AI solutions and business automation, we’re
-            building a future where AI empowers everyone, simply and securely.
+            AISA™ is developed by <strong style={{ color: '#fff' }}>Unified Web Options &amp; Services Pvt. Ltd. (UWO™)</strong>,
+            a DPIIT-recognised startup based in Jabalpur, India. Incubated at IIT Ropar–TBIF, we build practical AI platforms that make everyday productivity and intelligent assistance accessible to everyone.
           </p>
         </div>
       </section>
@@ -978,7 +977,7 @@ export default function AisaPage() {
                 boxShadow: '0 10px 30px rgba(214, 165, 89, 0.3)'
               }}
             >
-              Get Early Access <i className="fa-solid fa-arrow-right"></i>
+              Start Using AISA <i className="fa-solid fa-arrow-right"></i>
             </a>
 
             <button

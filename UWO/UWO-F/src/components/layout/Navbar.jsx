@@ -30,6 +30,18 @@ export default function Navbar({ onOpenEarnRefer, onToggleDrawer }) {
     setDropdownOpen(false);
   };
 
+  // Track page scroll for dynamic glassmorphic elevation
+  const [isScrolled, setIsScrolled] = React.useState(false);
+
+  React.useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const isBlogsPage = location.pathname.startsWith('/blogs') || location.pathname.startsWith('/blog-single');
   const isUwoConnect = location.pathname.startsWith('/projects/uwo-connect') || location.pathname.startsWith('/uwo-connect');
   const isAiEducation = location.pathname.startsWith('/ai-education') || location.pathname.startsWith('/projects/ai-education');
@@ -43,6 +55,7 @@ export default function Navbar({ onOpenEarnRefer, onToggleDrawer }) {
   const navbarClassNames = [
     'navbar',
     isLightPage ? 'navbar-light' : 'navbar-dark',
+    isScrolled ? 'is-scrolled' : '',
     isBlogsPage ? 'navbar-blogs' : '',
     isUwoConnect ? 'navbar-uwo-connect' : '',
     isAiEducation ? 'navbar-ai-education' : '',
@@ -93,7 +106,7 @@ export default function Navbar({ onOpenEarnRefer, onToggleDrawer }) {
               <Link to="/ai-legal" onClick={handleOptionClick}>AI LEGAL<sup>™</sup></Link>
               <Link to="/projects/uwo-connect" onClick={handleOptionClick}>UWO Connect<sup>™</sup></Link>
               <Link to="/ai-ads" onClick={handleOptionClick}>AI ADS<sup>™</sup></Link>
-              <Link to="/ai-education" onClick={handleOptionClick}>AI-Education<sup>™</sup></Link>
+              <a href="https://education.uwo24.com/landing" onClick={handleOptionClick}>AI-Education<sup>™</sup></a>
               <Link to="/efv" onClick={handleOptionClick}>EFV<sup>™</sup></Link>
             </div>
           </div>

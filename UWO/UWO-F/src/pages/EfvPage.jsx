@@ -95,13 +95,13 @@ export default function EfvPage() {
           style={{
             fontSize: 'clamp(1.1rem, 2vw, 1.4rem)',
             color: '#94a3b8',
-            maxWidth: '700px',
+            maxWidth: '750px',
             margin: '0 auto 40px',
             lineHeight: 1.6
           }}
         >
           The Blueprint of Cognitive Frequency &amp; Intelligent Growth Systems.
-          A revolutionary approach to understanding consciousness and evolution.
+          Authored by Gurumukh P. Ahuja, EFV™ explores cognitive evolution, system architectures, and holistic intelligence.
         </p>
 
         <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
@@ -122,7 +122,7 @@ export default function EfvPage() {
               boxShadow: '0 10px 30px rgba(214, 165, 89, 0.3)'
             }}
           >
-            Explore Framework™
+            Explore EFV
           </a>
           <a
             href="https://www.amazon.in/dp/B0GKPT184H"
@@ -148,29 +148,78 @@ export default function EfvPage() {
         </div>
       </section>
 
-      {/* SECTION 1: The Origin Code */}
+      {/* SECTION 1: The Origin Code (Volume 1 - Published) */}
       <section id="explore" style={{ padding: '90px 24px', background: 'linear-gradient(180deg, #f7efd7 0%, #fff5e6 100%)', color: '#1e293b' }}>
         <div style={{ textAlign: 'center', maxWidth: '800px', margin: '0 auto 50px' }}>
-          <span
-            style={{
-              fontSize: '0.85rem',
-              fontWeight: 800,
-              textTransform: 'uppercase',
-              letterSpacing: '3px',
-              color: '#B48E3D',
-              display: 'block',
-              marginBottom: '12px'
-            }}
-          >
-            Foundation
-          </span>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: '#D6A559', color: '#000', padding: '4px 16px', borderRadius: '20px', fontSize: '0.78rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '14px' }}>
+            <i className="fa-solid fa-circle-check"></i> Volume 1 • Published &amp; Available
+          </div>
           <h2 style={{ fontSize: 'clamp(2rem, 4vw, 2.8rem)', fontWeight: 800, color: '#000', marginBottom: '14px' }}>
             The Origin Code™
           </h2>
-          <p style={{ fontSize: '1.1rem', color: '#64748b', lineHeight: 1.7 }}>
+          <p style={{ fontSize: '1.1rem', color: '#64748b', lineHeight: 1.7, marginBottom: '20px' }}>
             Understanding the fundamental principles that govern cognitive frequency and the architecture of
-            intelligent systems.
+            intelligent systems. Available in English &amp; Hindi editions across major book platforms.
           </p>
+          <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <a
+              href="https://www.amazon.in/dp/B0GKPT184H"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                padding: '8px 20px',
+                borderRadius: '30px',
+                background: '#0B1120',
+                color: '#fff',
+                fontSize: '0.85rem',
+                fontWeight: 600,
+                textDecoration: 'none',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px'
+              }}
+            >
+              <i className="fa-brands fa-amazon"></i> Amazon
+            </a>
+            <a
+              href="https://notionpress.com/in/read/efv-canon-volume-1-the-origin-code-hindi-edition"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                padding: '8px 20px',
+                borderRadius: '30px',
+                background: '#0B1120',
+                color: '#fff',
+                fontSize: '0.85rem',
+                fontWeight: 600,
+                textDecoration: 'none',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px'
+              }}
+            >
+              <i className="fa-solid fa-book-open"></i> NotionPress (Hindi)
+            </a>
+            <a
+              href="https://www.flipkart.com/efv-canon/p/itmd2a588b2f4fdf?pid=9798902318798"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                padding: '8px 20px',
+                borderRadius: '30px',
+                background: '#0B1120',
+                color: '#fff',
+                fontSize: '0.85rem',
+                fontWeight: 600,
+                textDecoration: 'none',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px'
+              }}
+            >
+              <i className="fa-solid fa-cart-shopping"></i> Flipkart
+            </a>
+          </div>
         </div>
         <div
           style={{
@@ -210,22 +259,12 @@ export default function EfvPage() {
         </div>
       </section>
 
-      {/* SECTION 2: The Growth Matrix */}
+      {/* SECTION 2: The Growth Matrix (Volume 2 - Upcoming) */}
       <section style={{ padding: '90px 24px', background: 'linear-gradient(180deg, #fff5e6 0%, #e8dcc8 50%, #d4c4a8 100%)', color: '#1e293b' }}>
         <div style={{ textAlign: 'center', maxWidth: '800px', margin: '0 auto 50px' }}>
-          <span
-            style={{
-              fontSize: '0.85rem',
-              fontWeight: 800,
-              textTransform: 'uppercase',
-              letterSpacing: '3px',
-              color: '#B48E3D',
-              display: 'block',
-              marginBottom: '12px'
-            }}
-          >
-            Evolution
-          </span>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(0,0,0,0.07)', color: '#475569', border: '1px solid rgba(0,0,0,0.15)', padding: '4px 16px', borderRadius: '20px', fontSize: '0.78rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '14px' }}>
+            <i className="fa-solid fa-clock"></i> Volume 2 • Upcoming Research Canon
+          </div>
           <h2 style={{ fontSize: 'clamp(2rem, 4vw, 2.8rem)', fontWeight: 800, color: '#000', marginBottom: '14px' }}>
             The Growth Matrix
           </h2>
@@ -271,22 +310,12 @@ export default function EfvPage() {
         </div>
       </section>
 
-      {/* SECTION 3: The Integration Protocol */}
+      {/* SECTION 3: The Integration Protocol (Volume 3 - Upcoming) */}
       <section style={{ padding: '90px 24px', background: 'linear-gradient(180deg, #d4c4a8 0%, #fdfbf7 100%)', color: '#1e293b' }}>
         <div style={{ textAlign: 'center', maxWidth: '800px', margin: '0 auto 50px' }}>
-          <span
-            style={{
-              fontSize: '0.85rem',
-              fontWeight: 800,
-              textTransform: 'uppercase',
-              letterSpacing: '3px',
-              color: '#B48E3D',
-              display: 'block',
-              marginBottom: '12px'
-            }}
-          >
-            Mastery
-          </span>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(0,0,0,0.07)', color: '#475569', border: '1px solid rgba(0,0,0,0.15)', padding: '4px 16px', borderRadius: '20px', fontSize: '0.78rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '14px' }}>
+            <i className="fa-solid fa-clock"></i> Volume 3 • Upcoming Research Canon
+          </div>
           <h2 style={{ fontSize: 'clamp(2rem, 4vw, 2.8rem)', fontWeight: 800, color: '#000', marginBottom: '14px' }}>
             The Integration Protocol
           </h2>

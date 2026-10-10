@@ -389,11 +389,11 @@ export const USE_CASES = [
     id: 'legal-drafting',
     number: '03',
     title: 'Legal Drafting',
-    subtitle: 'Creating Court-Ready Instruments in Minutes, Not Hours',
+    subtitle: 'Creating Editable Legal Drafts for Professional Review in Minutes',
     steps: [
-      { step: '1', title: 'Select Template', desc: 'Choose from verified court pleadings, notices, or transactional templates.' },
+      { step: '1', title: 'Select Template', desc: 'Choose from structured legal pleadings, notices, or transactional templates.' },
       { step: '2', title: 'Provide Case Context', desc: 'Bind matter facts, party names, and relevant statutory provisions.' },
-      { step: '3', title: 'AI Generates Draft', desc: 'Synthesizes clean legal prose adhering to procedural formalities.' },
+      { step: '3', title: 'AI Generates Draft', desc: 'Synthesizes editable legal drafts for professional advocate review.' },
       { step: '4', title: 'Edit & Export', desc: 'Live in-line editing with instant export to PDF, DOCX, or TXT.' }
     ]
   },
@@ -450,7 +450,7 @@ export const WORKFLOW_STEPS = [
     phase: 'UNDERSTAND',
     title: 'Contextual Legal Processing',
     summary: 'AI processes context and legal information',
-    description: 'Our proprietary legal language models analyze jurisdictional nuances, procedural timelines, statutory cross-references, and factual relationships.',
+    description: 'Our AI-assisted workflows combine language models, document context and supported legal sources to help users research, analyse and draft.',
     icon: 'fa-microchip',
     tags: ['Jurisdiction Engine', 'Doctrine Mapping', 'Timeline Extraction', 'Entity Graph']
   },
@@ -468,9 +468,9 @@ export const WORKFLOW_STEPS = [
     phase: 'ASSIST',
     title: 'Actionable Legal Outputs',
     summary: 'Generate research support, drafts, summaries, insights and workflow assistance',
-    description: 'Delivers court-ready draft instruments, structured research briefs, forensic evidence reports, and client communication workflows.',
+    description: 'Delivers editable draft instruments for professional review, structured research briefs, forensic evidence reports, and client communication workflows.',
     icon: 'fa-wand-magic-sparkles',
-    tags: ['Multi-format Export', 'Verified Citations', 'Hearing Readiness', 'Audit Logs']
+    tags: ['Multi-format Export', 'Source-Checked Citations', 'Hearing Readiness', 'Audit Logs']
   }
 ];
 

@@ -220,22 +220,32 @@ export default function UwoConnectHero() {
 
           {/* Main Heading */}
           <h1 className="uwoc-hero-title">
-            <span>Connect Everything. </span>
-            <span className="uwoc-gradient-emerald">Automate Anything.</span>
+            <span>Customer Conversations to </span>
+            <span className="uwoc-gradient-emerald">Business Actions.</span>
           </h1>
 
           {/* Supporting Subtitle */}
           <p className="uwoc-hero-subtitle">
-            UWO Connect brings your communication channels, business tools, and automation into one intelligent workspace.
+            Manage conversations, leads, follow-ups and supported business workflows from one connected workspace.
           </p>
 
-          {/* Clean 2-Button SaaS Action Bar */}
+          {/* Clean SaaS Action Bar */}
           <div className="uwoc-hero-actions">
+            <motion.a
+              href="/contact"
+              className="uwoc-btn uwoc-btn-emerald"
+              whileHover={btnMotion.hover}
+              whileTap={btnMotion.tap}
+            >
+              <span>Book a Demo</span>
+              <i className="fa-solid fa-calendar-check"></i>
+            </motion.a>
+
             <motion.a
               href={UWO_CONNECT_WEB_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="uwoc-btn uwoc-btn-emerald"
+              className="uwoc-btn uwoc-btn-secondary"
               whileHover={btnMotion.hover}
               whileTap={btnMotion.tap}
             >
@@ -243,23 +253,10 @@ export default function UwoConnectHero() {
               <i className="fa-solid fa-arrow-right"></i>
             </motion.a>
 
-            <motion.a
-              href={UWO_CONNECT_ANDROID_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="uwoc-btn uwoc-btn-secondary"
-              aria-label="Download UWO Connect on Google Play Store"
-              whileHover={btnMotion.hover}
-              whileTap={btnMotion.tap}
-            >
-              <i className="fa-brands fa-google-play"></i>
-              <span>Google Play</span>
-            </motion.a>
-
             <motion.button
               type="button"
               className="uwoc-btn uwoc-btn-ghost-dark"
-              onClick={() => scrollToSection('platforms')}
+              onClick={() => scrollToSection('what-is-connect')}
               whileHover={btnMotion.hover}
               whileTap={btnMotion.tap}
             >

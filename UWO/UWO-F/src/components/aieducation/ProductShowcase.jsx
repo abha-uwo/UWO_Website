@@ -258,7 +258,7 @@ export default function ProductShowcase() {
                   <div style={{ background: '#ffffff', color: '#05080d', borderRadius: '10px', padding: '18px 24px', maxWidth: '560px', margin: '0 auto', boxShadow: '0 12px 36px rgba(0,0,0,0.6)', position: 'relative' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1.5px solid #05080d', paddingBottom: '8px', marginBottom: '12px' }}>
                       <div>
-                        <div style={{ fontSize: '0.92rem', fontWeight: 900, letterSpacing: '-0.01em' }}>CHANAKYA NATIONAL LAW UNIVERSITY</div>
+                        <div style={{ fontSize: '0.92rem', fontWeight: 900, letterSpacing: '-0.01em' }}>UWO DEMO CAMPUS (ILLUSTRATIVE WORKSPACE)</div>
                         <div style={{ fontSize: '0.68rem', fontWeight: 600, color: '#555' }}>All India National Entrance Examination · Admit Card 2026</div>
                       </div>
                       <div style={{ padding: '3px 8px', background: '#05080d', color: '#ffffff', fontSize: '0.62rem', fontWeight: 700, borderRadius: '4px' }}>

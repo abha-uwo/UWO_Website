@@ -15,6 +15,11 @@ import { AI_EDUCATION_META } from '../constants/aiEducationConstants';
 import '../ai-education.css';
 
 export default function AiEducationPage() {
+  // Direct redirect to the live AI Education landing page
+  useEffect(() => {
+    window.location.replace('https://education.uwo24.com/landing');
+  }, []);
+
   // SEO, Document Meta Tags & JSON-LD Structured Data
   useEffect(() => {
     document.title = AI_EDUCATION_META.title;

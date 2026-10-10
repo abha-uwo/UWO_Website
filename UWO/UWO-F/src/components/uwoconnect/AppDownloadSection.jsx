@@ -134,7 +134,7 @@ export default function AppDownloadSection() {
                       <span className="time">1m ago</span>
                     </div>
                     <strong>Resolved 18 Support Inquiries</strong>
-                    <p>Average response time: 0.8s</p>
+                    <p>Automated rapid response</p>
                   </div>
 
                   <div className="phone-notif-card pay">

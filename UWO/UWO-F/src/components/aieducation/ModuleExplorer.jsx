@@ -38,8 +38,8 @@ export default function ModuleExplorer() {
             <span className="aied-gradient-emerald">Engineered for Scale.</span>
           </h2>
           <p className="aied-section-subtitle" style={{ fontSize: '0.82rem', maxWidth: '600px' }}>
-            Explore verified functional modules operating natively inside Convee Education, 
-            backed by 44 PostgreSQL relational entities and real-time event pipelines.
+            Explore verified functional modules operating natively inside UWO™ AI Ecosystem for Education, 
+            backed by unified institutional workflows and real-time event pipelines.
           </p>
         </div>
 

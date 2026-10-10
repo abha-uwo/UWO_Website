@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { API_URL, BACKEND_BASE } from '../services/api';
 
 export default function OurTeamPage() {
-  const [members, setMembers] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [members, setMembers] = useState(getDefaultTeam());
+  const [loading, setLoading] = useState(false);
   const [selectedMember, setSelectedMember] = useState(null);
 
   useEffect(() => {
@@ -129,6 +129,8 @@ export default function OurTeamPage() {
 
           // Also guarantee all standard team members (Leadership & Core Collective) are present
           const defaultTeam = getDefaultTeam();
+          const defaultMap = new Map(defaultTeam.map(d => [(d.name || '').toLowerCase().trim(), d]));
+
           defaultTeam.forEach(defMem => {
             const idx = filtered.findIndex(m => (m.name || '').toLowerCase().includes(defMem.name.toLowerCase()));
             if (idx === -1) {
@@ -136,40 +138,63 @@ export default function OurTeamPage() {
             }
           });
 
-          // Guarantee clean portrait images for all special members & normalize names
+          // Guarantee clean portrait images, normalize names, and attach verified responsibilities & bios
           filtered = filtered.map(m => {
-            const n = (m.name || '').toLowerCase();
+            const n = (m.name || '').toLowerCase().trim();
+            let defMem = null;
+            for (const [key, val] of defaultMap.entries()) {
+              if (n.includes(key) || key.includes(n)) {
+                defMem = val;
+                break;
+              }
+            }
+
+            let updated = { ...m };
+            if (defMem) {
+              if (!updated.responsible_for) updated.responsible_for = defMem.responsible_for;
+              if (!updated.short_description) updated.short_description = defMem.short_description;
+              if (!updated.full_biography || updated.full_biography.length < 30) updated.full_biography = defMem.full_biography;
+              if (!updated.designation) updated.designation = defMem.designation;
+            }
+
             if (n.includes('prateek sharma')) {
-              return { ...m, name: 'Prateek Sharma', image: 'images/prateek-sharma..webp', designation: 'Human Resources' };
+              return { ...updated, name: 'Prateek Sharma', image: 'images/prateek-sharma..webp', designation: 'Human Resources', responsible_for: 'People Operations & Talent Lifecycle' };
             }
             if (n.includes('ayush dubey')) {
-              return { ...m, image: 'images/ayush-dubey..webp', designation: 'Business Development Associate' };
+              return { ...updated, image: 'images/ayush-dubey..webp', designation: 'Business Development Associate', responsible_for: 'Sales Operations & Client Acquisition' };
             }
             if (n.includes('sandeep yadav')) {
-              return { ...m, image: 'images/sandeep-yadav..webp', designation: 'Business Development Associate' };
+              return { ...updated, image: 'images/sandeep-yadav..webp', designation: 'Business Development Associate', responsible_for: 'Corporate Outreach & Lead Generation' };
             }
             if (n.includes('sukhmani kaur')) {
-              return { ...m, image: 'images/sukhmani-kaur..webp', designation: 'Marketing Designer' };
+              return { ...updated, image: 'images/sukhmani-kaur..webp', designation: 'Marketing Designer', responsible_for: 'Visual Design & Brand Identity Assets' };
             }
             if (n.includes('aman kharare')) {
-              return { ...m, image: 'images/aman-kharare..webp', designation: 'Business Development Associate' };
+              return { ...updated, image: 'images/aman-kharare..webp', designation: 'Business Development Associate', responsible_for: 'Client Onboarding & Strategic Outreach' };
             }
             if (n.includes('milind jha')) {
               return {
-                ...m,
+                ...updated,
                 image: (m.image && !m.image.includes('lh3.googleusercontent.com'))
                   ? m.image
                   : 'images/milind-jha..webp',
-                designation: 'Marketing Executive'
+                designation: 'Marketing Executive',
+                responsible_for: 'Growth Campaigns & Content Distribution'
               };
             }
             if (n.includes('sonali gupta')) {
-              return { ...m, name: 'Sonali Gupta', image: 'images/sonali-gupta.jpg', designation: 'Junior AI Software Engineer' };
+              return { ...updated, name: 'Sonali Gupta', image: 'images/sonali-gupta.jpg', designation: 'Junior AI Software Engineer', responsible_for: 'AI Model Integration & Backend Services' };
             }
             if (n.includes('anupama')) {
-              return { ...m, name: 'Anupama Awadhiya', image: 'images/anupama-awadhiya.jpg', designation: 'Junior AI Software Engineer' };
+              return { ...updated, name: 'Anupama Awadhiya', image: 'images/anupama-awadhiya.jpg', designation: 'Junior AI Software Engineer', responsible_for: 'AI Applications & Orchestration APIs' };
             }
-            return m;
+            if (n.includes('devansh')) {
+              return { ...updated, name: 'Devansh Tantway', designation: 'Python Developer', responsible_for: 'UWO Connect™ Core Services & APIs' };
+            }
+            if (n.includes('abha')) {
+              return { ...updated, name: 'Abha Jatav', designation: 'Software Engineer', responsible_for: 'UWO Connect™ Dashboards & Client UI' };
+            }
+            return updated;
           });
 
           // Categorization helper: Leadership -> Management -> Technology -> Marketing
@@ -306,188 +331,220 @@ export default function OurTeamPage() {
         _id: '1',
         name: 'Gurumukh P. Ahuja',
         designation: 'Founder & Managing Director',
+        responsible_for: 'Product Strategy & System Architecture',
         category: 'Leadership',
         is_leadership: true,
         image: 'images/founder..webp',
-        full_biography: '<p>Gurumukh P. Ahuja is the Founder & Managing Director of UWO. Leading visionary architectures in cognitive systems, universal scale automation, and enterprise platforms.</p>'
+        short_description: 'Leads executive strategy, technology architecture, and company building across UWO’s AI platforms.',
+        full_biography: '<p>Gurumukh P. Ahuja is the Founder &amp; Managing Director of Unified Web Options &amp; Services Pvt. Ltd. (UWO&trade;). He guides the company’s product vision, system architecture, and technology execution across work, business, legal workflows, and education ecosystems.</p><p>With a hands-on approach to company building, he coordinates multidisciplinary engineering and product teams to translate complex workflow challenges into practical, multi-tenant AI platforms.</p>'
       },
       {
         _id: '2',
         name: 'Anjali Ahuja',
-        designation: 'Co-founder',
+        designation: 'Co-founder & Director',
+        responsible_for: 'Corporate Operations & Governance',
         category: 'Leadership',
         is_leadership: true,
         image: 'images/team-3..webp',
-        full_biography: '<p>Anjali Ahuja is the Co-founder of Unified Web Options & Services Pvt. Ltd. (UWO).</p><p>With extensive leadership in business operations, she leads structural organization, corporate compliance, and team alignment at UWO.</p><p>Her work forms the operational foundation of the company, ensuring collaborative success across diverse technical and business divisions.</p>'
+        short_description: 'Directs organizational operations, regulatory compliance, and cross-departmental alignment.',
+        full_biography: '<p>Anjali Ahuja is the Co-founder of Unified Web Options &amp; Services Pvt. Ltd. (UWO&trade;). With extensive leadership in business operations, she leads structural organization, corporate compliance, and team alignment across divisions, ensuring collaborative success across technical and business functions.</p>'
       },
       {
         _id: '4',
         name: 'Prateek Sharma',
         designation: 'Human Resources',
+        responsible_for: 'People Operations & Talent Lifecycle',
         category: 'Finance',
         is_leadership: false,
         image: 'images/prateek-sharma..webp',
-        short_description: 'Strategic HR leader managing talent lifecycle, compliance, and employee success.',
+        short_description: 'Strategic HR professional managing talent acquisition, compliance, employee development, and culture.',
         full_biography: '<p>The Human Resources (HR) department plays a strategic role in building a skilled, engaged, and high-performing workforce. HR oversees the complete employee lifecycle—from talent acquisition and onboarding to performance management, learning &amp; development, payroll coordination, policy compliance, and employee relations.</p>'
       },
       {
         _id: '3',
         name: 'Sonali Jain',
         designation: 'Business Development Manager',
+        responsible_for: 'Enterprise Partnerships & Client Growth',
         category: 'Business Development',
         is_leadership: false,
         image: 'images/team-7..webp',
-        full_biography: ''
+        short_description: 'Drives enterprise client relationships, corporate partnerships, and market expansion across UWO platforms.',
+        full_biography: '<p>Sonali Jain leads business development initiatives, identifying strategic market opportunities and establishing high-value partnerships for UWO’s enterprise software solutions.</p>'
       },
       {
         _id: '6',
         name: 'Ritesh Shrivastav',
         designation: 'Product Manager',
+        responsible_for: 'Product Delivery & Roadmap Execution',
         category: 'Operations',
         is_leadership: false,
         image: 'images/team-4..webp',
-        full_biography: ''
+        short_description: 'Coordinates sprint planning, user requirement translation, and agile delivery across UWO product lines.',
+        full_biography: '<p>Ritesh coordinates sprint planning, user requirement translation, and agile delivery across UWO product lines, aligning product features with user needs.</p>'
       },
       {
         _id: '7',
         name: 'Vishal Vashani',
         designation: 'Accounts Executive',
+        responsible_for: 'Financial Operations & Corporate Reporting',
         category: 'Finance',
         is_leadership: false,
         image: 'images/team-2..webp',
-        full_biography: ''
+        short_description: 'Manages corporate financial reporting, statutory filings, vendor reconciliations, and budgeting operations.',
+        full_biography: '<p>Vishal manages corporate financial reporting, statutory filings, vendor reconciliations, and budgeting operations to maintain transparent enterprise compliance.</p>'
       },
       {
         _id: '8',
         name: 'Sakshi Thakur',
         designation: 'Full Stack Developer',
+        responsible_for: 'Web Platform Engineering & APIs',
         category: 'Technology',
         is_leadership: false,
         image: 'images/team-10..webp',
-        full_biography: ''
+        short_description: 'Builds responsive full-stack features, authentication workflows, and database integrations across enterprise web platforms.',
+        full_biography: '<p>Sakshi develops full-stack application features, secure authentication workflows, and robust database models powering UWO web platforms.</p>'
       },
       {
         _id: '9',
         name: 'Sanskar Sahu',
         designation: 'Mern Stack Developer',
+        responsible_for: 'Realtime Web Interfaces & Client Portals',
         category: 'Technology',
         is_leadership: false,
         image: 'images/team-6..webp',
-        full_biography: ''
+        short_description: 'Develops modern web components, API integrations, and real-time interface states for consumer and enterprise portals.',
+        full_biography: '<p>Sanskar specializes in responsive web interfaces, state management, and real-time data connectivity across UWO portals.</p>'
       },
       {
         _id: '10',
         name: 'Gauhar Iftekhar',
         designation: 'Web Developer',
+        responsible_for: 'Frontend Design & Web Performance',
         category: 'Technology',
         is_leadership: false,
         image: 'images/team-5..webp',
-        full_biography: ''
+        short_description: 'Implements high-performance web interfaces, accessibility compliance, and modern responsive layouts across UWO websites.',
+        full_biography: '<p>Gauhar crafts clean, accessible, and high-performance user interfaces across UWO’s public web platforms and documentation portals.</p>'
       },
       {
         _id: '11',
         name: 'Aditi Lakhera',
         designation: 'Software Developer',
+        responsible_for: 'Frontend Components & User Journeys',
         category: 'Technology',
         is_leadership: false,
         image: 'images/aditi.jpeg',
-        full_biography: ''
+        short_description: 'Builds modular frontend components, interface logic, and seamless platform workflows.',
+        full_biography: '<p>Aditi focuses on component reusability, clean interface styling, and intuitive interactive flows across UWO client applications.</p>'
       },
       {
         _id: '12',
         name: 'Abha Jatav',
         designation: 'Software Engineer',
+        responsible_for: 'UWO Connect™ Dashboards & Client UI',
         category: 'Technology',
         is_leadership: false,
         image: 'images/team-13..webp',
-        full_biography: ''
+        short_description: 'Develops responsive CRM interfaces, client dashboard modules, and interactive catalog workflows for UWO Connect™.',
+        full_biography: '<p>Abha Jatav engineers responsive frontend dashboards, team collaboration views, and real-time conversation modules for UWO Connect&trade; enterprise users.</p>'
       },
       {
         _id: '13',
         name: 'Devansh Tantway',
         designation: 'Python Developer',
+        responsible_for: 'UWO Connect™ Core Services & APIs',
         category: 'Technology',
         is_leadership: false,
         image: 'images/team-14..webp',
-        full_biography: ''
+        short_description: 'Builds backend microservices, WhatsApp Business API pipelines, and webhook event processing for UWO Connect™.',
+        full_biography: '<p>Devansh Tantway develops scalable server-side microservices, WhatsApp Business API integrations, and webhook event-driven pipelines for UWO Connect&trade; and connected business workflows.</p>'
       },
       {
         _id: '18',
         name: 'Sonali Gupta',
         designation: 'Junior AI Software Engineer',
+        responsible_for: 'AI Model Integration & Backend Services',
         category: 'Technology',
         is_leadership: false,
         image: 'images/sonali-gupta.jpg',
-        short_description: 'Develops AI-powered software applications, integrates intelligent models and APIs, and contributes to backend development and system optimization. Focuses on building reliable AI solutions, solving technical challenges, and improving application efficiency and user experience.',
+        short_description: 'Develops AI-powered software applications, integrates intelligent models and APIs, and contributes to backend development and system optimization.',
         full_biography: '<p>Develops AI-powered software applications, integrates intelligent models and APIs, and contributes to backend development and system optimization. Focuses on building reliable AI solutions, solving technical challenges, and improving application efficiency and user experience.</p>'
       },
       {
         _id: '19',
         name: 'Anupama Awadhiya',
         designation: 'Junior AI Software Engineer',
+        responsible_for: 'AI Applications & Orchestration APIs',
         category: 'Technology',
         is_leadership: false,
         image: 'images/anupama-awadhiya.jpg',
-        short_description: 'Develops AI-powered software applications, integrates intelligent models and APIs, and contributes to backend development and system optimization. Focuses on building reliable AI solutions, solving technical challenges, and improving application efficiency and user experience.',
+        short_description: 'Develops AI-powered software applications, integrates intelligent models and APIs, and contributes to backend development and system optimization.',
         full_biography: '<p>Develops AI-powered software applications, integrates intelligent models and APIs, and contributes to backend development and system optimization. Focuses on building reliable AI solutions, solving technical challenges, and improving application efficiency and user experience.</p>'
       },
       {
         _id: '14',
         name: 'Ayush Dubey',
         designation: 'Business Development Associate',
+        responsible_for: 'Sales Operations & Client Acquisition',
         category: 'Business Development',
         is_leadership: false,
         image: 'images/ayush-dubey..webp',
-        short_description: 'Ayush Dubey helps UWO to grow by identifying new business opportunities, generating leads, building client relationships, and supporting sales efforts. He is closely works with his Sales Team to convert leads into customers.',
-        full_biography: '<p>Ayush Dubey helps UWO to grow by identifying new business opportunities, generating leads, building client relationships, and supporting sales efforts. He is closely works with his Sales Team to convert leads into customers.</p>'
+        short_description: 'Identifies emerging business opportunities, conducts client outreach, and supports sales pipeline expansion.',
+        full_biography: '<p>Ayush Dubey helps UWO to grow by identifying new business opportunities, generating leads, building client relationships, and supporting sales efforts. He works closely with the Sales Team to convert leads into customers.</p>'
       },
       {
         _id: '15',
         name: 'Sandeep Yadav',
         designation: 'Business Development Associate',
+        responsible_for: 'Corporate Outreach & Lead Generation',
         category: 'Business Development',
         is_leadership: false,
         image: 'images/sandeep-yadav..webp',
-        short_description: 'Sandeep helps UWO to grow by identifying new business opportunities, generating leads, building client relationships, and supporting sales efforts. He is closely works with his Sales Team to convert leads into customers.',
-        full_biography: '<p>Sandeep helps UWO to grow by identifying new business opportunities, generating leads, building client relationships, and supporting sales efforts. He is closely works with his Sales Team to convert leads into customers.</p>'
+        short_description: 'Connects with enterprise prospects, manages business client relationships, and conducts solution walk-throughs.',
+        full_biography: '<p>Sandeep helps UWO to grow by identifying new business opportunities, generating leads, building client relationships, and supporting sales efforts. He works closely with the Sales Team to convert leads into customers.</p>'
       },
       {
         _id: '16',
         name: 'Sukhmani Kaur',
         designation: 'Marketing Designer',
+        responsible_for: 'Visual Design & Brand Identity Assets',
         category: 'Design',
         is_leadership: false,
         image: 'images/sukhmani-kaur..webp',
         short_description: 'Creates impactful visual designs and marketing assets that strengthen brand identity, engage audiences, and support business growth.',
-        full_biography: '<p>Creates impactful visual designs and marketing assets that strengthen brand identity, engage audiences, and support business growth.</p>'
+        full_biography: '<p>Creates impactful visual designs and marketing assets that strengthen brand identity, engage audiences, and support business growth across UWO channels.</p>'
       },
       {
         _id: '17',
         name: 'Aman Kharare',
         designation: 'Business Development Associate',
+        responsible_for: 'Client Onboarding & Strategic Outreach',
         category: 'Business Development',
         is_leadership: false,
         image: 'images/aman-kharare..webp',
-        short_description: 'Drives business growth by identifying new opportunities, building strong client relationships, and supporting strategic partnerships.',
-        full_biography: '<p>Drives business growth by identifying new opportunities, building strong client relationships, and supporting strategic partnerships.</p>'
+        short_description: 'Facilitates customer consultations, prospective partner meetings, and smooth platform onboarding.',
+        full_biography: '<p>Drives business growth by identifying new opportunities, building strong client relationships, and supporting strategic partnerships across UWO solutions.</p>'
       },
       {
         _id: '5',
         name: 'Sreshthi Sunpal',
         designation: 'Marketing Manager',
+        responsible_for: 'Brand Strategy & Growth Marketing',
         category: 'Marketing',
         is_leadership: false,
         image: 'images/team-8..webp',
-        full_biography: ''
+        short_description: 'Oversees marketing communications, brand positioning, and digital campaign execution across products.',
+        full_biography: '<p>Sreshthi leads marketing communications, brand identity consistency, and multi-channel audience engagement across the UWO ecosystem.</p>'
       },
       {
         _id: '18',
         name: 'Milind Jha',
         designation: 'Marketing Executive',
+        responsible_for: 'Growth Campaigns & Content Distribution',
         category: 'Marketing',
         is_leadership: false,
         image: 'images/milind-jha..webp',
-        short_description: 'Drives marketing initiatives, campaign execution, and brand outreach across the UWO ecosystem.',
+        short_description: 'Coordinates digital marketing campaigns, social media engagement, and community outreach.',
         full_biography: '<p>Milind Jha serves as a Marketing Executive at UWO, driving multi-channel marketing campaigns, user engagement strategies, and digital brand expansion across ecosystem platforms.</p>'
       }
     ];
@@ -578,9 +635,14 @@ export default function OurTeamPage() {
       <h3 style={{ fontFamily: "'Outfit', sans-serif", fontSize: '1.25rem', fontWeight: 700, color: '#000', margin: '0 0 6px' }}>
         {m.name}
       </h3>
-      <h4 style={{ fontFamily: "'Outfit', sans-serif", fontSize: '0.95rem', fontWeight: 600, color: '#D6A559', margin: 0 }}>
+      <h4 style={{ fontFamily: "'Outfit', sans-serif", fontSize: '0.95rem', fontWeight: 600, color: '#D6A559', margin: '0 0 6px' }}>
         {m.designation}
       </h4>
+      {m.responsible_for && (
+        <p style={{ fontSize: '0.82rem', color: '#64748b', margin: '0', lineHeight: 1.4 }}>
+          <strong style={{ color: '#475569' }}>Focus:</strong> {m.responsible_for}
+        </p>
+      )}
     </div>
   );
 
@@ -762,9 +824,14 @@ export default function OurTeamPage() {
                             <h3 style={{ fontFamily: "'Outfit', sans-serif", fontSize: '2.2rem', fontWeight: 800, color: '#000', margin: '0 0 6px' }}>
                               {m.name}
                             </h3>
-                            <h4 style={{ fontFamily: "'Outfit', sans-serif", fontSize: '1.15rem', color: '#D6A559', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1.5px', margin: '0 0 18px' }}>
+                            <h4 style={{ fontFamily: "'Outfit', sans-serif", fontSize: '1.15rem', color: '#D6A559', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1.5px', margin: '0 0 10px' }}>
                               {m.designation}
                             </h4>
+                            {m.responsible_for && (
+                              <p style={{ fontSize: '0.96rem', fontWeight: 600, color: '#475569', margin: '0 0 16px' }}>
+                                <span style={{ color: '#D6A559' }}>Responsible for:</span> {m.responsible_for}
+                              </p>
+                            )}
                             <div 
                               className="leadership-bio"
                               style={{ color: '#334155', lineHeight: 1.75, fontSize: '1.05rem' }}
@@ -994,9 +1061,14 @@ export default function OurTeamPage() {
                 <h3 style={{ fontFamily: "'Outfit', sans-serif", fontSize: '1.8rem', fontWeight: 800, color: '#000', margin: '0 0 6px' }}>
                   {selectedMember.name}
                 </h3>
-                <h4 style={{ fontFamily: "'Outfit', sans-serif", fontSize: '1.1rem', color: '#D6A559', fontWeight: 700, margin: '0 0 8px' }}>
+                <h4 style={{ fontFamily: "'Outfit', sans-serif", fontSize: '1.1rem', color: '#D6A559', fontWeight: 700, margin: '0 0 6px' }}>
                   {selectedMember.designation}
                 </h4>
+                {selectedMember.responsible_for && (
+                  <p style={{ fontSize: '0.88rem', color: '#64748b', margin: '0 0 8px', lineHeight: 1.4 }}>
+                    <strong style={{ color: '#334155' }}>Responsible for:</strong> {selectedMember.responsible_for}
+                  </p>
+                )}
                 {selectedMember.category && (
                   <span 
                     style={{

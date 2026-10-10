@@ -22,9 +22,9 @@ export default function InteractiveDemoWalkthrough() {
       tag: 'RAG Knowledge Training',
       icon: 'fa-solid fa-wand-magic-sparkles',
       color: '#D4AF37',
-      headline: 'AI parses intent and references uploaded company PDFs in <0.8s.',
-      detail: 'Using proprietary document embeddings, the AI generates a factual, branded response and delivers the 2026 Enterprise Suite catalog directly inside WhatsApp.',
-      visualBadge: 'AI Response: 0.8s Latency',
+      headline: 'AI parses intent and references uploaded company PDFs in real time.',
+      detail: 'Using document embeddings and verified knowledge bases, the AI generates a factual, branded response and delivers the 2026 Enterprise Suite catalog directly inside WhatsApp.',
+      visualBadge: 'AI Response: Real-Time Latency',
       visualText: 'AI Copilot: "Hello Aarav! Here is our 2026 Enterprise Suite catalog along with multi-store implementation milestones."',
     },
     {

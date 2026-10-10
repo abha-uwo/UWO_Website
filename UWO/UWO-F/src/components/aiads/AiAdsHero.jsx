@@ -76,9 +76,32 @@ export default function AiAdsHero({ onExploreClick }) {
                 rel="noopener noreferrer" 
                 className="aiads-btn-primary"
               >
-                <span>Visit AI Ads Platform</span>
+                <span>Open AI ADS</span>
                 <ExternalLink size={16} />
               </a>
+
+              <button
+                type="button"
+                onClick={onExploreClick}
+                className="aiads-btn-secondary"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  padding: '14px 24px',
+                  borderRadius: '12px',
+                  background: 'rgba(255, 255, 255, 0.05)',
+                  border: '1px solid rgba(255, 255, 255, 0.15)',
+                  color: '#fff',
+                  fontWeight: 600,
+                  fontSize: '0.95rem',
+                  cursor: 'pointer',
+                  backdropFilter: 'blur(10px)',
+                  transition: 'all 0.2s ease'
+                }}
+              >
+                <span>View Product Demo</span>
+              </button>
             </motion.div>
 
             {/* Telemetry Strip with CountUp */}

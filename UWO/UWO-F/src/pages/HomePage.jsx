@@ -5,8 +5,8 @@ import { fetchProjects, API_URL } from '../services/api';
 
 export default function HomePage() {
   const { openEarnRefer } = useOutletContext() || {};
-  const [projects, setProjects] = useState([]);
-  const [loadingProjects, setLoadingProjects] = useState(true);
+  const [projects, setProjects] = useState(getDefaultProjects());
+  const [loadingProjects, setLoadingProjects] = useState(false);
   const trackRef = useRef(null);
   const [activeDot, setActiveDot] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
@@ -17,6 +17,8 @@ export default function HomePage() {
       try {
         const data = await fetchProjects();
         const defaultList = getDefaultProjects();
+        const defaultMap = new Map(defaultList.map(d => [(d.name || '').toLowerCase().trim(), d]));
+
         // Filter out AISA Connect
         const validApiData = Array.isArray(data) 
           ? data.filter(p => !((p.name || '').toLowerCase().includes('aisa connect')))
@@ -27,20 +29,27 @@ export default function HomePage() {
           const existingNames = new Set(validApiData.map(p => (p.name || '').toLowerCase().trim()));
           const missingProjects = defaultList.filter(dp => !existingNames.has(dp.name.toLowerCase().trim()));
           const combined = [...validApiData, ...missingProjects].map(p => {
-            const nameLower = (p.name || '').toLowerCase();
+            const nameLower = (p.name || '').toLowerCase().trim();
+            const defItem = defaultMap.get(nameLower) || {};
+
+            let targetUrl = p.project_url;
             if (nameLower.includes('ads') || nameLower.includes('ai ads') || nameLower.includes('aiads')) {
-              return { ...p, project_url: '/ai-ads' };
+              targetUrl = '/ai-ads';
+            } else if (nameLower.includes('education') || nameLower.includes('aieducation')) {
+              targetUrl = 'https://education.uwo24.com/landing';
+            } else if (nameLower.includes('legal')) {
+              targetUrl = '/ai-legal';
+            } else if (nameLower.includes('uwo connect') || nameLower.includes('uwoconnect')) {
+              targetUrl = '/projects/uwo-connect';
             }
-            if (nameLower.includes('education') || nameLower.includes('aieducation')) {
-              return { ...p, project_url: '/ai-education' };
-            }
-            if (nameLower.includes('legal')) {
-              return { ...p, project_url: '/ai-legal' };
-            }
-            if (nameLower.includes('uwo connect') || nameLower.includes('uwoconnect')) {
-              return { ...p, project_url: '/projects/uwo-connect' };
-            }
-            return p;
+
+            return {
+              ...p,
+              project_url: targetUrl,
+              target_audience: p.target_audience || defItem.target_audience || 'Enterprise',
+              status: p.status || defItem.status || 'Live',
+              short_description: defItem.short_description || p.short_description
+            };
           }).sort((a, b) => (a.display_order || 99) - (b.display_order || 99));
           setProjects(combined);
         } else if (isMounted) {
@@ -65,7 +74,9 @@ export default function HomePage() {
         is_featured: true,
         project_url: '/aisa',
         logo: '/images/aisa-logo.svg',
-        short_description: "UWO™'s immersive AI Super Assistant designed to unify your entire digital world into a single cohesive, intelligent platform.",
+        target_audience: 'Individuals & Professionals',
+        status: 'Live',
+        short_description: 'AI assistance for everyday questions, content creation, and personal productivity.',
         display_order: 1
       },
       {
@@ -73,7 +84,9 @@ export default function HomePage() {
         is_featured: true,
         project_url: 'https://aimall24.com/',
         logo: '/images/aimall-logo.webp',
-        short_description: "UWO™'s flagship AI platform built to enable the deployment, orchestration, and global distribution of AI agents at scale. Launching with the first 100 AI applications as the foundation of its global ecosystem.",
+        target_audience: 'Developers & Enterprises',
+        status: 'Pilot',
+        short_description: 'Global ecosystem for deploying, discovering, and orchestrating intelligent AI agents at scale.',
         display_order: 2
       },
       {
@@ -81,7 +94,9 @@ export default function HomePage() {
         is_featured: true,
         project_url: '/ai-legal',
         logo: '/images/ailegallogo.png',
-        short_description: 'Autonomous legal intelligence platform engineered for contract drafting, compliance auditing, litigation research, and automated risk analysis.',
+        target_audience: 'Advocates, Law Firms & Legal Teams',
+        status: 'Live',
+        short_description: 'AI-assisted research, contract drafting, document analysis, and matter workflows.',
         display_order: 3
       },
       {
@@ -89,7 +104,9 @@ export default function HomePage() {
         is_featured: true,
         project_url: '/projects/uwo-connect',
         logo: '/images/uwoconnectlogo.png',
-        short_description: 'Unified AI-powered enterprise communication & customer interaction platform connecting CRM, support, and omnichannel workflows.',
+        target_audience: 'SMEs, Sales Teams & Agencies',
+        status: 'Live',
+        short_description: 'Bring customer conversations, leads, team follow-ups, and business workflows into one workspace.',
         display_order: 4
       },
       {
@@ -97,15 +114,19 @@ export default function HomePage() {
         is_featured: true,
         project_url: '/ai-ads',
         logo: '/images/aiads-logo.png',
-        short_description: 'Autonomous Content Intelligence & 8K Creative Studio for brand-aligned ad creatives, automated multi-channel campaigns, and marketing ROI.',
+        target_audience: 'Marketing Teams & Brand Managers',
+        status: 'Live',
+        short_description: 'Plan, create, and organise brand-aligned campaign assets, ad copy, and creative strategies with AI.',
         display_order: 5
       },
       {
         name: 'AI-Education',
         is_featured: true,
-        project_url: '/ai-education',
+        project_url: 'https://education.uwo24.com/landing',
         logo: '/images/ai-education-logo.jpg',
-        short_description: 'Unified Enterprise Digital Campus & AI Collaboration Operating System tailored for K-12 Schools, Colleges, and Universities.',
+        target_audience: 'Universities, Colleges & Schools',
+        status: 'Pilot',
+        short_description: 'Bring academic workflows, learning support, curriculum tracking, and campus communication into one platform.',
         display_order: 6
       },
       {
@@ -113,7 +134,9 @@ export default function HomePage() {
         is_featured: true,
         project_url: '/efv',
         logo: '/images/efv-logo.png',
-        short_description: 'Enterprise Functional Visualizer - high-performance real-time visual modeling and enterprise architecture engine.',
+        target_audience: 'Enterprise Architects & Leaders',
+        status: 'In Development',
+        short_description: 'Discover foundational enterprise frameworks, published research volumes, and strategic methodologies.',
         display_order: 7
       }
     ];
@@ -221,21 +244,28 @@ export default function HomePage() {
         </video>
         <div className="hero-content">
           <h1>
-            Building <span className="text-gradient">Intelligent Digital Platforms</span> for a Connected World
+            Building <span className="text-gradient">Connected AI Platforms</span> for Work, Business and Education
           </h1>
 
           <p>
-            UWO<sup>&trade;</sup> (Unified Web Options &amp; Services) designs AI-driven platforms, enterprise systems,
-            and next-generation intelligence frameworks that scale across industries.
+            UWO<sup>&trade;</sup> builds AI assistants, business automation platforms and education ecosystems that
+            help people and organisations simplify everyday work.
           </p>
 
           <div className="hero-cta-wrapper">
-            <Link to="/about" className="btn btn-primary">
+            <a 
+              href="#projects" 
+              className="btn btn-primary"
+              onClick={(e) => {
+                e.preventDefault();
+                document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
+              }}
+            >
               Explore Our Platforms
-            </Link>
+            </a>
 
             <Link to="/contact" className="btn btn-primary">
-              Partner With Us
+              Book a Demo
             </Link>
           </div>
         </div>
@@ -347,6 +377,16 @@ export default function HomePage() {
 
                   return (
                     <CardTag key={index} {...linkAttributes}>
+                      {/* Top Badges */}
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', marginBottom: '10px', gap: '6px' }}>
+                        <span style={{ fontSize: '0.68rem', fontWeight: 600, color: '#475569', background: '#f1f5f9', padding: '2px 8px', borderRadius: '12px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '175px' }}>
+                          {project.target_audience || 'Enterprise'}
+                        </span>
+                        <span style={{ fontSize: '0.68rem', fontWeight: 700, padding: '2px 8px', borderRadius: '12px', whiteSpace: 'nowrap', color: (project.status === 'Live' ? '#047857' : (project.status === 'Pilot' ? '#b45309' : '#475569')), background: (project.status === 'Live' ? '#d1fae5' : (project.status === 'Pilot' ? '#fef3c7' : '#f1f5f9')) }}>
+                          ● {project.status || 'Live'}
+                        </span>
+                      </div>
+
                       <img 
                         src={getLogoUrl(project.logo, project.name)} 
                         alt={project.name} 
@@ -414,6 +454,56 @@ export default function HomePage() {
               ))}
             </div>
           )}
+        </div>
+      </section>
+
+      {/* ================= CREDENTIALS & INSTITUTIONAL ECOSYSTEM ================= */}
+      <section className="section section-gold" style={{ background: '#FAF7F0', borderTop: '1px solid #E8DFCE', borderBottom: '1px solid #E8DFCE' }}>
+        <div className="container">
+          <div style={{ textAlign: 'center', maxWidth: '800px', margin: '0 auto 36px auto' }}>
+            <span style={{ fontFamily: "'Outfit', sans-serif", fontSize: '0.88rem', fontWeight: 700, color: '#D6A559', textTransform: 'uppercase', letterSpacing: '2px' }}>
+              Credibility &amp; Ecosystem
+            </span>
+            <h2 className="section-title" style={{ marginTop: '8px', marginBottom: '12px' }}>Company Credentials &amp; Recognition</h2>
+            <p className="section-subtitle">
+              Engineered with institutional backing, verifiable startup recognition, and strict enterprise compliance.
+            </p>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
+            {/* DPIIT Recognition */}
+            <div style={{ background: '#F0EAD8', border: '1px solid #DDD0B8', borderRadius: '18px', padding: '28px 24px', textAlign: 'center', boxShadow: '0 4px 15px rgba(0,0,0,0.02)' }}>
+              <div style={{ width: '56px', height: '56px', borderRadius: '14px', background: 'rgba(214,165,89,0.18)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px', color: '#B48E3D', fontSize: '24px' }}>
+                <i className="fa-solid fa-award"></i>
+              </div>
+              <h3 style={{ fontSize: '1.2rem', fontWeight: 700, color: '#000', margin: '0 0 8px' }}>DPIIT Recognised</h3>
+              <p style={{ fontSize: '0.9rem', color: '#64748b', lineHeight: 1.6, margin: 0 }}>
+                Recognised startup under the Startup India initiative by the Department for Promotion of Industry and Internal Trade (DPIIT), Government of India.
+              </p>
+            </div>
+
+            {/* IIT Ropar TBIF */}
+            <div style={{ background: '#F0EAD8', border: '1px solid #DDD0B8', borderRadius: '18px', padding: '28px 24px', textAlign: 'center', boxShadow: '0 4px 15px rgba(0,0,0,0.02)' }}>
+              <div style={{ width: '56px', height: '56px', borderRadius: '14px', background: 'rgba(214,165,89,0.18)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px', color: '#B48E3D', fontSize: '24px' }}>
+                <i className="fa-solid fa-graduation-cap"></i>
+              </div>
+              <h3 style={{ fontSize: '1.2rem', fontWeight: 700, color: '#000', margin: '0 0 8px' }}>IIT Ropar &ndash; TBIF Incubated</h3>
+              <p style={{ fontSize: '0.9rem', color: '#64748b', lineHeight: 1.6, margin: 0 }}>
+                Incubated at IIT Ropar &ndash; Technology Business Incubator Foundation, receiving ecosystem mentorship and technology infrastructure support.
+              </p>
+            </div>
+
+            {/* D-U-N-S Registered */}
+            <div style={{ background: '#F0EAD8', border: '1px solid #DDD0B8', borderRadius: '18px', padding: '28px 24px', textAlign: 'center', boxShadow: '0 4px 15px rgba(0,0,0,0.02)' }}>
+              <div style={{ width: '56px', height: '56px', borderRadius: '14px', background: 'rgba(214,165,89,0.18)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px', color: '#B48E3D', fontSize: '24px' }}>
+                <i className="fa-solid fa-shield-halved"></i>
+              </div>
+              <h3 style={{ fontSize: '1.2rem', fontWeight: 700, color: '#000', margin: '0 0 8px' }}>D-U-N-S&reg; Registered</h3>
+              <p style={{ fontSize: '0.9rem', color: '#64748b', lineHeight: 1.6, margin: 0 }}>
+                Globally verified commercial identity registered with Dun &amp; Bradstreet, providing standard international enterprise verification.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 

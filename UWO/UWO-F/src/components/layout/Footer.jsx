@@ -60,7 +60,7 @@ export default function Footer({ onOpenLegal, onOpenEarnRefer }) {
               <Link to="/ai-legal" className="platform-tag">AI LEGAL<sup>&trade;</sup></Link>
               <Link to="/aisa" className="platform-tag">AISA<sup>&trade;</sup></Link>
               <a href="https://aimall24.com/" className="platform-tag">AI Mall<sup>&trade;</sup></a>
-              <Link to="/ai-education" className="platform-tag">AI Education<sup>&trade;</sup></Link>
+              <a href="https://education.uwo24.com/landing" className="platform-tag">AI Education<sup>&trade;</sup></a>
               <Link to="/efv" className="platform-tag">EFV<sup>&trade;</sup></Link>
             </div>
 
@@ -104,7 +104,7 @@ export default function Footer({ onOpenLegal, onOpenEarnRefer }) {
               <a href="https://wa.me/918358990909" target="_blank" rel="noopener noreferrer" className="social-icon-wrapper" title="WhatsApp">
                 <img src="/images/whatsapp.svg" alt="WhatsApp" />
               </a>
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="social-icon-wrapper" title="Facebook">
+              <a href="https://www.facebook.com/uwo_business/" target="_blank" rel="noopener noreferrer" className="social-icon-wrapper" title="Facebook">
                 <img src="/images/facebook..webp" alt="Facebook" />
               </a>
               <a href="https://www.instagram.com/uwo_business/" target="_blank" rel="noopener noreferrer" className="social-icon-wrapper" title="Instagram">
