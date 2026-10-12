@@ -165,13 +165,20 @@ export default function AIEducationHero({ onExploreClick }) {
             </motion.p>
 
             <motion.div className="aied-hero-actions" variants={fadeInUp}>
+              <a 
+                href="/contact" 
+                className="aied-btn-primary"
+              >
+                <span>Book an Institutional Demo</span>
+                <ArrowRight size={18} />
+              </a>
+
               <button 
                 type="button" 
-                className="aied-btn-primary"
+                className="aied-btn-secondary"
                 onClick={onExploreClick}
               >
-                <span>Explore AI Education</span>
-                <ArrowRight size={18} />
+                <span>Explore Features</span>
               </button>
 
               <a 
@@ -179,8 +186,9 @@ export default function AIEducationHero({ onExploreClick }) {
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="aied-btn-secondary"
+                style={{ padding: '12px 18px' }}
+                title="Open Live Web Application"
               >
-                <span>Open Platform</span>
                 <ExternalLink size={16} />
               </a>
             </motion.div>
@@ -207,8 +215,8 @@ export default function AIEducationHero({ onExploreClick }) {
                 <span className="aied-telemetry-lbl">Textbook RAG</span>
               </div>
               <div className="aied-telemetry-item">
-                <span className="aied-telemetry-val">CASA Tier-2</span>
-                <span className="aied-telemetry-lbl">Zero-BOLA Tenancy</span>
+                <span className="aied-telemetry-val">100% Isolated</span>
+                <span className="aied-telemetry-lbl">Tenant Governance</span>
               </div>
             </motion.div>
           </motion.div>

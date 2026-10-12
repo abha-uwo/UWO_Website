@@ -132,20 +132,20 @@ export default function ModuleExplorer() {
                 {activeModule.details}
               </p>
 
-              {/* Prisma Database Entities Matrix */}
+              {/* Core Module Entities */}
               <div style={{ marginBottom: '14px' }}>
                 <div style={{ fontSize: '0.68rem', color: 'var(--aied-text-subtle)', fontFamily: 'var(--aied-font-mono)', textTransform: 'uppercase', marginBottom: '6px' }}>
-                  // Relational Data Models (Prisma ORM 5.22)
+                  // Managed Academic Data Objects
                 </div>
                 <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
                   {activeModule.entities.map((ent, i) => (
                     <span 
                       key={i} 
                       className="aied-badge" 
-                      style={{ margin: 0, padding: '2px 6px', fontSize: '0.65rem', background: 'rgba(255,255,255,0.04)', borderColor: 'var(--aied-border)', color: 'var(--aied-cyan)', textTransform: 'none' }}
+                      style={{ margin: 0, padding: '2px 8px', fontSize: '0.68rem', background: 'rgba(255,255,255,0.04)', borderColor: 'var(--aied-border)', color: 'var(--aied-cyan)', textTransform: 'none' }}
                     >
-                      <Database size={10} style={{ marginRight: 3 }} />
-                      model {ent}
+                      <Database size={10} style={{ marginRight: 4 }} />
+                      {ent.replace(/([A-Z])/g, ' $1').trim()}
                     </span>
                   ))}
                 </div>
@@ -233,7 +233,7 @@ export default function ModuleExplorer() {
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'var(--aied-bg-card)', padding: '10px 14px', borderRadius: '6px' }}>
                     <div>
                       <div style={{ fontWeight: 700, color: '#ffffff', fontSize: '0.78rem' }}>Admit Card #ADM-2026-8920</div>
-                      <div style={{ fontSize: '0.7rem', color: 'var(--aied-text-muted)' }}>Candidate: Aarav Sharma · Center: CNLU Exam Hall 2</div>
+                      <div style={{ fontSize: '0.7rem', color: 'var(--aied-text-muted)' }}>Candidate: Aarav Sharma · Center: UWO Demo Campus Examination Hall</div>
                     </div>
                     <div style={{ padding: '5px 10px', background: 'var(--aied-emerald-surface)', border: '1px solid var(--aied-emerald-border)', borderRadius: '6px', color: 'var(--aied-emerald)', fontSize: '0.7rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: 6 }}>
                       <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#00b87a', boxShadow: '0 0 6px #00b87a' }}></span>

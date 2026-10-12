@@ -36,7 +36,7 @@ export default function HomePage() {
             if (nameLower.includes('ads') || nameLower.includes('ai ads') || nameLower.includes('aiads')) {
               targetUrl = '/ai-ads';
             } else if (nameLower.includes('education') || nameLower.includes('aieducation')) {
-              targetUrl = 'https://education.uwo24.com/landing';
+              targetUrl = '/ai-education';
             } else if (nameLower.includes('legal')) {
               targetUrl = '/ai-legal';
             } else if (nameLower.includes('uwo connect') || nameLower.includes('uwoconnect')) {
@@ -120,9 +120,9 @@ export default function HomePage() {
         display_order: 5
       },
       {
-        name: 'AI-Education',
+        name: 'AI Education',
         is_featured: true,
-        project_url: 'https://education.uwo24.com/landing',
+        project_url: '/ai-education',
         logo: '/images/ai-education-logo.jpg',
         target_audience: 'Universities, Colleges & Schools',
         status: 'Pilot',

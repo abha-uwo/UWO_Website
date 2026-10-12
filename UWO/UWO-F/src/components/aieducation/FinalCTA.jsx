@@ -73,7 +73,7 @@ export default function FinalCTA({ onExploreClick }) {
             <span style={{ color: 'var(--aied-border)' }}>|</span>
             <span style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
               <ShieldCheck size={11} style={{ color: 'var(--aied-cyan)' }} />
-              Zero-BOLA Tenancy
+              Org-Isolated Tenancy
             </span>
           </div>
 

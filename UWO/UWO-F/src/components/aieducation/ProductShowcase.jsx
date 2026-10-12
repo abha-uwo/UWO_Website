@@ -269,8 +269,8 @@ export default function ProductShowcase() {
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 120px', gap: '16px', alignItems: 'center' }}>
                       <div style={{ fontSize: '0.78rem', lineHeight: 1.55 }}>
                         <div><strong>Candidate:</strong> Aarav Deshmukh</div>
-                        <div><strong>Roll No:</strong> CNLU/2026/CYBER/01</div>
-                        <div><strong>Center:</strong> New Delhi Campus · Main Auditorium</div>
+                        <div><strong>Roll No:</strong> UWO-DEMO/2026/CYBER/01</div>
+                        <div><strong>Center:</strong> UWO Demo Campus · Examination Auditorium</div>
                         <div><strong>Exam Date:</strong> Sunday, 15 October 2026 · 10:00 AM</div>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 5, color: '#008a5b', fontWeight: 700, marginTop: 4 }}>
                           <CheckCircle2 size={13} />

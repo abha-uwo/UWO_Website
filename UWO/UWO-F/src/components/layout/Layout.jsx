@@ -20,12 +20,29 @@ export default function Layout() {
 
     try {
       const params = new URLSearchParams(window.location.search);
-      if (params.get('action') === 'earn-refer' || params.get('open') === 'earn-refer' || window.location.hash === '#earn-refer') {
+      const hash = (window.location.hash || '').toLowerCase();
+      if (params.get('action') === 'earn-refer' || params.get('open') === 'earn-refer' || hash === '#earn-refer') {
         setEarnReferOpen(true);
+      } else if (hash === '#privacy' || params.get('modal') === 'privacy') {
+        setLegalModalState({ isOpen: true, type: 'privacy' });
+      } else if (hash === '#terms' || params.get('modal') === 'terms') {
+        setLegalModalState({ isOpen: true, type: 'terms' });
+      } else if (hash === '#cookies' || params.get('modal') === 'cookies') {
+        setLegalModalState({ isOpen: true, type: 'cookies' });
       }
     } catch (e) {}
 
+    const handleHashChange = () => {
+      const h = (window.location.hash || '').toLowerCase();
+      if (h === '#privacy') setLegalModalState({ isOpen: true, type: 'privacy' });
+      else if (h === '#terms') setLegalModalState({ isOpen: true, type: 'terms' });
+      else if (h === '#cookies') setLegalModalState({ isOpen: true, type: 'cookies' });
+      else if (h === '#earn-refer') setEarnReferOpen(true);
+    };
+    window.addEventListener('hashchange', handleHashChange);
+
     return () => {
+      window.removeEventListener('hashchange', handleHashChange);
       delete window.openEarnReferModal;
       delete window.closeEarnReferModal;
     };

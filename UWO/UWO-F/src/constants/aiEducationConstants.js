@@ -22,9 +22,9 @@ export const SEEDED_INSTITUTIONS = [
     stats: { members: 42, departments: 4, classes: 12 },
     leadership: 'Prof. Dr. Vikramaditya Sharma (Vice Chancellor)',
     demoAccounts: {
-      faculty: { name: 'Adv. Meenakshi Sundaram', email: 'faculty.meenakshi@cnlu.ac.in', role: 'Teacher · Cyber Laws' },
-      student: { name: 'Aarav Deshmukh', id: 'CNLU/2026/CYBER/01', email: 'aarav.deshmukh@cnlu.ac.in' },
-      parent: { name: 'Suresh Deshmukh', id: 'PAR-2026-0001', email: 'parent.aarav@cnlu.ac.in' }
+      faculty: { name: 'Adv. Meenakshi Sundaram', email: 'faculty.meenakshi@demo.uwo24.com', role: 'Teacher · Cyber Laws' },
+      student: { name: 'Aarav Deshmukh', id: 'UWO-DEMO/2026/CYBER/01', email: 'aarav.deshmukh@demo.uwo24.com' },
+      parent: { name: 'Suresh Deshmukh', id: 'PAR-2026-0001', email: 'parent.aarav@demo.uwo24.com' }
     }
   },
   {
@@ -70,9 +70,9 @@ export const INSTITUTIONAL_ROLES = [
     features: [
       { title: 'Campus-Wide Governance', desc: 'Manage multi-department curricula, academic promotion mapping, and institutional rosters with strict multi-tenancy.' },
       { title: 'Tally ERP 9 / Prime Sync', desc: 'Bi-directional financial reconciliation for student fees, staff payroll, and ledger vouchers with TallyTombstone protection.' },
-      { title: 'CASA Tier-2 Security', desc: 'Hardened anti-BOLA/IDOR authorization, classroom-friendly compound rate limiting, and sanitized audit logging.' }
+      { title: 'Enterprise Security Architecture', desc: 'Hardened authorization guardrails, classroom-friendly compound rate limiting, and sanitized audit logging.' }
     ],
-    telemetry: { label: 'Active Tenancy', value: '100% Org-Isolated', sub: 'PostgreSQL 44 Entities' },
+    telemetry: { label: 'Active Tenancy', value: '100% Org-Isolated', sub: 'Isolated Multi-Tenant Architecture' },
     accent: '#00B87A'
   },
   {

@@ -48,7 +48,7 @@ const PRODUCT_CATALOG = {
     name: 'UWO Connect',
     url: 'https://connect.uwo24.com',
     play_store_url: 'https://play.google.com/store/apps/details?id=com.uwo.uwoconnect&pcampaignid=web_share',
-    web_url: 'http://uwoconnect.aisa24.com/',
+    web_url: 'https://uwoconnect.aisa24.com/',
     description: 'Central Identity, SSO & Organization Security Portal',
     color: '#EC4899',
   },

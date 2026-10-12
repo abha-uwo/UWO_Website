@@ -9,6 +9,7 @@ export default function ContactPage() {
     organization: '',
     purpose: 'Product Demo',
     productOfInterest: 'AISA™ (AI Super Assistant)',
+    preferredContactMethod: 'Email',
     message: ''
   });
   const [selectOpen, setSelectOpen] = useState(false);
@@ -79,6 +80,7 @@ export default function ContactPage() {
         organization: formData.organization.trim(),
         purpose: formData.purpose,
         productOfInterest: formData.productOfInterest,
+        preferredContactMethod: formData.preferredContactMethod,
         message: formData.message.trim(),
         affiliateCode,
         productSlug
@@ -88,7 +90,7 @@ export default function ContactPage() {
         open: true,
         type: 'success',
         title: 'Enquiry Received',
-        message: "Thank you for reaching out. A UWO specialist will review your enquiry and respond within 1 business day."
+        message: "Thank you. Your enquiry has been received. Our team will contact you through the details provided."
       });
 
       setFormData({
@@ -98,6 +100,7 @@ export default function ContactPage() {
         organization: '',
         purpose: 'Product Demo',
         productOfInterest: 'AISA™ (AI Super Assistant)',
+        preferredContactMethod: 'Email',
         message: ''
       });
     } catch (err) {
@@ -348,6 +351,20 @@ export default function ContactPage() {
                       ))}
                     </select>
                   </div>
+                </div>
+
+                <div>
+                  <label htmlFor="preferredContactMethod">Preferred Contact Method (Optional)</label>
+                  <select
+                    id="preferredContactMethod"
+                    name="preferredContactMethod"
+                    value={formData.preferredContactMethod}
+                    onChange={handleChange}
+                  >
+                    <option value="Email">Email</option>
+                    <option value="Phone Call">Phone Call</option>
+                    <option value="WhatsApp">WhatsApp</option>
+                  </select>
                 </div>
 
                 <div>

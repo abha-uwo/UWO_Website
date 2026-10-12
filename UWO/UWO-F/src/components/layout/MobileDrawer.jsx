@@ -53,7 +53,7 @@ export default function MobileDrawer({ isOpen, onClose, onOpenEarnRefer }) {
           <Link to="/ai-legal" onClick={handleLinkClick}>AI LEGAL<sup>™</sup></Link>
           <Link to="/projects/uwo-connect" onClick={handleLinkClick}>UWO Connect<sup>™</sup></Link>
           <Link to="/ai-ads" onClick={handleLinkClick}>AI ADS<sup>™</sup></Link>
-          <a href="https://education.uwo24.com/landing" onClick={handleLinkClick}>AI-Education<sup>™</sup></a>
+          <Link to="/ai-education" onClick={handleLinkClick}>AI Education<sup>™</sup></Link>
           <Link to="/efv" onClick={handleLinkClick}>EFV<sup>™</sup></Link>
         </div>
 

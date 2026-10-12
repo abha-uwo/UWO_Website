@@ -106,7 +106,7 @@ export default function Navbar({ onOpenEarnRefer, onToggleDrawer }) {
               <Link to="/ai-legal" onClick={handleOptionClick}>AI LEGAL<sup>™</sup></Link>
               <Link to="/projects/uwo-connect" onClick={handleOptionClick}>UWO Connect<sup>™</sup></Link>
               <Link to="/ai-ads" onClick={handleOptionClick}>AI ADS<sup>™</sup></Link>
-              <a href="https://education.uwo24.com/landing" onClick={handleOptionClick}>AI-Education<sup>™</sup></a>
+              <Link to="/ai-education" onClick={handleOptionClick}>AI Education<sup>™</sup></Link>
               <Link to="/efv" onClick={handleOptionClick}>EFV<sup>™</sup></Link>
             </div>
           </div>

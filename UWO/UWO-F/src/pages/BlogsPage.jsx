@@ -40,7 +40,7 @@ const DEFAULT_BLOGS = [
   {
     _id: '6a0c5f7890cf2101b6ae0355',
     slug: 'one-vision-five-powerful-brands-india-s-first-ai-ecosystem-has-arrived',
-    title: "One Vision. Five Powerful Brands. India's First AI Ecosystem Has Arrived.",
+    title: "One Vision. Five Powerful Brands. The UWO™ Connected AI Ecosystem.",
     category: 'Technology & AI',
     readTime: 8,
     views: 38,

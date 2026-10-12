@@ -22,9 +22,9 @@ const SAMPLE_QUERIES = [
   },
   {
     id: 'cyberlaw',
-    subject: 'CNLU LL.B · CYBER LAWS',
+    subject: 'LL.B · CYBER LAWS & GOVERNANCE',
     prompt: "What are the statutory due diligence requirements for intermediary safe harbor under Section 79?",
-    sourceFile: 'IT_Act_2000_Handbook_CNLU.pdf',
+    sourceFile: 'IT_Act_2000_Institutional_Handbook.pdf',
     chunkId: 'PartIV_Intermediary_Guidelines_Sec79',
     score: 0.968,
     response: "Under Section 79 of the Information Technology Act, an intermediary is exempt from liability if it acts merely as a conduit, does not initiate the transmission, does not modify retrieved information, and strictly observes due diligence procedures upon receiving actual knowledge via court order.",
