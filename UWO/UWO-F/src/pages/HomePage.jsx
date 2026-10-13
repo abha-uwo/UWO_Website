@@ -17,40 +17,60 @@ export default function HomePage() {
       try {
         const data = await fetchProjects();
         const defaultList = getDefaultProjects();
-        const defaultMap = new Map(defaultList.map(d => [(d.name || '').toLowerCase().trim(), d]));
+        
+        // Helper to normalize project names for collision-free deduplication
+        const normalizeKey = (str) => (str || '').toLowerCase().replace(/[^a-z0-9]/g, '').trim();
+        const defaultMap = new Map(defaultList.map(d => [normalizeKey(d.name), d]));
 
-        // Filter out AISA Connect
+        // Filter out AISA Connect and invalid entries
         const validApiData = Array.isArray(data) 
           ? data.filter(p => !((p.name || '').toLowerCase().includes('aisa connect')))
           : [];
 
         if (isMounted && validApiData.length > 0) {
-          // Merge API data with defaultList to guarantee all flagship projects are present
-          const existingNames = new Set(validApiData.map(p => (p.name || '').toLowerCase().trim()));
-          const missingProjects = defaultList.filter(dp => !existingNames.has(dp.name.toLowerCase().trim()));
-          const combined = [...validApiData, ...missingProjects].map(p => {
-            const nameLower = (p.name || '').toLowerCase().trim();
-            const defItem = defaultMap.get(nameLower) || {};
+          // Deduplicate API data itself by normalized key
+          const seenKeys = new Set();
+          const uniqueApiData = [];
+          for (const p of validApiData) {
+            const k = normalizeKey(p.name);
+            if (k && !seenKeys.has(k)) {
+              seenKeys.add(k);
+              uniqueApiData.push(p);
+            }
+          }
 
-            let targetUrl = p.project_url;
-            if (nameLower.includes('ads') || nameLower.includes('ai ads') || nameLower.includes('aiads')) {
+          // Merge API data with defaultList without duplicating any existing projects
+          const missingProjects = defaultList.filter(dp => !seenKeys.has(normalizeKey(dp.name)));
+          const combined = [...uniqueApiData, ...missingProjects].map(p => {
+            const key = normalizeKey(p.name);
+            const defItem = defaultMap.get(key) || {};
+
+            let targetUrl = p.project_url || defItem.project_url;
+            if (key.includes('ads')) {
               targetUrl = '/ai-ads';
-            } else if (nameLower.includes('education') || nameLower.includes('aieducation')) {
+            } else if (key.includes('education')) {
               targetUrl = '/ai-education';
-            } else if (nameLower.includes('legal')) {
+            } else if (key.includes('legal')) {
               targetUrl = '/ai-legal';
-            } else if (nameLower.includes('uwo connect') || nameLower.includes('uwoconnect')) {
+            } else if (key.includes('uwoconnect') || (p.name || '').toLowerCase().includes('connect')) {
               targetUrl = '/projects/uwo-connect';
             }
 
+            // Standardize canonical title (e.g., 'AI Education' rather than 'AI-Education')
+            const canonicalName = defItem.name || p.name;
+
             return {
+              ...defItem,
               ...p,
+              name: canonicalName,
               project_url: targetUrl,
-              target_audience: p.target_audience || defItem.target_audience || 'Enterprise',
-              status: p.status || defItem.status || 'Live',
-              short_description: defItem.short_description || p.short_description
+              target_audience: defItem.target_audience || p.target_audience || 'Enterprise',
+              status: 'Live',
+              short_description: defItem.short_description || p.short_description,
+              display_order: p.display_order ?? defItem.display_order ?? 99
             };
           }).sort((a, b) => (a.display_order || 99) - (b.display_order || 99));
+
           setProjects(combined);
         } else if (isMounted) {
           setProjects(defaultList);
@@ -85,7 +105,7 @@ export default function HomePage() {
         project_url: 'https://aimall24.com/',
         logo: '/images/aimall-logo.webp',
         target_audience: 'Developers & Enterprises',
-        status: 'Pilot',
+        status: 'Live',
         short_description: 'Global ecosystem for deploying, discovering, and orchestrating intelligent AI agents at scale.',
         display_order: 2
       },
@@ -124,9 +144,9 @@ export default function HomePage() {
         is_featured: true,
         project_url: '/ai-education',
         logo: '/images/ai-education-logo.jpg',
-        target_audience: 'Universities, Colleges & Schools',
-        status: 'Pilot',
-        short_description: 'Bring academic workflows, learning support, curriculum tracking, and campus communication into one platform.',
+        target_audience: 'Universities & Schools',
+        status: 'Live',
+        short_description: 'Unified Enterprise Digital Campus & AI Collaboration Operating System tailored for K-12 Schools, Colleges, and Universities.',
         display_order: 6
       },
       {
@@ -135,7 +155,7 @@ export default function HomePage() {
         project_url: '/efv',
         logo: '/images/efv-logo.png',
         target_audience: 'Enterprise Architects & Leaders',
-        status: 'In Development',
+        status: 'Live',
         short_description: 'Discover foundational enterprise frameworks, published research volumes, and strategic methodologies.',
         display_order: 7
       }
@@ -382,8 +402,8 @@ export default function HomePage() {
                         <span style={{ fontSize: '0.68rem', fontWeight: 600, color: '#475569', background: '#f1f5f9', padding: '2px 8px', borderRadius: '12px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '175px' }}>
                           {project.target_audience || 'Enterprise'}
                         </span>
-                        <span style={{ fontSize: '0.68rem', fontWeight: 700, padding: '2px 8px', borderRadius: '12px', whiteSpace: 'nowrap', color: (project.status === 'Live' ? '#047857' : (project.status === 'Pilot' ? '#b45309' : '#475569')), background: (project.status === 'Live' ? '#d1fae5' : (project.status === 'Pilot' ? '#fef3c7' : '#f1f5f9')) }}>
-                          ● {project.status || 'Live'}
+                        <span style={{ fontSize: '0.68rem', fontWeight: 700, padding: '2px 8px', borderRadius: '12px', whiteSpace: 'nowrap', color: '#047857', background: '#d1fae5' }}>
+                          ● Live
                         </span>
                       </div>
 
@@ -495,8 +515,18 @@ export default function HomePage() {
 
             {/* D-U-N-S Registered */}
             <div style={{ background: '#F0EAD8', border: '1px solid #DDD0B8', borderRadius: '18px', padding: '28px 24px', textAlign: 'center', boxShadow: '0 4px 15px rgba(0,0,0,0.02)' }}>
-              <div style={{ width: '56px', height: '56px', borderRadius: '14px', background: 'rgba(214,165,89,0.18)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px', color: '#B48E3D', fontSize: '24px' }}>
-                <i className="fa-solid fa-shield-halved"></i>
+              <div style={{ width: '56px', height: '56px', borderRadius: '14px', background: 'rgba(214,165,89,0.18)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px', padding: '6px' }}>
+                <img 
+                  src="/images/duns-logo.png" 
+                  alt="D-U-N-S® Registered" 
+                  style={{ maxHeight: '100%', maxWidth: '100%', objectFit: 'contain' }}
+                  onError={(e) => {
+                    // Fallback to shield icon if image fails
+                    e.currentTarget.style.display = 'none';
+                    if (e.currentTarget.nextSibling) e.currentTarget.nextSibling.style.display = 'inline-block';
+                  }}
+                />
+                <i className="fa-solid fa-shield" style={{ display: 'none', color: '#B48E3D', fontSize: '24px' }}></i>
               </div>
               <h3 style={{ fontSize: '1.2rem', fontWeight: 700, color: '#000', margin: '0 0 8px' }}>D-U-N-S&reg; Registered</h3>
               <p style={{ fontSize: '0.9rem', color: '#64748b', lineHeight: 1.6, margin: 0 }}>
