@@ -28,6 +28,30 @@ const { subscriptionRepository } = require('./SubscriptionRepository');
 const AISA_URI = process.env.AISA_MONGODB_URI || 'mongodb+srv://admin_db_user:ailegal050804@cluster0.265idhx.mongodb.net/AISA?appName=Cluster0';
 const RAZORPAY_WEBHOOK_SECRET = process.env.RAZORPAY_WEBHOOK_SECRET || 'affiliate-payment';
 
+// Helper function to format customer name from email
+const formatNameFromEmail = (email) => {
+  if (!email) return 'Subscriber';
+  const prefix = email.split('@')[0];
+  const cleaned = prefix.replace(/[._0-9-]/g, ' ').trim();
+  if (!cleaned) return prefix;
+  return cleaned.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+};
+
+// Helper function to determine tier based on billing amount
+const determineTier = (amount, productCode = 'ailegal') => {
+  const amt = Number(amount) || 0;
+  if (productCode === 'efvframework' || productCode === 'efv') {
+    if (amt >= 1200) return 'ENTERPRISE';
+    if (amt >= 800) return 'PROFESSIONAL';
+    if (amt >= 400) return 'BASIC';
+    return 'STARTER';
+  }
+  if (amt >= 2000) return 'ENTERPRISE';
+  if (amt >= 800) return 'PROFESSIONAL';
+  if (amt >= 400) return 'BASIC';
+  return 'STARTER';
+};
+
 let syncState = {
   isRunning: false,
   lastSyncedAt: null,
@@ -201,23 +225,6 @@ class SubscriptionSyncService {
         });
       }
 
-      // Helper function to format customer name from email
-      const formatNameFromEmail = (email) => {
-        if (!email) return 'Subscriber';
-        const prefix = email.split('@')[0];
-        const cleaned = prefix.replace(/[._0-9-]/g, ' ').trim();
-        if (!cleaned) return prefix;
-        return cleaned.split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
-      };
-
-      // Helper function to determine tier
-      const determineTier = (amount) => {
-        const amt = Number(amount) || 0;
-        if (amt >= 2000) return 'ENTERPRISE';
-        if (amt >= 800) return 'PROFESSIONAL';
-        if (amt >= 400) return 'BASIC';
-        return 'STARTER';
-      };
 
       // 4. Process Real AISA Completed Revenue Transactions
       const aisaTxs = await unifiedDb.collection('revenue_transactions').find({
@@ -582,61 +589,104 @@ class SubscriptionSyncService {
   async handleRazorpayWebhook(event = {}, rawSignature = '') {
     try {
       const unifiedDb = await getUnifiedDb();
-      const eventType = event.event;
+      const eventType = String(event.event || '').toLowerCase();
       const payload = event.payload || {};
-      const subEntity = payload.subscription?.entity || payload.payment?.entity || {};
+      const paymentEntity = payload.payment?.entity;
+      const subscriptionEntity = payload.subscription?.entity;
+      const subEntity = subscriptionEntity || paymentEntity || {};
 
       console.log(`[SubscriptionSyncService] Received Razorpay webhook event: ${eventType}`);
 
-      const subId = subEntity.id;
-      const email = subEntity.notes?.customer_email || subEntity.email;
-      const name = subEntity.notes?.customer_name || 'Razorpay Subscriber';
-      const amount = Number(subEntity.amount ? subEntity.amount / 100 : (subEntity.plan_id ? 999 : 499));
-      const productCode = (subEntity.notes?.product_code || 'ailegal').toLowerCase();
+      const subId = subscriptionEntity?.id || (subEntity.id && String(subEntity.id).startsWith('sub_') ? subEntity.id : null);
+      const paymentId = paymentEntity?.id || subEntity.payment_id || (subEntity.id && String(subEntity.id).startsWith('pay_') ? subEntity.id : '');
+      const primaryId = subId || paymentId || subEntity.id;
 
+      const email = subEntity.notes?.customer_email || paymentEntity?.notes?.customer_email || subEntity.email || paymentEntity?.email;
+      const phone = subEntity.notes?.customer_phone || paymentEntity?.notes?.customer_phone || subEntity.contact || paymentEntity?.contact || '';
+      const amount = Number(subEntity.amount ? subEntity.amount / 100 : (paymentEntity?.amount ? paymentEntity.amount / 100 : (subEntity.plan_id ? 999 : 499)));
+      const productCode = (subEntity.notes?.product_code || paymentEntity?.notes?.product_code || 'ailegal').toLowerCase();
+
+      const name = subEntity.notes?.customer_name || paymentEntity?.notes?.customer_name || (email ? formatNameFromEmail(email) : 'Razorpay Subscriber');
+
+      // Accurate status determination from event and entity status
+      const entityStatus = String(subEntity.status || paymentEntity?.status || '').toLowerCase();
       let status = 'active';
-      if (eventType === 'subscription.cancelled' || eventType === 'subscription.halted') {
+
+      if (eventType === 'payment.failed' || entityStatus === 'failed') {
+        status = 'failed';
+      } else if (eventType === 'subscription.cancelled' || eventType === 'subscription.halted' || entityStatus === 'cancelled' || entityStatus === 'halted') {
         status = 'expired';
+      } else if (eventType === 'subscription.paused' || entityStatus === 'paused') {
+        status = 'paused';
+      } else if (eventType === 'subscription.pending' || entityStatus === 'pending' || entityStatus === 'created') {
+        status = 'pending';
+      } else if (eventType === 'payment.captured' || eventType === 'order.paid' || eventType === 'subscription.charged' || eventType === 'subscription.activated' || eventType === 'subscription.authenticated' || entityStatus === 'captured' || entityStatus === 'active') {
+        status = 'active';
+      } else if (entityStatus) {
+        status = entityStatus === 'captured' ? 'active' : entityStatus;
       }
 
       const expiryDate = subEntity.current_end
         ? new Date(subEntity.current_end * 1000)
         : new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
 
+      // Determine correct tier (₹499 is BASIC, ₹999 is PROFESSIONAL, ₹2399 is ENTERPRISE)
+      const tier = subEntity.notes?.tier || paymentEntity?.notes?.tier || determineTier(amount, productCode);
+
+      let defaultPlanName = `Advocate ${tier.charAt(0) + tier.slice(1).toLowerCase()} Plan`;
+      if (productCode === 'ailegal') {
+        if (tier === 'BASIC') defaultPlanName = 'Advocate Basic Plan';
+        else if (tier === 'PROFESSIONAL') defaultPlanName = 'Advocate Professional Plan';
+        else if (tier === 'ENTERPRISE') defaultPlanName = 'Advocate Enterprise Plan';
+      } else {
+        defaultPlanName = `${subscriptionRepository.resolveProductName(productCode)} ${tier} Plan`;
+      }
+      const planName = subEntity.notes?.plan_name || paymentEntity?.notes?.plan_name || defaultPlanName;
+
+      const sid = (subId && String(subId).startsWith('sub_'))
+        ? subId
+        : (paymentId ? `rzp_sub_${paymentId}` : `rzp_sub_${primaryId || Date.now()}`);
+
       const doc = {
-        _id: `rzp_sub_${subId || Date.now()}`,
-        subscription_id: subId || `rzp_${Date.now()}`,
+        _id: sid,
+        subscription_id: subId || sid,
         source: 'razorpay',
         product_code: productCode,
         product_name: subscriptionRepository.resolveProductName(productCode),
-        customer_id: subEntity.customer_id || null,
+        customer_id: subEntity.customer_id || paymentEntity?.customer_id || null,
         customer_email: email || 'subscriber@direct.com',
         customer_name: name,
-        tier: subEntity.notes?.tier || 'PROFESSIONAL',
-        plan_name: subEntity.notes?.plan_name || 'Advocate Plan',
+        customer_phone: phone,
+        tier: tier,
+        plan_name: planName,
         billing_cycle: 'monthly',
         billing_type: 'individual',
         amount: amount,
-        currency: subEntity.currency || 'INR',
+        currency: subEntity.currency || paymentEntity?.currency || 'INR',
         status: status,
         platform: 'web',
         provider: 'razorpay',
-        transaction_id: subEntity.payment_id || subId || '',
-        order_id: subEntity.order_id || '',
+        transaction_id: paymentId || '',
+        order_id: subEntity.order_id || paymentEntity?.order_id || '',
         start_date: new Date(),
         expiry_date: expiryDate,
-        auto_renew: true,
+        auto_renew: status === 'active',
         created_at: new Date(),
         updated_at: new Date()
       };
+
+      if (status === 'failed') {
+        doc.error_reason = subEntity.error_description || subEntity.error_reason || paymentEntity?.error_description || paymentEntity?.error_reason || 'Gateway Technical Error';
+      }
 
       await subscriptionRepository.upsertSubscription(doc, unifiedDb);
 
       return {
         success: true,
         event: eventType,
-        subscription_id: subId,
-        status: status
+        subscription_id: doc.subscription_id,
+        status: status,
+        tier: tier
       };
     } catch (err) {
       console.error('[SubscriptionSyncService] Razorpay webhook processing error:', err);

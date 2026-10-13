@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Outlet } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import MobileDrawer from './MobileDrawer';
@@ -13,47 +13,106 @@ export default function Layout() {
   const [earnReferOpen, setEarnReferOpen] = useState(false);
   const [legalModalState, setLegalModalState] = useState({ isOpen: false, type: 'privacy' });
 
-  // Expose global window method so existing inline or external onclicks still work smoothly
-  React.useEffect(() => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  // Helper to determine legal type from URL pathname, hash, or query param
+  const getLegalType = (loc) => {
+    if (!loc) return null;
+    const decodedPath = decodeURIComponent(loc.pathname || '').toLowerCase().trim();
+    if (
+      decodedPath === '/terms-and-conditions' ||
+      decodedPath === '/terms' ||
+      decodedPath === '/terms-conditions' ||
+      decodedPath === '/terms & conditions' ||
+      decodedPath === '/terms%20&%20conditions' ||
+      decodedPath === '/terms-of-service' ||
+      decodedPath === '/terms-of-use'
+    ) {
+      return 'terms';
+    }
+    if (
+      decodedPath === '/privacy-policy' ||
+      decodedPath === '/privacy' ||
+      decodedPath === '/privacy-notice'
+    ) {
+      return 'privacy';
+    }
+    if (
+      decodedPath === '/cookies-policy' ||
+      decodedPath === '/cookie-policy' ||
+      decodedPath === '/cookies' ||
+      decodedPath === '/cookie'
+    ) {
+      return 'cookies';
+    }
+
+    const hash = (loc.hash || '').toLowerCase();
+    if (hash === '#terms') return 'terms';
+    if (hash === '#privacy') return 'privacy';
+    if (hash === '#cookies') return 'cookies';
+
+    const params = new URLSearchParams(loc.search || '');
+    const modalParam = params.get('modal');
+    if (modalParam === 'terms' || modalParam === 'privacy' || modalParam === 'cookies') {
+      return modalParam;
+    }
+
+    return null;
+  };
+
+  // Sync modal state whenever route pathname, hash, or search changes
+  useEffect(() => {
+    const legalType = getLegalType(location);
+    if (legalType) {
+      setLegalModalState({ isOpen: true, type: legalType });
+    } else {
+      setLegalModalState(prev => (prev.isOpen ? { ...prev, isOpen: false } : prev));
+    }
+
+    // Earn & refer modal query/hash listeners
+    const params = new URLSearchParams(location.search || '');
+    const hash = (location.hash || '').toLowerCase();
+    if (params.get('action') === 'earn-refer' || params.get('open') === 'earn-refer' || hash === '#earn-refer') {
+      setEarnReferOpen(true);
+    }
+  }, [location.pathname, location.hash, location.search]);
+
+  // Global window helpers for legacy compatibility
+  useEffect(() => {
     window.openEarnReferModal = () => setEarnReferOpen(true);
     window.closeEarnReferModal = () => setEarnReferOpen(false);
 
-    try {
-      const params = new URLSearchParams(window.location.search);
-      const hash = (window.location.hash || '').toLowerCase();
-      if (params.get('action') === 'earn-refer' || params.get('open') === 'earn-refer' || hash === '#earn-refer') {
-        setEarnReferOpen(true);
-      } else if (hash === '#privacy' || params.get('modal') === 'privacy') {
-        setLegalModalState({ isOpen: true, type: 'privacy' });
-      } else if (hash === '#terms' || params.get('modal') === 'terms') {
-        setLegalModalState({ isOpen: true, type: 'terms' });
-      } else if (hash === '#cookies' || params.get('modal') === 'cookies') {
-        setLegalModalState({ isOpen: true, type: 'cookies' });
-      }
-    } catch (e) {}
-
-    const handleHashChange = () => {
-      const h = (window.location.hash || '').toLowerCase();
-      if (h === '#privacy') setLegalModalState({ isOpen: true, type: 'privacy' });
-      else if (h === '#terms') setLegalModalState({ isOpen: true, type: 'terms' });
-      else if (h === '#cookies') setLegalModalState({ isOpen: true, type: 'cookies' });
-      else if (h === '#earn-refer') setEarnReferOpen(true);
-    };
-    window.addEventListener('hashchange', handleHashChange);
-
     return () => {
-      window.removeEventListener('hashchange', handleHashChange);
       delete window.openEarnReferModal;
       delete window.closeEarnReferModal;
     };
   }, []);
 
   const handleOpenLegal = (type) => {
-    setLegalModalState({ isOpen: true, type });
+    let target = '/terms-and-conditions';
+    if (type === 'privacy') target = '/privacy-policy';
+    else if (type === 'cookies') target = '/cookies-policy';
+
+    if (location.pathname !== target) {
+      navigate(target);
+    } else {
+      setLegalModalState({ isOpen: true, type });
+    }
   };
 
   const handleCloseLegal = () => {
-    setLegalModalState({ ...legalModalState, isOpen: false });
+    setLegalModalState(prev => ({ ...prev, isOpen: false }));
+    const currentLegal = getLegalType(location);
+    if (currentLegal) {
+      if (window.history.state && window.history.state.idx > 0) {
+        navigate(-1);
+      } else {
+        navigate('/', { replace: true });
+      }
+    } else if (location.hash || location.search.includes('modal=')) {
+      navigate(location.pathname, { replace: true });
+    }
   };
 
   return (

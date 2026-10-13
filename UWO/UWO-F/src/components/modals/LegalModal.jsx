@@ -9,6 +9,22 @@ export default function LegalModal({ isOpen, type, onClose }) {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isOpen, onClose]);
 
+  useEffect(() => {
+    if (isOpen) {
+      const prevTitle = document.title;
+      if (type === 'terms') {
+        document.title = 'Terms & Conditions | UWO™';
+      } else if (type === 'cookies') {
+        document.title = 'Cookies Policy | UWO™';
+      } else {
+        document.title = 'Privacy Policy | UWO™';
+      }
+      return () => {
+        document.title = prevTitle;
+      };
+    }
+  }, [isOpen, type]);
+
   if (!isOpen) return null;
 
   const getModalMeta = () => {

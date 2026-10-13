@@ -18,12 +18,21 @@ import PartnerLoginPage from './pages/PartnerLoginPage';
 import PartnerDashboardPage from './pages/PartnerDashboardPage';
 import AdminPage from './pages/AdminPage';
 
-// Auto-scroll to top on route change
+// Auto-scroll to top on route change (except when opening legal modal overlay)
 function ScrollToTop() {
   const { pathname, search } = useLocation();
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    const decoded = decodeURIComponent(pathname).toLowerCase();
+    const isLegalPath = [
+      '/terms-and-conditions', '/terms', '/terms-conditions', '/terms & conditions', '/terms%20&%20conditions',
+      '/privacy-policy', '/privacy',
+      '/cookies-policy', '/cookie-policy', '/cookies'
+    ].includes(decoded);
+
+    if (!isLegalPath) {
+      window.scrollTo(0, 0);
+    }
   }, [pathname, search]);
 
   return null;
@@ -53,6 +62,17 @@ export default function App() {
           <Route path="/partner-login" element={<PartnerLoginPage />} />
           <Route path="/partner-dashboard" element={<PartnerDashboardPage />} />
 
+          {/* Canonical Policy & Legal Routes (Modal view over Home) */}
+          <Route path="/terms-and-conditions" element={<HomePage />} />
+          <Route path="/terms" element={<HomePage />} />
+          <Route path="/terms-conditions" element={<HomePage />} />
+          <Route path="/Terms & Conditions" element={<HomePage />} />
+          <Route path="/privacy-policy" element={<HomePage />} />
+          <Route path="/privacy" element={<HomePage />} />
+          <Route path="/cookies-policy" element={<HomePage />} />
+          <Route path="/cookie-policy" element={<HomePage />} />
+          <Route path="/cookies" element={<HomePage />} />
+
           {/* Legacy & .html Aliases -> 301-equivalent Clean Canonical Redirects */}
           <Route path="/index.html" element={<Navigate to="/" replace />} />
           <Route path="/about.html" element={<Navigate to="/about" replace />} />
@@ -71,6 +91,13 @@ export default function App() {
           <Route path="/ai-ads.html" element={<Navigate to="/ai-ads" replace />} />
           <Route path="/partner-login.html" element={<Navigate to="/partner-login" replace />} />
           <Route path="/partner-dashboard.html" element={<Navigate to="/partner-dashboard" replace />} />
+          <Route path="/terms.html" element={<Navigate to="/terms-and-conditions" replace />} />
+          <Route path="/terms-and-conditions.html" element={<Navigate to="/terms-and-conditions" replace />} />
+          <Route path="/privacy.html" element={<Navigate to="/privacy-policy" replace />} />
+          <Route path="/privacy-policy.html" element={<Navigate to="/privacy-policy" replace />} />
+          <Route path="/cookies.html" element={<Navigate to="/cookies-policy" replace />} />
+          <Route path="/cookies-policy.html" element={<Navigate to="/cookies-policy" replace />} />
+          <Route path="/cookie-policy.html" element={<Navigate to="/cookies-policy" replace />} />
         </Route>
 
         {/* Dedicated Admin Portal Route */}

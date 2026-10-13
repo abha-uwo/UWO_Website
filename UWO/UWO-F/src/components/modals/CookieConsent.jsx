@@ -34,7 +34,7 @@ export default function CookieConsent({ onOpenPrivacy }) {
           <p className="cookie-popup-desc">
             We use cookies to personalize your experience, analyze web traffic, and optimize our AI digital platforms. By clicking "Accept All", you consent to our use of cookies as outlined in our{' '}
             <a 
-              href="#privacy" 
+              href="/privacy-policy" 
               onClick={(e) => { 
                 e.preventDefault(); 
                 if (onOpenPrivacy) onOpenPrivacy(); 

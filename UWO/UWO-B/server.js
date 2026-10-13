@@ -266,8 +266,12 @@ app.use('/api/revenue', unifiedRevenueRouter);
 app.use('/api/marketing', unifiedMarketingRouter);
 
 // ================= UWO CENTRAL FINANCIAL WALLET API (V1) =================
-const walletRouter = require('./wallet/routes/walletRoutes');
-app.use('/api/v1', walletRouter);
+try {
+    const walletRouter = require('./wallet/routes/walletRoutes');
+    app.use('/api/v1', walletRouter);
+} catch (e) {
+    console.warn('[Wallet Module] Skipped wallet routes mounting:', e.message);
+}
 
 const { getUnifiedDb } = require('./unified_routes/db');
 

@@ -144,29 +144,29 @@ export default function Footer({ onOpenLegal, onOpenEarnRefer }) {
             UWO<sup>&trade;</sup> &mdash; Unified Web Options &amp; Services Pvt. Ltd. &copy; {currentYear}. All Rights Reserved.
           </p>
           <div className="footer-legal-links">
-            <a 
-              href="#terms" 
+            <Link 
+              to="/terms-and-conditions" 
               className="legal-footer-link" 
-              onClick={(e) => { e.preventDefault(); if (onOpenLegal) onOpenLegal('terms'); }}
+              onClick={() => { if (onOpenLegal) onOpenLegal('terms'); }}
             >
               Terms &amp; Conditions
-            </a>
+            </Link>
             <span className="footer-dot">&bull;</span>
-            <a 
-              href="#privacy" 
+            <Link 
+              to="/privacy-policy" 
               className="legal-footer-link" 
-              onClick={(e) => { e.preventDefault(); if (onOpenLegal) onOpenLegal('privacy'); }}
+              onClick={() => { if (onOpenLegal) onOpenLegal('privacy'); }}
             >
               Privacy Policy
-            </a>
+            </Link>
             <span className="footer-dot">&bull;</span>
-            <a 
-              href="#cookies" 
+            <Link 
+              to="/cookies-policy" 
               className="legal-footer-link"
-              onClick={(e) => { e.preventDefault(); if (onOpenLegal) onOpenLegal('cookies'); }}
+              onClick={() => { if (onOpenLegal) onOpenLegal('cookies'); }}
             >
               Cookies Policy
-            </a>
+            </Link>
           </div>
         </div>
       </div>

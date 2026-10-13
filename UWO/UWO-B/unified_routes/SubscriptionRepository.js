@@ -85,10 +85,32 @@ class SubscriptionRepository {
     let daysRemaining = null;
     let isGracePeriod = false;
 
-    // Explicit cancellation or refund
+    // Resolve accurate tier: ₹499 is BASIC Plan
+    let tier = String(sub.tier || 'BASIC').toUpperCase();
+    const amountNum = Number(sub.amount || 0);
+    if (amountNum >= 400 && amountNum < 800 && tier === 'PROFESSIONAL') {
+      tier = 'BASIC';
+    }
+
+    // Explicit cancellation, failure, halted, paused, or refund
     if (rawStatus === 'cancelled' || rawStatus === 'canceled' || rawStatus === 'refunded') {
       computedStatus = 'cancelled';
       statusLabel = 'Cancelled';
+    } else if (rawStatus === 'failed') {
+      computedStatus = 'failed';
+      statusLabel = 'Failed';
+    } else if (rawStatus === 'halted') {
+      computedStatus = 'halted';
+      statusLabel = 'Halted';
+    } else if (rawStatus === 'paused') {
+      computedStatus = 'paused';
+      statusLabel = 'Paused';
+    } else if (rawStatus === 'pending') {
+      computedStatus = 'pending';
+      statusLabel = 'Pending';
+    } else if (rawStatus === 'expired') {
+      computedStatus = 'expired';
+      statusLabel = 'Expired';
     } else if (sub.expiry_date) {
       const expiry = new Date(sub.expiry_date);
       const diffMs = expiry.getTime() - now.getTime();
@@ -127,19 +149,26 @@ class SubscriptionRepository {
 
     const isActive = ['active', 'trialing', 'in_grace_period'].includes(computedStatus);
 
+    let planName = sub.plan_name;
+    if (tier === 'BASIC' && (!planName || planName === 'Advocate Plan' || planName === 'Advocate Professional Plan')) {
+      planName = 'Advocate Basic Plan';
+    }
+
     return {
       ...sub,
       id: String(sub._id),
+      tier: tier,
+      plan_name: planName,
       computed_status: computedStatus,
       status_label: statusLabel,
       is_active: isActive,
       is_expiring_soon: isExpiringSoon,
       is_grace_period: isGracePeriod,
-      days_remaining: daysRemaining,
+      days_remaining: computedStatus === 'failed' ? null : daysRemaining,
       // Normalize product display name
       product_name: this.resolveProductName(sub.product_code),
       // Clean amount
-      amount: Number(sub.amount || (sub.tier === 'BASIC' ? 499 : 999)),
+      amount: Number(sub.amount || (tier === 'BASIC' ? 499 : 999)),
       currency: sub.currency || 'INR'
     };
   }
