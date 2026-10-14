@@ -2561,6 +2561,84 @@ app.post('/api/register-email', async (req, res) => {
     }
 });
 
+// --- Intelligent Knowledge Base & Platform Fallback Engine ---
+function getIntelligentFallbackReply(message, lang = 'English', kb = []) {
+  const cleanMsg = (message || '').toLowerCase().trim();
+
+  // 1. Greetings
+  if (/^(h+i+|h+e+l+l+o+|h+e+y+|namaste|greetings|good\s*(morning|afternoon|evening)|kaise\s*ho)\b/i.test(cleanMsg)) {
+    if (lang === 'Hindi') {
+      return "नमस्ते! **UWO™** में आपका स्वागत है। मैं आपका डिजिटल सहायक हूँ।\n\nमैं हमारे AI प्लेटफॉर्म्स, ऑटोमेशन और एंटरप्राइज सॉल्यूशंस के बारे में आपकी कैसे मदद कर सकता हूँ?";
+    }
+    return "Hello! Welcome to **UWO™**. I am your executive digital assistant, here to help you explore our AI-first platforms, digital automation, and enterprise solutions.\n\nHow can I accelerate your business goals today?";
+  }
+
+  // 2. Specific Platform Inquiries
+  if (/\b(uwo\s*connect|connect)\b/i.test(cleanMsg)) {
+    return "**UWO Connect™** is our unified enterprise communication and automation platform.\n\n• **Omnichannel Queue:** Merges WhatsApp Business, Instagram Direct, Facebook Messenger, and Email into a single collaborative inbox.\n• **Autonomous Triggers:** Converts incoming chats directly into qualified CRM leads, dynamic quotation PDFs, and 1-click UPI payment links.\n• **Financial Compliance:** Automatically dispatches compliant GST tax invoices upon payment verification.\n\nWould you like to explore a live demo or install the mobile application?";
+  }
+
+  if (/\b(ai\s*legal|legal|court|advocate|lawyer|law|judgment)\b/i.test(cleanMsg)) {
+    return "**AI Legal™** is UWO's autonomous legal intelligence and draft automation ecosystem.\n\n• **Instant Drafting:** Generates court-admissible petitions, commercial contracts, and bail applications in seconds.\n• **Case Law Research:** Contextual semantic search referencing Supreme Court, High Court, and constitutional precedents.\n• **Client & Case Tracker:** Real-time hearing calendar and multi-advocate workflow management.\n\nWould you like to explore our legal templates or schedule a product walkthrough?";
+  }
+
+  if (/\b(ai\s*education|education|student|textbook|school|college|curriculum)\b/i.test(cleanMsg)) {
+    return "**AI Education™** is our next-generation adaptive learning and academic intelligence platform.\n\n• **Interactive Textbooks:** Transforms standard curricula into conversational, interactive AI study companions.\n• **Formative Assessment:** Automatically generates quizzes, detects conceptual gaps, and personalizes study paths.\n• **Institutional Portal:** Real-time student progress analytics for teachers and university administrators.\n\nWould you like to explore institutional deployment options?";
+  }
+
+  if (/\b(ai\s*ads|ads|advertising|marketing|campaign|ad intelligence)\b/i.test(cleanMsg)) {
+    return "**AI Ads™** is our autonomous commercial advertising intelligence engine.\n\n• **Predictive Creative Optimization:** Uses AI to generate high-converting ad copy and visual variations.\n• **Real-Time Bidding Intelligence:** Dynamically allocates budgets across Meta, Google, and programmatics to minimize CAC.\n• **Omnichannel Conversion Attribution:** Full-funnel tracking from first impression to verified purchase.\n\nWould you like a demo of our advertising intelligence engine?";
+  }
+
+  if (/\b(efv|exponential financial velocity|book|canon|vol|volume)\b/i.test(cleanMsg)) {
+    return "**EFV (Exponential Financial Velocity)** is the definitive business canon and methodology framework published by UWO™.\n\n• **Volume 1:** The Origin Code (Paperback, Kindle, and Hindi Edition on NotionPress).\n• **Volume 2:** Systematic Execution and Scaling Dynamics.\n• **Volume 3:** Advanced AI-Driven Capital Velocity.\n\nYou can access the canon directly on the **[EFV Portal](/efv)**, Amazon, Flipkart, and NotionPress. Would you like a preview of the framework?";
+  }
+
+  if (/\b(aisa|aisa connect)\b/i.test(cleanMsg)) {
+    return "**AISA™** is UWO's autonomous industrial intelligence framework designed for multi-agent process orchestration, deep business telemetry, and mission-critical automation pipelines.\n\nWould you like to know how AISA™ integrates into your infrastructure?";
+  }
+
+  // 3. Contact & Headquarters
+  if (/\b(contact|reach|email|phone|call|address|office|location|support|headquarters|number|helpline|sampark)\b/i.test(cleanMsg)) {
+    return "You can connect directly with the **UWO™** executive team through:\n\n• **Official Email:** admin@uwo24.com\n• **Direct Helpline:** +91 83589 90909\n• **Corporate Headquarters:** Jabalpur, Madhya Pradesh, India\n\nWould you like me to schedule an introductory consultation with our solutions team?";
+  }
+
+  // 4. Pricing & Commercials
+  if (/\b(price|pricing|cost|subscription|plan|charge|rate|charges)\b/i.test(cleanMsg)) {
+    return "**UWO™** provides transparent, tier-based commercial licensing and customized enterprise engagements tailored to your transaction volume and workflow scale.\n\n• **Flexible Deployment:** Cloud SaaS, hybrid VPC, or on-premise multi-tenant setups.\n• **Zero Hidden Fees:** Clear per-agent or per-workflow pricing with official Meta API compliance.\n\nWould you like our commercial team to prepare a tailored quote for your organization?";
+  }
+
+  // 5. Token Match across Knowledge Base
+  const stopWords = new Set(['what', 'is', 'the', 'are', 'you', 'for', 'about', 'and', 'can', 'how', 'does', 'with', 'your', 'tell', 'me', 'please', 'know', 'give', 'hai', 'kya', 'kare', 'kaise', 'batao']);
+  const queryTokens = cleanMsg.replace(/[^a-z0-9\s]/g, ' ').split(/\s+/).filter(w => w.length > 2 && !stopWords.has(w));
+
+  let bestMatch = null;
+  let highestScore = 0;
+
+  for (const item of (kb || [])) {
+    const qLower = (item.question || '').toLowerCase();
+    const aLower = (item.answer || '').toLowerCase();
+    let score = 0;
+
+    for (const token of queryTokens) {
+      if (qLower.includes(token)) score += 4;
+      if (aLower.includes(token)) score += 1.5;
+    }
+
+    if (score > highestScore) {
+      highestScore = score;
+      bestMatch = item;
+    }
+  }
+
+  if (bestMatch && highestScore >= 3) {
+    return `${bestMatch.answer}\n\nWould you like more details on how **UWO™** integrates this into your existing business stack?`;
+  }
+
+  // 6. Executive Enterprise Overview
+  return "**UWO™ (Unified Web Options & Services Pvt. Ltd.)** is an AI-first global technology enterprise delivering intelligent digital platforms, multi-agent workflows, and enterprise automation.\n\nOur flagship ecosystems include:\n• **UWO Connect™:** Omnichannel messaging (WhatsApp, IG, FB, Email), CRM pipeline, and automated GST invoicing.\n• **AI Legal™:** Autonomous judicial research and compliant contract draft generation.\n• **AI Education™:** Adaptive textbook intelligence and interactive learning assessment.\n• **AI Ads™:** Autonomous advertising intelligence and algorithmic campaign optimization.\n• **AISA™:** Autonomous industrial agentic workflows.\n\nFeel free to ask about any specific platform or reach our team at **admin@uwo24.com**.";
+}
+
 // 9. Chat (Public)
 app.post('/api/chat', async (req, res) => {
     try {
@@ -2582,65 +2660,86 @@ app.post('/api/chat', async (req, res) => {
 
         const contextText = `### CORE KNOWLEDGE:\n${knowledgeText}\n\n### UPLOADED DOCUMENTS:\n${docsContext}`;
 
-        // Step 3: Generate Dynamic System Prompt (Updated for UWO)
-        const dynamicSystemInstruction = `You are UWO AI Assistant, a professional AI assistant for the UWO (Unified Web Options) digital platform. 
+        // Step 3: Generate Dynamic System Prompt (Executive Professional Persona)
+        const dynamicSystemInstruction = `You are the UWO™ Executive AI Assistant — an intelligent, articulate, and distinguished digital consultant representing Unified Web Options (UWO™).
 
-### ‼️ CRITICAL RULES - DO NOT IGNORE ‼️
-1. **NO "ONLY POINTS" RESPONSES:** You are strictly forbidden from just listing points. A list only response is a failure.
-2. **MANDATORY 3-SECTION STRUCTURE:** Every response MUST have these 3 sections in this order:
+### 🎯 YOUR PERSONA & OBJECTIVES:
+- You represent a high-end enterprise technology leader specializing in AI-first platforms, digital automation, legal intelligence, educational ecosystems, and commercial advertising technology.
+- Your tone is **Executive, Polished, Warm, and Authoritative** — mirroring the refined conversational quality of enterprise advisors at Apple, Stripe, and OpenAI.
+- Adapt your response structure naturally to the user's inquiry:
+  • Greetings & introductions: Respond warmly and concisely in 2–3 sentences, highlighting how UWO™ accelerates digital transformation.
+  • Platform & product questions: Provide a clear, structured overview highlighting concrete enterprise benefits.
+  • Technical & integration questions: Give clear, well-organized, step-by-step guidance.
+- Avoid repetitive robotic boilerplate (e.g., NEVER say "As the UWO™ AI Assistant, I am here to help with all your inquiries about our company and services").
+- DO NOT use rigid templates or forced section headings like "### KEY HIGHLIGHTS" or "[PARAGRAPH SECTION]". Format naturally and organically.
 
-[PARAGRAPH SECTION]
-Write a clear, smooth, and professional explanation in 3-5 complete sentences. Do NOT use any bullet points or symbols in this section.
+### 📝 FORMATTING STANDARDS:
+1. **Markdown Only:** Output clean Markdown. NEVER output raw HTML tags (do NOT use <strong>, <b>, <p>, or <br>).
+2. **Emphasis:** Use **double asterisks** to highlight key terms and brand names: **UWO™**, **UWO Connect™**, **AI Legal™**, **AI Education™**, **AI Ads™**, **AISA™**, and **EFV™**.
+3. **Bullet Points:** When listing features or capabilities, use standard bullet points (• or -) with clean lead-ins. Keep lists focused and high-impact.
+4. **Paragraphs:** Keep paragraphs short (2–3 sentences) and easily scannable with blank lines in between.
+5. **Call-to-Action:** Conclude naturally when helpful with a relevant next step (e.g., offering to guide them through a specific platform, schedule a consultation, or connect at **admin@uwo24.com**).
+6. **Language:** Respond fluently and naturally in the user's language (English, Hindi, Hinglish, Marathi, etc.).
 
-[POINTS SECTION]
-Break down the specific details into exactly 3 bullet points using the "•" character.
-
-[KEY HIGHLIGHTS]
-Summarize the 3 most important takeaways. Use **bold text** for the labels (e.g., - **Innovation:** Details here).
-
-### 🎨 VISUAL STYLE:
-- **Bold Important Words:** Use **double asterisks** to highlight keywords inside the paragraphs.
-- **Brand Names:** Always wrap <strong>UWO™</strong>, <strong>AISA™</strong>, and <strong>AI Mall™</strong> in <strong> tags.
-- Use emojis sparingly only if they add value.
-- Respond ONLY in the user's language.
-
-### KNOWLEDGE CONTEXT:
+### 📚 KNOWLEDGE BASE CONTEXT:
 ${contextText}
 
-### RAG RULES:
-- Use the context above to answer accurately.
-- If not in context, use professional general knowledge.
-- NO apologies about "not found in context."`;
+### RAG GUIDELINES:
+- Base answers on the verified UWO™ knowledge base above.
+- If a specific inquiry falls outside the context, provide a professional, helpful general response aligned with UWO™'s focus on enterprise AI and digital excellence.
+- Never state "this was not in my context" or make apologetic disclaimers.`;
 
-        // Initialize model with history support
-        const chatModel = vertexAI.getGenerativeModel({
-            model: MODEL_NAME,
-            systemInstruction: dynamicSystemInstruction
-        });
+        let responseText = null;
 
-        // Use history for multi-turn conversation
-        const chat = chatModel.startChat({
-            history: req.body.history || []
-        });
-
-        console.log(`🤖 LLM Called | Model: ${MODEL_NAME} | Language Detection: ${detectedLang}`);
-        let result;
+        // Step 4: Attempt Vertex AI Generation
         try {
-            result = await chat.sendMessage(message);
-        } catch (aiErr) {
-            console.error("❌ Vertex AI Error:", JSON.stringify(aiErr?.message || aiErr));
-            return res.status(500).json({ error: 'AI generation failed', details: aiErr?.message });
-        }
-        let responseText = result.response.candidates[0].content.parts[0].text;
-        console.log(`✨ AI Response received [Length: ${responseText.length}]`);
+            if (vertexAI) {
+                const chatModel = vertexAI.getGenerativeModel({
+                    model: MODEL_NAME,
+                    systemInstruction: dynamicSystemInstruction
+                });
 
-        // Step 5: Hard Language Enforcement (Fallback)
-        const isActuallyDevanagari = /[\u0900-\u097F]/.test(responseText);
-        if ((detectedLang === "Hindi" || detectedLang === "Marathi") && !isActuallyDevanagari && !message.toLowerCase().includes("english")) {
-            console.log("⚠️ Incorrect language detected in AI response. Enforcing rewrite...");
-            const rewriteResult = await chatModel.generateContent(`Your previous response was not in ${detectedLang}. Rewrite the following response strictly in ${detectedLang} script only: \n\n${responseText}`);
-            responseText = rewriteResult.response.candidates[0].content.parts[0].text;
+                const chat = chatModel.startChat({
+                    history: req.body.history || []
+                });
+
+                console.log(`🤖 LLM Called | Model: ${MODEL_NAME} | Language Detection: ${detectedLang}`);
+                const result = await chat.sendMessage(message);
+                responseText = result?.response?.candidates?.[0]?.content?.parts?.[0]?.text;
+            }
+        } catch (aiErr) {
+            console.warn("⚠️ Vertex AI generation error, utilizing dynamic Knowledge Base Engine:", aiErr?.message || aiErr);
         }
+
+        // Step 5: Fail-Safe Dynamic Knowledge Base Fallback
+        if (!responseText || typeof responseText !== 'string' || responseText.trim().length === 0) {
+            console.log("ℹ️ Serving dynamic response from UWO™ Intelligent Knowledge Engine");
+            responseText = getIntelligentFallbackReply(message, detectedLang, knowledgeBase);
+        } else {
+            console.log(`✨ AI Response received [Length: ${responseText.length}]`);
+
+            // Step 6: Hard Language Enforcement (Fallback if AI responded in wrong script)
+            const isActuallyDevanagari = /[\u0900-\u097F]/.test(responseText);
+            if ((detectedLang === "Hindi" || detectedLang === "Marathi") && !isActuallyDevanagari && !message.toLowerCase().includes("english")) {
+                try {
+                    const chatModel = vertexAI.getGenerativeModel({ model: MODEL_NAME });
+                    const rewriteResult = await chatModel.generateContent(`Rewrite the following response strictly in ${detectedLang} script only: \n\n${responseText}`);
+                    responseText = rewriteResult.response.candidates[0].content.parts[0].text;
+                } catch {
+                    // Retain existing text if rewrite unavailable
+                }
+            }
+        }
+
+        // Post-processing: sanitize any accidental raw HTML tags into clean Markdown
+        responseText = responseText
+            .replace(/<strong[^>]*>(.*?)<\/strong>/gi, '**$1**')
+            .replace(/<b[^>]*>(.*?)<\/b>/gi, '**$1**')
+            .replace(/<em[^>]*>(.*?)<\/em>/gi, '*$1*')
+            .replace(/<br\s*\/?>/gi, '\n')
+            .replace(/<\/?p>/gi, '\n\n')
+            .replace(/\n{3,}/g, '\n\n')
+            .trim();
 
         // Log to database if user is registered
         if (email) {

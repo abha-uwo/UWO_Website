@@ -156,10 +156,27 @@ export default function ChatbotWidget() {
         body: JSON.stringify({ message: text })
       });
       const data = await res.json();
-      const botReply = data.reply || data.response || "Thank you for reaching out! Our team is available to assist you at admin@uwo24.com.";
+      let botReply = data.reply || data.response;
+      if (!botReply || typeof botReply !== 'string' || !botReply.trim()) {
+        botReply = "Thank you for connecting with **UWO™**. For immediate technical or enterprise assistance, our executive team is available directly at **admin@uwo24.com** or **+91 83589 90909**.";
+      }
       const botTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
       setMessages([...newMessages, { sender: 'bot', text: botReply, time: botTime }]);
+
+      // Dynamic contextual suggestions
+      const lower = text.toLowerCase();
+      if (lower.includes('connect')) {
+        setSuggestions(['Schedule Demo', 'Meta WhatsApp API', 'Pricing']);
+      } else if (lower.includes('legal')) {
+        setSuggestions(['Draft Templates', 'Case Law Precedents', 'Contact Team']);
+      } else if (lower.includes('education')) {
+        setSuggestions(['Adaptive Textbooks', 'Institutional Setup', 'Pricing']);
+      } else if (lower.includes('price') || lower.includes('cost')) {
+        setSuggestions(['Custom Quote', 'Enterprise Licensing', 'Contact Team']);
+      } else {
+        setSuggestions(['UWO Connect™', 'AI Legal™', 'Our Platforms', 'Contact Us']);
+      }
     } catch {
       const botTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
       setMessages([
@@ -175,15 +192,102 @@ export default function ChatbotWidget() {
     }
   };
 
-  const formatMessageText = (text) => {
-    // Render bold **text**
-    const parts = text.split(/(\*\*.*?\*\*)/g);
-    return parts.map((part, i) => {
-      if (part.startsWith('**') && part.endsWith('**')) {
-        return <strong key={i}>{part.slice(2, -2)}</strong>;
+  const formatInlineText = (text) => {
+    if (!text) return null;
+    
+    // Convert any stray raw HTML tags to markdown
+    const sanitized = text
+      .replace(/<\/?(?:strong|b)>/gi, '**')
+      .replace(/<\/?(?:em|i)>/gi, '*')
+      .replace(/<\/?code>/gi, '`');
+
+    // Tokenize for bold (**text**), italic (*text*), code (`text`), links ([text](url))
+    const tokens = sanitized.split(/(\*\*.*?\*\*|\*.*?\*|`.*?`|\[.*?\]\(.*?\))/g);
+    
+    return tokens.map((token, idx) => {
+      if (token.startsWith('**') && token.endsWith('**') && token.length >= 4) {
+        return <strong key={idx} className="chat-bold">{token.slice(2, -2)}</strong>;
       }
-      return part;
+      if (token.startsWith('*') && token.endsWith('*') && token.length >= 2 && !token.startsWith('**')) {
+        return <em key={idx}>{token.slice(1, -1)}</em>;
+      }
+      if (token.startsWith('`') && token.endsWith('`') && token.length >= 2) {
+        return <code key={idx} className="chat-code">{token.slice(1, -1)}</code>;
+      }
+      const linkMatch = token.match(/^\[(.*?)\]\((.*?)\)$/);
+      if (linkMatch) {
+        return (
+          <a key={idx} href={linkMatch[2]} target="_blank" rel="noopener noreferrer" className="chat-link">
+            {linkMatch[1]}
+          </a>
+        );
+      }
+      return token;
     });
+  };
+
+  const formatMessageText = (rawText) => {
+    if (!rawText) return null;
+
+    // Split into lines
+    const lines = rawText.split('\n');
+    const elements = [];
+    let currentList = [];
+
+    const flushList = () => {
+      if (currentList.length > 0) {
+        elements.push(
+          <ul key={`list-${elements.length}`} className="chat-list">
+            {currentList.map((item, liIdx) => (
+              <li key={liIdx} className="chat-list-item">
+                <span className="chat-bullet-dot">•</span>
+                <span className="chat-list-text">{formatInlineText(item)}</span>
+              </li>
+            ))}
+          </ul>
+        );
+        currentList = [];
+      }
+    };
+
+    lines.forEach((line, lineIdx) => {
+      const trimmed = line.trim();
+
+      if (!trimmed) {
+        flushList();
+        return;
+      }
+
+      // Check for headings (### Heading or ## Heading or # Heading)
+      const headingMatch = trimmed.match(/^#{1,4}\s+(.+)$/);
+      if (headingMatch) {
+        flushList();
+        elements.push(
+          <h4 key={`h-${lineIdx}`} className="chat-heading">
+            {formatInlineText(headingMatch[1])}
+          </h4>
+        );
+        return;
+      }
+
+      // Check for bullet points (• or - or * or 1.)
+      const bulletMatch = trimmed.match(/^(?:[•\-\*]|\d+\.)\s+(.+)$/);
+      if (bulletMatch) {
+        currentList.push(bulletMatch[1]);
+        return;
+      }
+
+      // Regular paragraph line
+      flushList();
+      elements.push(
+        <p key={`p-${lineIdx}`} className="chat-paragraph">
+          {formatInlineText(trimmed)}
+        </p>
+      );
+    });
+
+    flushList();
+    return elements;
   };
 
   return (
