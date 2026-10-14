@@ -310,17 +310,17 @@ export default function EfvPage() {
         </div>
       </section>
 
-      {/* SECTION 3: The Integration Protocol (Volume 3 - Upcoming) */}
+      {/* SECTION 3: Universal Activation (Volume 3 - Upcoming) */}
       <section style={{ padding: '90px 24px', background: 'linear-gradient(180deg, #d4c4a8 0%, #fdfbf7 100%)', color: '#1e293b' }}>
         <div style={{ textAlign: 'center', maxWidth: '800px', margin: '0 auto 50px' }}>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(0,0,0,0.07)', color: '#475569', border: '1px solid rgba(0,0,0,0.15)', padding: '4px 16px', borderRadius: '20px', fontSize: '0.78rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '14px' }}>
             <i className="fa-solid fa-clock"></i> Volume 3 • Upcoming Research Canon
           </div>
           <h2 style={{ fontSize: 'clamp(2rem, 4vw, 2.8rem)', fontWeight: 800, color: '#000', marginBottom: '14px' }}>
-            The Integration Protocol
+            Universal Activation™
           </h2>
           <p style={{ fontSize: '1.1rem', color: '#64748b', lineHeight: 1.7 }}>
-            Achieving harmonious integration of all framework components for complete cognitive mastery.
+            Unlocking the hidden frequencies that awaken human potential. Achieving harmonious integration of all framework components for complete cognitive mastery.
           </p>
         </div>
         <div
@@ -348,150 +348,462 @@ export default function EfvPage() {
               justifyContent: 'center',
               fontWeight: 800,
               fontSize: '1.2rem',
-              color: '#000'
+              color: '#000',
+              zIndex: 2
             }}
           >
             03
           </span>
-          <img
-            src="/images/3.jpeg"
-            alt="EFV Framework Part 3 - The Integration Protocol"
-            style={{ width: '100%', height: 'auto', borderRadius: '16px', display: 'block' }}
-          />
+          <picture>
+            <source srcSet="/images/vol3_banner.webp" type="image/webp" />
+            <img
+              src="/images/vol3_banner.png"
+              alt="EFV Framework Part 3 - Universal Activation by Gurumukh P. Ahuja"
+              loading="lazy"
+              style={{ width: '100%', height: 'auto', borderRadius: '16px', display: 'block' }}
+            />
+          </picture>
         </div>
       </section>
 
       {/* PLATFORMS & SUBSCRIBE FOOTER BANNER */}
-      <section style={{ padding: '80px 24px', background: '#0a0f1a', textAlign: 'center' }}>
-        <div style={{ maxWidth: '650px', margin: '0 auto 40px' }}>
-          <h3 style={{ color: '#fff', fontSize: '1.4rem', fontWeight: 700, marginBottom: '16px' }}>
-            Subscribe for Updates
+      <section
+        style={{
+          position: 'relative',
+          padding: '100px 24px 90px',
+          background: 'radial-gradient(circle at 50% 0%, rgba(214, 165, 89, 0.15) 0%, rgba(11, 17, 32, 0.98) 60%, #060913 100%)',
+          textAlign: 'center',
+          overflow: 'hidden'
+        }}
+      >
+        <style>{`
+          .efv-subscribe-input,
+          input.efv-subscribe-input {
+            width: 100% !important;
+            padding: 12px 16px !important;
+            margin: 0 !important;
+            margin-bottom: 0 !important;
+            border: none !important;
+            background: transparent !important;
+            background-color: transparent !important;
+            color: #ffffff !important;
+            font-size: 1rem !important;
+            outline: none !important;
+            box-shadow: none !important;
+            border-radius: 0 !important;
+            -webkit-text-fill-color: #ffffff !important;
+          }
+          .efv-subscribe-input:focus,
+          input.efv-subscribe-input:focus {
+            background: transparent !important;
+            background-color: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+            color: #ffffff !important;
+            outline: none !important;
+          }
+          .efv-subscribe-input::placeholder {
+            color: #94a3b8 !important;
+            opacity: 1 !important;
+            -webkit-text-fill-color: #94a3b8 !important;
+          }
+          .efv-subscribe-input:-webkit-autofill,
+          .efv-subscribe-input:-webkit-autofill:hover,
+          .efv-subscribe-input:-webkit-autofill:focus {
+            -webkit-box-shadow: 0 0 0px 1000px rgba(15, 23, 42, 0.95) inset !important;
+            -webkit-text-fill-color: #ffffff !important;
+            transition: background-color 5000s ease-in-out 0s;
+          }
+          .efv-platform-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          }
+          .efv-platform-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(214, 165, 89, 0.45) !important;
+            box-shadow: 0 15px 35px rgba(214, 165, 89, 0.15) !important;
+            background: rgba(255, 255, 255, 0.08) !important;
+          }
+          .efv-subscribe-btn {
+            transition: all 0.25s ease;
+          }
+          .efv-subscribe-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(214, 165, 89, 0.5) !important;
+            filter: brightness(1.08);
+          }
+        `}</style>
+
+        {/* Ambient Top Glow / Divider */}
+        <div
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: '50%',
+            transform: 'translateX(-50%)',
+            width: '600px',
+            height: '2px',
+            background: 'radial-gradient(ellipse at center, rgba(214, 165, 89, 0.6) 0%, transparent 70%)'
+          }}
+        />
+
+        {/* MAIN LUXURY NEWSLETTER CARD */}
+        <div
+          style={{
+            maxWidth: '820px',
+            margin: '0 auto 60px',
+            background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, rgba(15, 23, 42, 0.65) 100%)',
+            border: '1px solid rgba(214, 165, 89, 0.25)',
+            borderRadius: '28px',
+            padding: '50px 36px',
+            boxShadow: '0 25px 70px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
+            backdropFilter: 'blur(16px)',
+            position: 'relative'
+          }}
+        >
+          {/* Badge */}
+          <div
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              background: 'rgba(214, 165, 89, 0.12)',
+              border: '1px solid rgba(214, 165, 89, 0.3)',
+              color: '#D6A559',
+              padding: '6px 18px',
+              borderRadius: '50px',
+              fontSize: '0.8rem',
+              fontWeight: 800,
+              letterSpacing: '1px',
+              textTransform: 'uppercase',
+              marginBottom: '20px'
+            }}
+          >
+            <i className="fa-regular fa-bell"></i> Insider Access • EFV Canon™
+          </div>
+
+          <h3
+            style={{
+              color: '#ffffff',
+              fontSize: 'clamp(1.8rem, 3.5vw, 2.5rem)',
+              fontWeight: 800,
+              lineHeight: 1.2,
+              marginBottom: '16px',
+              letterSpacing: '-0.5px'
+            }}
+          >
+            Stay Ahead of the Cognitive Frontier
           </h3>
+
+          <p
+            style={{
+              color: '#94a3b8',
+              fontSize: 'clamp(0.95rem, 1.8vw, 1.05rem)',
+              maxWidth: '560px',
+              margin: '0 auto 36px',
+              lineHeight: 1.6
+            }}
+          >
+            Get early manuscript previews, research canon updates for Volume 2 &amp; 3, and exclusive insights from the EFV™ Framework directly in your inbox.
+          </p>
+
+          {/* INPUT FORM CONTAINER */}
           <form
             onSubmit={handleSubscribe}
             style={{
               display: 'flex',
-              background: 'rgba(255, 255, 255, 0.08)',
-              borderRadius: '50px',
-              padding: '6px',
-              border: '1px solid rgba(214, 165, 89, 0.2)'
+              alignItems: 'center',
+              maxWidth: '560px',
+              margin: '0 auto',
+              background: 'rgba(15, 23, 42, 0.95)',
+              borderRadius: '60px',
+              padding: '6px 8px 6px 20px',
+              border: '1.5px solid rgba(214, 165, 89, 0.35)',
+              boxShadow: '0 10px 30px rgba(0, 0, 0, 0.35), inset 0 2px 4px rgba(0, 0, 0, 0.4)',
+              flexWrap: 'wrap',
+              gap: '8px'
             }}
           >
-            <input
-              type="email"
-              placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              style={{
-                flex: 1,
-                padding: '12px 24px',
-                border: 'none',
-                background: 'transparent',
-                color: '#fff',
-                fontSize: '0.95rem',
-                outline: 'none'
-              }}
-            />
+            <div style={{ display: 'flex', alignItems: 'center', flex: 1, minWidth: '220px' }}>
+              <i className="fa-regular fa-envelope" style={{ color: '#D6A559', fontSize: '1.1rem', marginRight: '12px' }}></i>
+              <input
+                type="email"
+                className="efv-subscribe-input"
+                placeholder="Enter your email address"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                style={{
+                  width: '100%',
+                  padding: '12px 0',
+                  border: 'none',
+                  background: 'transparent',
+                  color: '#ffffff',
+                  fontSize: '0.98rem',
+                  outline: 'none',
+                  WebkitTextFillColor: '#ffffff'
+                }}
+              />
+            </div>
             <button
               type="submit"
+              className="efv-subscribe-btn"
               disabled={submitting}
               style={{
-                padding: '12px 28px',
+                padding: '13px 30px',
                 borderRadius: '50px',
-                background: 'linear-gradient(135deg, #D6A559, #FABE56)',
-                color: '#000',
+                background: 'linear-gradient(135deg, #D6A559 0%, #FABE56 100%)',
+                color: '#000000',
                 fontWeight: 700,
+                fontSize: '0.95rem',
                 border: 'none',
-                cursor: 'pointer'
+                cursor: 'pointer',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                boxShadow: '0 8px 24px rgba(214, 165, 89, 0.35)',
+                whiteSpace: 'nowrap'
               }}
             >
-              {submitting ? '...' : 'Subscribe'}
+              {submitting ? (
+                <>Subscribing...</>
+              ) : (
+                <>
+                  Subscribe <i className="fa-solid fa-arrow-right" style={{ fontSize: '0.85rem' }}></i>
+                </>
+              )}
             </button>
           </form>
+
+          {/* Privacy reassurance */}
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '8px',
+              marginTop: '16px',
+              fontSize: '0.8rem',
+              color: '#64748b'
+            }}
+          >
+            <i className="fa-solid fa-shield-halved" style={{ color: '#D6A559' }}></i>
+            <span>No spam guaranteed • Unsubscribe at any time</span>
+          </div>
+
           {subMessage && (
-            <p style={{ marginTop: '14px', color: '#D6A559', fontSize: '14px', fontWeight: 600 }}>{subMessage}</p>
+            <p
+              style={{
+                marginTop: '18px',
+                padding: '10px 20px',
+                background: 'rgba(214, 165, 89, 0.15)',
+                border: '1px solid rgba(214, 165, 89, 0.3)',
+                borderRadius: '12px',
+                color: '#FABE56',
+                fontSize: '14px',
+                fontWeight: 600,
+                display: 'inline-block'
+              }}
+            >
+              <i className="fa-solid fa-circle-check" style={{ marginRight: '8px' }}></i>
+              {subMessage}
+            </p>
           )}
         </div>
 
-        {/* Platform links */}
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', flexWrap: 'wrap' }}>
-          <a
-            href="https://efv.uwo.in"
-            target="_blank"
-            rel="noopener noreferrer"
+        {/* PLATFORMS SHOWCASE */}
+        <div style={{ maxWidth: '960px', margin: '0 auto' }}>
+          {/* Section Divider with label */}
+          <div
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: '8px',
-              padding: '10px 20px',
-              background: 'rgba(255,255,255,0.05)',
-              border: '1px solid rgba(255,255,255,0.1)',
-              borderRadius: '30px',
-              color: '#fff',
-              textDecoration: 'none',
-              fontSize: '13px'
+              justifyContent: 'center',
+              gap: '16px',
+              marginBottom: '32px'
             }}
           >
-            <img src="/images/EFV.png" alt="EFV" style={{ height: '22px' }} /> EFV Website
-          </a>
-          <a
-            href="https://www.amazon.in/dp/B0GKPT184H"
-            target="_blank"
-            rel="noopener noreferrer"
+            <div style={{ flex: 1, height: '1px', background: 'linear-gradient(90deg, transparent, rgba(214, 165, 89, 0.25))' }} />
+            <span
+              style={{
+                fontSize: '0.75rem',
+                fontWeight: 800,
+                letterSpacing: '2px',
+                textTransform: 'uppercase',
+                color: '#94a3b8'
+              }}
+            >
+              Available &amp; Upcoming Across Major Platforms
+            </span>
+            <div style={{ flex: 1, height: '1px', background: 'linear-gradient(90deg, rgba(214, 165, 89, 0.25), transparent)' }} />
+          </div>
+
+          <div
             style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
-              padding: '10px 20px',
-              background: 'rgba(255,255,255,0.05)',
-              border: '1px solid rgba(255,255,255,0.1)',
-              borderRadius: '30px',
-              color: '#fff',
-              textDecoration: 'none',
-              fontSize: '13px'
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+              gap: '16px'
             }}
           >
-            <img src="/images/Amazon.png" alt="Amazon" style={{ height: '22px' }} /> Amazon
-          </a>
-          <a
-            href="https://notionpress.com/in/read/efv-canon-volume-1-the-origin-code-hindi-edition"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
-              padding: '10px 20px',
-              background: 'rgba(255,255,255,0.05)',
-              border: '1px solid rgba(255,255,255,0.1)',
-              borderRadius: '30px',
-              color: '#fff',
-              textDecoration: 'none',
-              fontSize: '13px'
-            }}
-          >
-            <img src="/images/notion.png" alt="Notion" style={{ height: '22px' }} /> NotionPress
-          </a>
-          <a
-            href="https://www.flipkart.com/efv-canon/p/itmd2a588b2f4fdf?pid=9798902318798"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
-              padding: '10px 20px',
-              background: 'rgba(255,255,255,0.05)',
-              border: '1px solid rgba(255,255,255,0.1)',
-              borderRadius: '30px',
-              color: '#fff',
-              textDecoration: 'none',
-              fontSize: '13px'
-            }}
-          >
-            <img src="/images/flipcard.png" alt="Flipkart" style={{ height: '22px' }} /> Flipkart
-          </a>
+            {/* EFV Official */}
+            <a
+              href="https://efv.uwo.in"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="efv-platform-card"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '14px',
+                padding: '16px 20px',
+                background: 'rgba(255, 255, 255, 0.03)',
+                border: '1px solid rgba(255, 255, 255, 0.08)',
+                borderRadius: '16px',
+                textDecoration: 'none',
+                boxShadow: '0 8px 24px rgba(0, 0, 0, 0.2)',
+                textAlign: 'left'
+              }}
+            >
+              <div
+                style={{
+                  width: '42px',
+                  height: '42px',
+                  borderRadius: '12px',
+                  background: 'rgba(214, 165, 89, 0.12)',
+                  border: '1px solid rgba(214, 165, 89, 0.2)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexShrink: 0
+                }}
+              >
+                <img src="/images/EFV.png" alt="EFV" style={{ height: '24px', width: 'auto', objectFit: 'contain' }} />
+              </div>
+              <div>
+                <div style={{ color: '#ffffff', fontWeight: 700, fontSize: '0.92rem' }}>EFV Portal</div>
+                <div style={{ color: '#D6A559', fontSize: '0.75rem', marginTop: '2px' }}>Official Framework</div>
+              </div>
+            </a>
+
+            {/* Amazon */}
+            <a
+              href="https://www.amazon.in/dp/B0GKPT184H"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="efv-platform-card"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '14px',
+                padding: '16px 20px',
+                background: 'rgba(255, 255, 255, 0.03)',
+                border: '1px solid rgba(255, 255, 255, 0.08)',
+                borderRadius: '16px',
+                textDecoration: 'none',
+                boxShadow: '0 8px 24px rgba(0, 0, 0, 0.2)',
+                textAlign: 'left'
+              }}
+            >
+              <div
+                style={{
+                  width: '42px',
+                  height: '42px',
+                  borderRadius: '12px',
+                  background: 'rgba(255, 255, 255, 0.08)',
+                  border: '1px solid rgba(255, 255, 255, 0.12)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexShrink: 0
+                }}
+              >
+                <img src="/images/Amazon.png" alt="Amazon" style={{ height: '22px', width: 'auto', objectFit: 'contain' }} />
+              </div>
+              <div>
+                <div style={{ color: '#ffffff', fontWeight: 700, fontSize: '0.92rem' }}>Amazon</div>
+                <div style={{ color: '#94a3b8', fontSize: '0.75rem', marginTop: '2px' }}>Paperback &amp; Kindle</div>
+              </div>
+            </a>
+
+            {/* NotionPress */}
+            <a
+              href="https://notionpress.com/in/read/efv-canon-volume-1-the-origin-code-hindi-edition"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="efv-platform-card"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '14px',
+                padding: '16px 20px',
+                background: 'rgba(255, 255, 255, 0.03)',
+                border: '1px solid rgba(255, 255, 255, 0.08)',
+                borderRadius: '16px',
+                textDecoration: 'none',
+                boxShadow: '0 8px 24px rgba(0, 0, 0, 0.2)',
+                textAlign: 'left'
+              }}
+            >
+              <div
+                style={{
+                  width: '42px',
+                  height: '42px',
+                  borderRadius: '12px',
+                  background: 'rgba(255, 255, 255, 0.08)',
+                  border: '1px solid rgba(255, 255, 255, 0.12)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexShrink: 0
+                }}
+              >
+                <img src="/images/notion.png" alt="NotionPress" style={{ height: '22px', width: 'auto', objectFit: 'contain' }} />
+              </div>
+              <div>
+                <div style={{ color: '#ffffff', fontWeight: 700, fontSize: '0.92rem' }}>NotionPress</div>
+                <div style={{ color: '#94a3b8', fontSize: '0.75rem', marginTop: '2px' }}>Hindi Edition</div>
+              </div>
+            </a>
+
+            {/* Flipkart */}
+            <a
+              href="https://www.flipkart.com/efv-canon/p/itmd2a588b2f4fdf?pid=9798902318798"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="efv-platform-card"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '14px',
+                padding: '16px 20px',
+                background: 'rgba(255, 255, 255, 0.03)',
+                border: '1px solid rgba(255, 255, 255, 0.08)',
+                borderRadius: '16px',
+                textDecoration: 'none',
+                boxShadow: '0 8px 24px rgba(0, 0, 0, 0.2)',
+                textAlign: 'left'
+              }}
+            >
+              <div
+                style={{
+                  width: '42px',
+                  height: '42px',
+                  borderRadius: '12px',
+                  background: 'rgba(255, 255, 255, 0.08)',
+                  border: '1px solid rgba(255, 255, 255, 0.12)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexShrink: 0
+                }}
+              >
+                <img src="/images/flipcard.png" alt="Flipkart" style={{ height: '22px', width: 'auto', objectFit: 'contain' }} />
+              </div>
+              <div>
+                <div style={{ color: '#ffffff', fontWeight: 700, fontSize: '0.92rem' }}>Flipkart</div>
+                <div style={{ color: '#94a3b8', fontSize: '0.75rem', marginTop: '2px' }}>Verified Retail</div>
+              </div>
+            </a>
+          </div>
         </div>
       </section>
     </div>
