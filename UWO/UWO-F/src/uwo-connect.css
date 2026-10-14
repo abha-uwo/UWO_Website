@@ -5008,3 +5008,368 @@
   box-shadow: 0 2px 8px rgba(11, 143, 120, 0.15);
 }
 
+/* ==========================================================================
+   21. COMPREHENSIVE MOBILE & TABLET RESPONSIVE RULES (ALL VIEWPORTS <= 1024px)
+   ========================================================================== */
+
+/* Tablet Breakpoint (max-width: 1024px) */
+@media (max-width: 1024px) {
+  .uwoc-container {
+    padding: 0 20px;
+  }
+  .uwoc-flow-canvas {
+    grid-template-columns: 1fr 110px 1fr;
+    gap: 12px;
+  }
+  .uwoc-sim-body {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .uwoc-wt-display-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .uwoc-security-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .uwoc-connector-pipeline-card {
+    padding: 20px;
+  }
+}
+
+/* Tablet & Phablet Breakpoint (max-width: 768px) */
+@media (max-width: 768px) {
+  .uwoc-section {
+    padding: 60px 0;
+  }
+  .uwoc-section-header {
+    margin-bottom: 28px;
+    padding: 0 8px;
+  }
+  .uwoc-section-title {
+    font-size: 1.6rem;
+  }
+  .uwoc-section-subtitle {
+    font-size: 0.88rem;
+  }
+
+  /* 4. Business Connectors Pipeline Card */
+  .uwoc-connector-pipeline-card {
+    flex-direction: column;
+    gap: 16px;
+    padding: 24px 18px;
+  }
+  .uwoc-pipe-step {
+    width: 100%;
+  }
+  .uwoc-pipe-arrow {
+    transform: rotate(90deg);
+    margin: 4px 0;
+  }
+
+  /* Dashboard Tabs Horizontal Scroll */
+  .uwoc-dash-tabs-nav {
+    justify-content: flex-start;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 10px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .uwoc-dash-tabs-nav::-webkit-scrollbar {
+    display: none;
+  }
+  .uwoc-dtab-btn {
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  /* Dashboard Mock Titlebar & Subnav */
+  .uwoc-mock-titlebar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px 16px;
+  }
+  .uwoc-titlebar-left {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .uwoc-mock-url-badge {
+    max-width: 220px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .uwoc-titlebar-center h3 {
+    font-size: 0.95rem;
+    white-space: normal;
+  }
+  .uwoc-titlebar-right {
+    display: none;
+  }
+  .uwoc-mock-subnav {
+    padding: 10px 16px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  /* 15. Architectural Topology Diagram */
+  .uwoc-diagram-card {
+    padding: 18px 14px;
+    box-sizing: border-box;
+  }
+  .uwoc-flow-canvas {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .uwoc-flow-column {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 8px;
+    width: 100%;
+  }
+  .uwoc-node-chip {
+    padding: 8px 10px;
+    font-size: 0.74rem;
+  }
+  .uwoc-flow-center {
+    margin: 8px auto;
+  }
+  .uwoc-core-logo-img {
+    width: 70px;
+    height: 70px;
+  }
+
+  /* 16. Simulator Console */
+  .uwoc-simulator-console {
+    border-radius: var(--uwoc-radius-lg);
+  }
+  .uwoc-sim-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 16px;
+  }
+  .uwoc-sim-controls {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .uwoc-sim-body {
+    padding: 16px 14px;
+    gap: 18px;
+  }
+
+  /* 17. Before & After Comparison */
+  .uwoc-comp-header-row {
+    display: none;
+  }
+  .uwoc-comp-item-row {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px 14px;
+  }
+  .uwoc-comp-side.before {
+    background: #FFF5F5;
+    border-radius: 8px;
+    padding: 12px 14px;
+    border-left: 3px solid #EF4444;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .uwoc-comp-divider {
+    transform: rotate(90deg);
+    margin: 2px auto;
+    color: var(--uwoc-primary);
+  }
+  .uwoc-comp-side.after {
+    background: var(--uwoc-bg-mint);
+    border-radius: 8px;
+    padding: 12px 14px;
+    border-left: 3px solid var(--uwoc-primary);
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .uwoc-diff-equation {
+    padding: 12px 10px;
+    gap: 6px;
+  }
+  .uwoc-eq-result {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+
+  /* 18. Interactive Walkthrough */
+  .uwoc-wt-controls-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    padding: 14px 16px;
+  }
+  .uwoc-wt-step-indicators {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 6px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .uwoc-wt-step-indicators::-webkit-scrollbar {
+    display: none;
+  }
+  .uwoc-step-pill-btn {
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+  .uwoc-wt-playback-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .uwoc-wt-display-grid {
+    padding: 18px 14px;
+    gap: 18px;
+  }
+
+  /* 19. Security Grid */
+  .uwoc-security-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+/* Mobile Devices (max-width: 600px) */
+@media (max-width: 600px) {
+  .uwoc-container {
+    padding: 0 16px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  .uwoc-section {
+    padding: 48px 0;
+  }
+  .uwoc-hero-section {
+    padding: 85px 0 20px;
+  }
+  .uwoc-hero-title {
+    font-size: 1.4rem;
+    line-height: 1.25;
+  }
+  .uwoc-hero-subtitle {
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+  .uwoc-hero-actions {
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+  }
+  .uwoc-hero-actions .uwoc-btn {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+    padding: 10px 16px;
+    font-size: 0.84rem;
+    box-sizing: border-box;
+  }
+
+  /* Value strip */
+  .uwoc-value-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  /* Feature carousel */
+  .uwoc-features-carousel-track .uwoc-feature-card {
+    flex: 0 0 calc(100vw - 48px);
+    max-width: calc(100vw - 48px);
+    min-width: 240px;
+    box-sizing: border-box;
+  }
+
+  /* Use cases */
+  .uwoc-usecase-card {
+    flex: 0 0 calc(100vw - 48px);
+    max-width: calc(100vw - 48px);
+    min-width: 240px;
+    box-sizing: border-box;
+  }
+
+  /* Omnichannel inbox preview */
+  .uwoc-inbox-head {
+    padding: 10px 12px;
+  }
+  .uwoc-inbox-screen {
+    border-radius: var(--uwoc-radius-md);
+  }
+  .uwoc-inbox-messages {
+    padding: 12px;
+  }
+
+  /* Final CTA */
+  .uwoc-final-cta-box {
+    padding: 32px 16px;
+  }
+  .uwoc-final-title {
+    font-size: 1.4rem;
+    line-height: 1.25;
+  }
+  .uwoc-final-subtitle {
+    font-size: 0.85rem;
+  }
+  .uwoc-final-actions {
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+  }
+  .uwoc-final-actions .uwoc-btn {
+    width: 100%;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+  .uwoc-final-perks {
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+  }
+}
+
+/* Small Mobile Screens (max-width: 414px - Pixel 9 Pro Fold, iPhone 15/16, Galaxy) */
+@media (max-width: 414px) {
+  .uwoc-container {
+    padding: 0 12px;
+  }
+  .uwoc-hero-title {
+    font-size: 1.3rem;
+  }
+  .uwoc-section-title {
+    font-size: 1.25rem;
+  }
+  .uwoc-section-subtitle {
+    font-size: 0.8rem;
+  }
+  .uwoc-flow-column {
+    grid-template-columns: 1fr;
+  }
+  .uwoc-node-chip {
+    padding: 6px 10px;
+    font-size: 0.72rem;
+  }
+  .uwoc-core-logo-img {
+    width: 58px;
+    height: 58px;
+  }
+  .uwoc-eq-pill {
+    font-size: 0.68rem;
+    padding: 3px 8px;
+  }
+  .uwoc-security-card {
+    padding: 16px 14px;
+  }
+}
+
+

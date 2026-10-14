@@ -716,7 +716,18 @@ export default function EfvPage() {
                   flexShrink: 0
                 }}
               >
-                <img src="/images/Amazon.png" alt="Amazon" style={{ height: '22px', width: 'auto', objectFit: 'contain' }} />
+                <img 
+                  src="/images/amazon.png" 
+                  alt="Amazon" 
+                  style={{ height: '22px', width: 'auto', objectFit: 'contain' }} 
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                    if (e.currentTarget.nextElementSibling) {
+                      e.currentTarget.nextElementSibling.style.display = 'inline-block';
+                    }
+                  }}
+                />
+                <i className="fa-brands fa-amazon" style={{ display: 'none', color: '#FF9900', fontSize: '1.3rem' }}></i>
               </div>
               <div>
                 <div style={{ color: '#ffffff', fontWeight: 700, fontSize: '0.92rem' }}>Amazon</div>
