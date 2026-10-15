@@ -7,6 +7,10 @@
 @import "../earn-refer.css";
 @import "../chatbot.css";
 @import "../aisa.css";
+@import "./uwo-connect.css";
+@import "./ai-legal.css";
+@import "./ai-education.css";
+@import "./ai-ads.css";
 
 /* App root container reset */
 #root {

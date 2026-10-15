@@ -446,13 +446,13 @@
     padding: 44px 0;
   }
   .aiads-hero-section {
-    padding: 95px 0 50px 0;
+    padding: 84px 0 40px 0 !important;
   }
   .aiads-hero-text h1 {
-    font-size: 2.1rem;
+    font-size: 1.85rem;
   }
   .aiads-section-title {
-    font-size: 1.65rem;
+    font-size: 1.55rem;
   }
   .aiads-pipeline-grid {
     grid-template-columns: 1fr;

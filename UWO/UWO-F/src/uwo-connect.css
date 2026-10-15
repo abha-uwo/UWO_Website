@@ -4452,7 +4452,7 @@
 }
 
 @media (max-width: 600px) {
-  .uwoc-hero-section { padding: 95px 0 24px; }
+  .uwoc-hero-section { padding: 80px 0 24px !important; }
   .uwoc-hero-title { font-size: 1.5rem; }
   .uwoc-section-title { font-size: 1.45rem; }
   .uwoc-final-title { font-size: 1.55rem; }
@@ -5253,7 +5253,7 @@
     padding: 48px 0;
   }
   .uwoc-hero-section {
-    padding: 85px 0 20px;
+    padding: 80px 0 24px !important;
   }
   .uwoc-hero-title {
     font-size: 1.4rem;
@@ -5338,10 +5338,13 @@
   }
 }
 
-/* Small Mobile Screens (max-width: 414px - Pixel 9 Pro Fold, iPhone 15/16, Galaxy) */
-@media (max-width: 414px) {
+/* Small Mobile Screens (max-width: 480px - iPhone 15/16, Galaxy, Pixel) */
+@media (max-width: 480px) {
   .uwoc-container {
     padding: 0 12px;
+  }
+  .uwoc-hero-section {
+    padding: 78px 0 20px !important;
   }
   .uwoc-hero-title {
     font-size: 1.3rem;

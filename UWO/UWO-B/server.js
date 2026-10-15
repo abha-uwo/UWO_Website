@@ -2563,7 +2563,13 @@ app.post('/api/register-email', async (req, res) => {
 
 // --- Intelligent Knowledge Base & Platform Fallback Engine ---
 function getIntelligentFallbackReply(message, lang = 'English', kb = []) {
-  const cleanMsg = (message || '').toLowerCase().trim();
+  // 1. Universal Case & Punctuation Normalization
+  const rawLower = (message || '').toLowerCase();
+  const cleanMsg = rawLower
+    .replace(/[™®©]/g, '')
+    .replace(/[?!.,;:()[\]{}"'\\/\-_*#@~`]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
 
   // 1. Greetings
   if (/^(h+i+|h+e+l+l+o+|h+e+y+|namaste|greetings|good\s*(morning|afternoon|evening)|kaise\s*ho)\b/i.test(cleanMsg)) {
@@ -2573,44 +2579,59 @@ function getIntelligentFallbackReply(message, lang = 'English', kb = []) {
     return "Hello! Welcome to **UWO™**. I am your executive digital assistant, here to help you explore our AI-first platforms, digital automation, and enterprise solutions.\n\nHow can I accelerate your business goals today?";
   }
 
-  // 2. Specific Platform Inquiries
-  if (/\b(uwo\s*connect|connect)\b/i.test(cleanMsg)) {
-    return "**UWO Connect™** is our unified enterprise communication and automation platform.\n\n• **Omnichannel Queue:** Merges WhatsApp Business, Instagram Direct, Facebook Messenger, and Email into a single collaborative inbox.\n• **Autonomous Triggers:** Converts incoming chats directly into qualified CRM leads, dynamic quotation PDFs, and 1-click UPI payment links.\n• **Financial Compliance:** Automatically dispatches compliant GST tax invoices upon payment verification.\n\nWould you like to explore a live demo or install the mobile application?";
+  // 2. EFV (Exponential Financial Velocity) — 100% Case-Insensitive & Punctuation-Insensitive
+  if (/\b(efv|exponential\s*financial\s*velocity|origin\s*code|gurumukh|book|books|canon|volume)\b/i.test(cleanMsg) || cleanMsg === 'efv' || cleanMsg.startsWith('efv ') || cleanMsg.endsWith(' efv') || cleanMsg.includes(' efv ')) {
+    return "**EFV™ (Exponential Financial Velocity)** is UWO's definitive business canon and methodology framework authored by Gurumukh P. Ahuja.\n\n• **Volume 1:** *The Origin Code* (Available in Paperback, Kindle, and Hindi Edition on NotionPress, Amazon, Flipkart, and directly on the **[EFV Portal](/efv)**).\n• **Volume 2:** *Systematic Execution and Scaling Dynamics*.\n• **Volume 3:** *Advanced AI-Driven Capital Velocity*.\n\nWould you like a preview of the framework or links to access the book?";
   }
 
-  if (/\b(ai\s*legal|legal|court|advocate|lawyer|law|judgment)\b/i.test(cleanMsg)) {
-    return "**AI Legal™** is UWO's autonomous legal intelligence and draft automation ecosystem.\n\n• **Instant Drafting:** Generates court-admissible petitions, commercial contracts, and bail applications in seconds.\n• **Case Law Research:** Contextual semantic search referencing Supreme Court, High Court, and constitutional precedents.\n• **Client & Case Tracker:** Real-time hearing calendar and multi-advocate workflow management.\n\nWould you like to explore our legal templates or schedule a product walkthrough?";
+  // 3. UWO Connect
+  if (/\b(uwo\s*connect|connect|crm|whatsapp|inbox|invoicing)\b/i.test(cleanMsg)) {
+    return "**UWO Connect™** is our unified enterprise communication and business automation workspace.\n\n• **Omnichannel Queue:** Merges WhatsApp Business, Instagram Direct, Facebook Messenger, and Email into a single collaborative inbox.\n• **Autonomous Triggers:** Converts incoming chats directly into qualified CRM leads, dynamic quotation PDFs, and 1-click UPI payment links.\n• **Financial Compliance:** Automatically dispatches compliant GST tax invoices upon payment verification.\n\nWould you like to explore a live demo or install the mobile application?";
   }
 
-  if (/\b(ai\s*education|education|student|textbook|school|college|curriculum)\b/i.test(cleanMsg)) {
+  // 4. AI Legal
+  if (/\b(ai\s*legal|legal|court|advocate|lawyer|law|judgment|petition|bail|contract)\b/i.test(cleanMsg)) {
+    return "**AI Legal™** is UWO's autonomous judicial intelligence and draft automation ecosystem.\n\n• **Instant Drafting:** Generates court-admissible petitions, commercial contracts, and bail applications in seconds.\n• **Case Law Research:** Contextual semantic search referencing Supreme Court, High Court, and constitutional precedents.\n• **Client & Case Tracker:** Real-time hearing calendar and multi-advocate workflow management.\n\nWould you like to explore our legal templates or schedule a product walkthrough?";
+  }
+
+  // 5. AI Education
+  if (/\b(ai\s*education|education|student|textbook|textbooks|school|college|curriculum|academic)\b/i.test(cleanMsg)) {
     return "**AI Education™** is our next-generation adaptive learning and academic intelligence platform.\n\n• **Interactive Textbooks:** Transforms standard curricula into conversational, interactive AI study companions.\n• **Formative Assessment:** Automatically generates quizzes, detects conceptual gaps, and personalizes study paths.\n• **Institutional Portal:** Real-time student progress analytics for teachers and university administrators.\n\nWould you like to explore institutional deployment options?";
   }
 
-  if (/\b(ai\s*ads|ads|advertising|marketing|campaign|ad intelligence)\b/i.test(cleanMsg)) {
+  // 6. AI Ads
+  if (/\b(ai\s*ads|ads|advertising|marketing|campaign|ad intelligence|creative)\b/i.test(cleanMsg)) {
     return "**AI Ads™** is our autonomous commercial advertising intelligence engine.\n\n• **Predictive Creative Optimization:** Uses AI to generate high-converting ad copy and visual variations.\n• **Real-Time Bidding Intelligence:** Dynamically allocates budgets across Meta, Google, and programmatics to minimize CAC.\n• **Omnichannel Conversion Attribution:** Full-funnel tracking from first impression to verified purchase.\n\nWould you like a demo of our advertising intelligence engine?";
   }
 
-  if (/\b(efv|exponential financial velocity|book|canon|vol|volume)\b/i.test(cleanMsg)) {
-    return "**EFV (Exponential Financial Velocity)** is the definitive business canon and methodology framework published by UWO™.\n\n• **Volume 1:** The Origin Code (Paperback, Kindle, and Hindi Edition on NotionPress).\n• **Volume 2:** Systematic Execution and Scaling Dynamics.\n• **Volume 3:** Advanced AI-Driven Capital Velocity.\n\nYou can access the canon directly on the **[EFV Portal](/efv)**, Amazon, Flipkart, and NotionPress. Would you like a preview of the framework?";
-  }
-
-  if (/\b(aisa|aisa connect)\b/i.test(cleanMsg)) {
+  // 7. AISA
+  if (/\b(aisa|aisa connect|super assistant|agentic)\b/i.test(cleanMsg)) {
     return "**AISA™** is UWO's autonomous industrial intelligence framework designed for multi-agent process orchestration, deep business telemetry, and mission-critical automation pipelines.\n\nWould you like to know how AISA™ integrates into your infrastructure?";
   }
 
-  // 3. Contact & Headquarters
+  // 8. AI Mall
+  if (/\b(ai\s*mall|aimall|marketplace|app store)\b/i.test(cleanMsg)) {
+    return "**AI Mall™** is UWO's flagship global platform combining an AI marketplace, automation hub, and agent ecosystem — built to be the App Store of the AI Age.\n\nYou can explore AI Mall directly at **https://aimall24.com**. Would you like to know how to deploy applications on AI Mall?";
+  }
+
+  // 9. Earn & Refer / Affiliate
+  if (/\b(earn|refer|referral|affiliate|partner|commission|distributor)\b/i.test(cleanMsg)) {
+    return "Through the **UWO™ Earn & Refer** ecosystem, authorized partners and distributors earn recurring commissions by introducing businesses to UWO's flagship platforms.\n\n• **Instant Onboarding:** Register via the Partner Portal at **/partner-login?register=true**.\n• **Real-Time Telemetry:** Track active referrals, conversion pipelines, and transparent payouts.\n\nWould you like help setting up your partner account?";
+  }
+
+  // 10. Contact & Headquarters
   if (/\b(contact|reach|email|phone|call|address|office|location|support|headquarters|number|helpline|sampark)\b/i.test(cleanMsg)) {
     return "You can connect directly with the **UWO™** executive team through:\n\n• **Official Email:** admin@uwo24.com\n• **Direct Helpline:** +91 83589 90909\n• **Corporate Headquarters:** Jabalpur, Madhya Pradesh, India\n\nWould you like me to schedule an introductory consultation with our solutions team?";
   }
 
-  // 4. Pricing & Commercials
+  // 11. Pricing & Commercials
   if (/\b(price|pricing|cost|subscription|plan|charge|rate|charges)\b/i.test(cleanMsg)) {
     return "**UWO™** provides transparent, tier-based commercial licensing and customized enterprise engagements tailored to your transaction volume and workflow scale.\n\n• **Flexible Deployment:** Cloud SaaS, hybrid VPC, or on-premise multi-tenant setups.\n• **Zero Hidden Fees:** Clear per-agent or per-workflow pricing with official Meta API compliance.\n\nWould you like our commercial team to prepare a tailored quote for your organization?";
   }
 
-  // 5. Token Match across Knowledge Base
+  // 12. Token Match across Knowledge Base (Case-Insensitive)
   const stopWords = new Set(['what', 'is', 'the', 'are', 'you', 'for', 'about', 'and', 'can', 'how', 'does', 'with', 'your', 'tell', 'me', 'please', 'know', 'give', 'hai', 'kya', 'kare', 'kaise', 'batao']);
-  const queryTokens = cleanMsg.replace(/[^a-z0-9\s]/g, ' ').split(/\s+/).filter(w => w.length > 2 && !stopWords.has(w));
+  const queryTokens = cleanMsg.split(/\s+/).filter(w => w.length > 2 && !stopWords.has(w));
 
   let bestMatch = null;
   let highestScore = 0;
@@ -2635,7 +2656,7 @@ function getIntelligentFallbackReply(message, lang = 'English', kb = []) {
     return `${bestMatch.answer}\n\nWould you like more details on how **UWO™** integrates this into your existing business stack?`;
   }
 
-  // 6. Executive Enterprise Overview
+  // 13. Executive Enterprise Overview
   return "**UWO™ (Unified Web Options & Services Pvt. Ltd.)** is an AI-first global technology enterprise delivering intelligent digital platforms, multi-agent workflows, and enterprise automation.\n\nOur flagship ecosystems include:\n• **UWO Connect™:** Omnichannel messaging (WhatsApp, IG, FB, Email), CRM pipeline, and automated GST invoicing.\n• **AI Legal™:** Autonomous judicial research and compliant contract draft generation.\n• **AI Education™:** Adaptive textbook intelligence and interactive learning assessment.\n• **AI Ads™:** Autonomous advertising intelligence and algorithmic campaign optimization.\n• **AISA™:** Autonomous industrial agentic workflows.\n\nFeel free to ask about any specific platform or reach our team at **admin@uwo24.com**.";
 }
 
@@ -2649,16 +2670,18 @@ app.post('/api/chat', async (req, res) => {
         const detectedLang = detectLanguage(message);
         console.log(`💬 User Message (${email || 'Anonymous'}): "${message}" | Detected: ${detectedLang}`);
 
-        // Step 2: Fetch RAG context (from DB + knowledge_base.js) -- Truncated to avoid 128k Context Limit Error
+        // Step 2: Fetch Dynamic RAG context (from DB + knowledge_base.js)
+        const currentKb = require('./knowledge_base');
+        const activeKnowledgeText = (currentKb || []).map(item => `Q: ${item.question}\nA: ${item.answer}`).join("\n\n");
+
         const allDocs = await Document.find();
         let docsContext = allDocs.map(d => `--- FILE: ${d.fileName} ---\n${d.extractedText}`).join("\n\n");
 
-        // Safety truncation: 60,000 chars is approx 50,000 tokens maximum with complex unicode (Safe for 131,072 limit)
         if (docsContext.length > 60000) {
             docsContext = docsContext.substring(0, 60000) + "\n\n...[ADDITIONAL CONTENT TRUNCATED TO FIT MEMORY LIMIT]...";
         }
 
-        const contextText = `### CORE KNOWLEDGE:\n${knowledgeText}\n\n### UPLOADED DOCUMENTS:\n${docsContext}`;
+        const contextText = `### CORE KNOWLEDGE:\n${activeKnowledgeText}\n\n### UPLOADED DOCUMENTS:\n${docsContext}`;
 
         // Step 3: Generate Dynamic System Prompt (Executive Professional Persona)
         const dynamicSystemInstruction = `You are the UWO™ Executive AI Assistant — an intelligent, articulate, and distinguished digital consultant representing Unified Web Options (UWO™).
@@ -2670,8 +2693,29 @@ app.post('/api/chat', async (req, res) => {
   • Greetings & introductions: Respond warmly and concisely in 2–3 sentences, highlighting how UWO™ accelerates digital transformation.
   • Platform & product questions: Provide a clear, structured overview highlighting concrete enterprise benefits.
   • Technical & integration questions: Give clear, well-organized, step-by-step guidance.
-- Avoid repetitive robotic boilerplate (e.g., NEVER say "As the UWO™ AI Assistant, I am here to help with all your inquiries about our company and services").
-- DO NOT use rigid templates or forced section headings like "### KEY HIGHLIGHTS" or "[PARAGRAPH SECTION]". Format naturally and organically.
+- Avoid repetitive robotic boilerplate.
+
+### 🌐 OFFICIAL UWO™ ECOSYSTEM & PRODUCT CATALOGUE (100% CASE-INSENSITIVE):
+All user queries, product names, and acronyms must be treated as COMPLETELY CASE-INSENSITIVE (e.g. "EFV", "efv", "Efv", "EFV ?" all refer to Exponential Financial Velocity):
+1. **EFV™ (Exponential Financial Velocity):** Authored by Gurumukh P. Ahuja, published by UWO™. The definitive business canon and methodology framework:
+   • Volume 1: The Origin Code (Published and available in Paperback, Kindle, and Hindi Edition on NotionPress, Amazon, Flipkart, and /efv).
+   • Volume 2: Systematic Execution & Scaling Dynamics.
+   • Volume 3: Advanced AI-Driven Capital Velocity.
+   *CRITICAL RULE:* NEVER state that "specific details about EFV™ are best discussed with a specialist" or that EFV is a generic offering. Always give this comprehensive, authoritative breakdown of the EFV canon.
+
+2. **UWO Connect™:** Omnichannel customer conversation and business automation workspace. Merges WhatsApp Business API, Instagram Direct, Facebook Messenger, and Email into a single inbox. Automates CRM leads, dynamic quotation PDFs, UPI payments, and GST tax invoices. Available on Web and Android APK.
+
+3. **AI Legal™:** Autonomous judicial intelligence and draft automation ecosystem. Generates court-admissible petitions, contracts, bail applications, and notices with Supreme Court & High Court precedent search.
+
+4. **AI Education™:** Adaptive academic operating system and interactive conversational AI textbooks with automated formative quizzes and institutional analytics.
+
+5. **AI Ads™:** Autonomous advertising intelligence, creative variation generation, real-time programmatic bidding across Meta and Google, and CAC minimization.
+
+6. **AISA™:** Autonomous industrial super assistant and multi-agent workflow orchestration framework.
+
+7. **AI Mall™:** Global AI marketplace and agent ecosystem at https://aimall24.com.
+
+8. **Earn & Refer / Sales Partner Program:** High-yield sales distributor and affiliate network. Access partner registration at /partner-login?register=true.
 
 ### 📝 FORMATTING STANDARDS:
 1. **Markdown Only:** Output clean Markdown. NEVER output raw HTML tags (do NOT use <strong>, <b>, <p>, or <br>).
@@ -2686,7 +2730,6 @@ ${contextText}
 
 ### RAG GUIDELINES:
 - Base answers on the verified UWO™ knowledge base above.
-- If a specific inquiry falls outside the context, provide a professional, helpful general response aligned with UWO™'s focus on enterprise AI and digital excellence.
 - Never state "this was not in my context" or make apologetic disclaimers.`;
 
         let responseText = null;
@@ -2711,10 +2754,16 @@ ${contextText}
             console.warn("⚠️ Vertex AI generation error, utilizing dynamic Knowledge Base Engine:", aiErr?.message || aiErr);
         }
 
-        // Step 5: Fail-Safe Dynamic Knowledge Base Fallback
-        if (!responseText || typeof responseText !== 'string' || responseText.trim().length === 0) {
-            console.log("ℹ️ Serving dynamic response from UWO™ Intelligent Knowledge Engine");
-            responseText = getIntelligentFallbackReply(message, detectedLang, knowledgeBase);
+        // Step 5: Fail-Safe Dynamic Knowledge Base Fallback & Hedge Override
+        const isHedgeResponse = responseText && (
+            /specific details about .* are best discussed with a specialist/i.test(responseText) ||
+            /falls outside (the|my) context/i.test(responseText) ||
+            /while specific details about efv/i.test(responseText)
+        );
+
+        if (!responseText || typeof responseText !== 'string' || responseText.trim().length === 0 || isHedgeResponse) {
+            console.log("ℹ️ Serving verified response from UWO™ Intelligent Knowledge Engine");
+            responseText = getIntelligentFallbackReply(message, detectedLang, currentKb);
         } else {
             console.log(`✨ AI Response received [Length: ${responseText.length}]`);
 

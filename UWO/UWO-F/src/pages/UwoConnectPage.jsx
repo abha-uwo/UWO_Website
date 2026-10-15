@@ -17,6 +17,7 @@ import '../uwo-connect.css';
 export default function UwoConnectPage() {
   // SEO, Document Meta Tags & JSON-LD Structured Data
   useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     document.title = UWO_CONNECT_META.title;
 
     // Meta description

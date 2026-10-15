@@ -2313,7 +2313,7 @@
 }
 
 @media (max-width: 768px) {
-  .al-hero-section { min-height: auto; padding: 85px 0 55px; }
+  .al-hero-section { min-height: auto; padding: 84px 0 45px !important; }
   .al-hero-title { font-size: 1.85rem; }
   .al-hero-supporting { font-size: 0.95rem; }
   .al-hero-feature-pills { grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 24px; padding-top: 16px; }
@@ -2336,6 +2336,12 @@
   .al-final-cta-title { font-size: 1.8rem; }
   .al-overview-pillars,
   .al-overview-pillars-row { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 480px) {
+  .al-hero-section { padding: 76px 0 35px !important; }
+  .al-hero-title { font-size: 1.6rem; }
+  .al-hero-feature-pills { grid-template-columns: 1fr; }
 }
 
 /* Reduced Motion */
