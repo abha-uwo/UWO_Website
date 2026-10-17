@@ -416,9 +416,225 @@
 }
 
 /* ==========================================================================
+   CONVERGENCE & SHOWCASE COMPONENTS
+   ========================================================================== */
+.aiads-convergence-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  align-items: stretch;
+}
+
+.aiads-convergence-card {
+  border-radius: 20px;
+  padding: 26px;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.aiads-convergence-card-left {
+  background: #fff1f2;
+  border: 1px solid #fecdd3;
+}
+
+.aiads-convergence-card-right {
+  background: #f5f3ff;
+  border: 1px solid #ddd6fe;
+  box-shadow: 0 10px 30px rgba(124, 58, 237, 0.1);
+}
+
+.aiads-convergence-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  gap: 8px;
+}
+
+.aiads-convergence-badge {
+  font-size: 0.66rem;
+  font-weight: 700;
+  background: #7c3aed;
+  color: #ffffff;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  line-height: 1.2;
+}
+
+/* Module Showcase Responsive Frame */
+.aiads-module-showcase-frame {
+  background: #f8fafc;
+  border: 1px solid rgba(124, 58, 237, 0.2);
+  border-radius: 24px;
+  padding: 32px;
+  box-shadow: var(--aiads-shadow-md);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 32px;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.aiads-module-showcase-right {
+  background: #ffffff;
+  border: 1px solid var(--aiads-border);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: var(--aiads-shadow-sm);
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+/* ==========================================================================
+   CONTENT STUDIO 2-COLUMN IMMERSIVE LAYOUT
+   ========================================================================== */
+.aiads-content-studio-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.aiads-content-studio-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.35fr;
+  gap: 36px;
+  align-items: center;
+}
+
+.aiads-content-studio-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.aiads-studio-heading {
+  font-size: 1.95rem;
+  font-weight: 850;
+  color: var(--aiads-text-main);
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.aiads-studio-desc {
+  font-size: 0.9rem;
+  color: var(--aiads-text-muted);
+  line-height: 1.55;
+  margin: 0;
+}
+
+.aiads-studio-platform-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 2px;
+}
+
+.aiads-studio-platform-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--aiads-border);
+  background: #ffffff;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: var(--aiads-shadow-sm);
+  position: relative;
+  width: 100%;
+}
+
+.aiads-studio-platform-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--aiads-shadow-md);
+}
+
+.aiads-studio-platform-card.active {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07);
+}
+
+.aiads-studio-platform-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  flex-shrink: 0;
+}
+
+.aiads-studio-platform-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.aiads-studio-platform-name {
+  font-size: 0.88rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 2px;
+}
+
+.aiads-studio-platform-desc {
+  font-size: 0.72rem;
+  color: var(--aiads-text-muted);
+  line-height: 1.25;
+}
+
+.aiads-studio-active-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.aiads-studio-features {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 2px;
+}
+
+.aiads-studio-feature-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border-radius: 9999px;
+  background: #f8fafc;
+  border: 1px solid var(--aiads-border);
+  font-size: 0.72rem;
+  color: var(--aiads-text-main);
+  font-weight: 600;
+}
+
+.aiads-content-studio-preview-col {
+  width: 100%;
+}
+
+.aiads-content-studio-preview-window {
+  width: 100%;
+  border-radius: 16px;
+  box-shadow: 0 14px 40px -6px rgba(15, 23, 42, 0.12);
+  border: 1px solid var(--aiads-border);
+  background: #ffffff;
+}
+
+/* ==========================================================================
    RESPONSIVE DESIGN
    ========================================================================== */
 @media (max-width: 1024px) {
+  .aiads-content-studio-layout {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .aiads-studio-heading {
+    font-size: 1.85rem;
+  }
   .aiads-hero-content {
     grid-template-columns: 1fr;
     text-align: center;
@@ -463,6 +679,36 @@
   .aiads-flywheel-grid {
     grid-template-columns: repeat(2, 1fr);
     max-width: 480px;
+  }
+}
+
+@media (max-width: 640px) {
+  .aiads-container {
+    padding: 0 16px;
+  }
+  .aiads-convergence-card {
+    padding: 18px 14px;
+  }
+  .aiads-convergence-card-header {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .aiads-convergence-card-header h4 {
+    font-size: 0.92rem !important;
+  }
+  .aiads-module-showcase-frame {
+    padding: 18px 14px;
+    gap: 20px;
+    border-radius: 18px;
+  }
+  .aiads-module-showcase-right {
+    padding: 14px 12px;
+  }
+  .aiads-module-showcase-left h3 {
+    font-size: 1.35rem !important;
+  }
+  .aiads-pipeline-step-card {
+    padding: 14px 14px;
   }
 }
 

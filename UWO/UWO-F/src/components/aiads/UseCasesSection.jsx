@@ -9,10 +9,6 @@ export default function UseCasesSection() {
     <section className="aiads-section" id="use-cases" style={{ background: '#f8fafc' }}>
       <div className="aiads-container">
         <div className="aiads-section-header">
-          <span className="aiads-badge aiads-badge-blue">
-            <Users size={14} />
-            Tailored Solutions
-          </span>
           <h2 className="aiads-section-title">
             Built for Every <br />
             <span className="aiads-gradient-title">Growth Stage.</span>

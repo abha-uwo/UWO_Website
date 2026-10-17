@@ -16,11 +16,6 @@ export default function AiAdsFinalCTA({ onExploreClick }) {
           viewport={{ once: true }}
           variants={fadeInUp}
         >
-          <span className="aiads-badge" style={{ marginBottom: '14px' }}>
-            <Sparkles size={13} />
-            Autonomous Marketing Velocity
-          </span>
-
           <h2 style={{ fontSize: '2.4rem', fontWeight: 900, color: 'var(--aiads-text-main)', letterSpacing: '-0.025em', lineHeight: 1.2, marginBottom: '14px' }}>
             Ready to Run Your Marketing from <br />
             <span className="aiads-gradient-title">One Intelligent Workspace?</span>

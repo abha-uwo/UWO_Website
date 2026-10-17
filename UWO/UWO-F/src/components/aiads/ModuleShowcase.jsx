@@ -25,13 +25,9 @@ export default function ModuleShowcase() {
   const ActiveIcon = MODULE_ICONS[activeModule.id] || Dna;
 
   return (
-    <section className="aiads-section" id="modules" style={{ background: '#ffffff' }}>
+    <section className="aiads-section" id="modules" style={{ background: '#ffffff', overflow: 'hidden' }}>
       <div className="aiads-container">
         <div className="aiads-section-header">
-          <span className="aiads-badge aiads-badge-emerald">
-            <LayoutDashboard size={14} />
-            Modular Functional Architecture
-          </span>
           <h2 className="aiads-section-title">
             Enterprise Marketing Engines, <br />
             <span className="aiads-gradient-title">Unified in One OS.</span>
@@ -78,30 +74,14 @@ export default function ModuleShowcase() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -14 }}
             transition={{ duration: 0.3 }}
+            className="aiads-module-showcase-frame"
             style={{
-              background: '#f8fafc',
-              border: `1px solid ${activeModule.accent}30`,
-              borderRadius: '24px',
-              padding: '32px',
-              boxShadow: 'var(--aiads-shadow-md)',
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-              gap: '32px',
-              alignItems: 'center'
+              borderColor: `${activeModule.accent}30`
             }}
           >
             {/* Left: Module Details & Functional Capabilities */}
-            <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px' }}>
-                <span style={{ fontSize: '0.74rem', fontWeight: 800, color: activeModule.accent, fontFamily: 'var(--aiads-font-mono)', background: `${activeModule.accent}15`, padding: '3px 10px', borderRadius: '9999px' }}>
-                  MODULE {activeModule.num} · {activeModule.category.toUpperCase()}
-                </span>
-                <span className="aiads-badge" style={{ margin: 0, padding: '2px 8px', fontSize: '0.66rem' }}>
-                  {activeModule.tag}
-                </span>
-              </div>
-
-              <h3 style={{ fontSize: '1.65rem', fontWeight: 850, color: 'var(--aiads-text-main)', marginBottom: '8px' }}>
+            <div className="aiads-module-showcase-left">
+              <h3 style={{ fontSize: '1.65rem', fontWeight: 850, color: 'var(--aiads-text-main)', marginBottom: '8px', lineHeight: 1.25 }}>
                 {activeModule.name}
               </h3>
 
@@ -128,7 +108,7 @@ export default function ModuleShowcase() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="aiads-btn-primary"
-                style={{ padding: '8px 18px', fontSize: '0.82rem' }}
+                style={{ padding: '8px 18px', fontSize: '0.82rem', display: 'inline-flex', alignItems: 'center', gap: '8px', width: 'fit-content' }}
               >
                 <span>Launch {activeModule.name}</span>
                 <ArrowRight size={14} />
@@ -136,17 +116,17 @@ export default function ModuleShowcase() {
             </div>
 
             {/* Right: Simulated Real Module Workflow Window */}
-            <div style={{ background: '#ffffff', border: '1px solid var(--aiads-border)', borderRadius: '16px', padding: '20px', boxShadow: 'var(--aiads-shadow-sm)' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px', borderBottom: '1px solid var(--aiads-border-light)', paddingBottom: '10px' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <div style={{ width: '28px', height: '28px', borderRadius: '8px', background: `${activeModule.accent}15`, color: activeModule.accent, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div className="aiads-module-showcase-right">
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px', borderBottom: '1px solid var(--aiads-border-light)', paddingBottom: '10px', flexWrap: 'wrap', gap: '8px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', minWidth: 0 }}>
+                  <div style={{ width: '28px', height: '28px', borderRadius: '8px', background: `${activeModule.accent}15`, color: activeModule.accent, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                     <ActiveIcon size={15} />
                   </div>
-                  <span style={{ fontSize: '0.78rem', fontWeight: 800, color: 'var(--aiads-text-main)', fontFamily: 'var(--aiads-font-mono)' }}>
+                  <span style={{ fontSize: '0.78rem', fontWeight: 800, color: 'var(--aiads-text-main)', fontFamily: 'var(--aiads-font-mono)', whiteSpace: 'nowrap' }}>
                     LIVE PREVIEW: {activeModule.name.toUpperCase()}
                   </span>
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px', whiteSpace: 'nowrap', flexShrink: 0 }}>
                   <span style={{ width: 6, height: 6, borderRadius: '50%', background: activeModule.accent, boxShadow: `0 0 6px ${activeModule.accent}` }}></span>
                   <span style={{ fontSize: '0.66rem', color: 'var(--aiads-text-muted)', fontFamily: 'var(--aiads-font-mono)' }}>Verified Engine</span>
                 </div>

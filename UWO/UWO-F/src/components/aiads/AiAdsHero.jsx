@@ -55,7 +55,7 @@ export default function AiAdsHero({ onExploreClick }) {
             <motion.div variants={fadeInUp}>
               <span className="aiads-badge">
                 <Sparkles size={14} className="text-purple-600" />
-                AI ADS™ · AUTONOMOUS MARKETING OPERATING SYSTEM
+                AI Ads™ · Marketing OS
               </span>
             </motion.div>
 

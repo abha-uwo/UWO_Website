@@ -38,10 +38,6 @@ export default function MarketingPipeline() {
     <section className="aiads-section" id="marketing-pipeline">
       <div className="aiads-container">
         <div className="aiads-section-header">
-          <span className="aiads-badge aiads-badge-blue">
-            <Zap size={14} />
-            Autonomous Execution Architecture
-          </span>
           <h2 className="aiads-section-title">
             The End-to-End <br />
             <span className="aiads-gradient-title">Marketing Pipeline.</span>

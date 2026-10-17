@@ -28,10 +28,6 @@ export default function ConvergenceSection() {
     <section className="aiads-section" id="one-workspace" style={{ background: '#ffffff' }}>
       <div className="aiads-container">
         <div className="aiads-section-header">
-          <span className="aiads-badge aiads-badge-purple">
-            <Layers size={14} />
-            Ecosystem Convergence
-          </span>
           <h2 className="aiads-section-title">
             Stop Juggling 8 Disconnected Tools. <br />
             <span className="aiads-gradient-title">Run Marketing from One OS.</span>
@@ -43,14 +39,16 @@ export default function ConvergenceSection() {
         </div>
 
         {/* 2-Column Comparison with animated convergence */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '24px', alignItems: 'stretch' }}>
+        <div className="aiads-convergence-grid">
           {/* LEFT: Fragmented Status Quo */}
-          <div style={{ background: '#fff1f2', border: '1px solid #fecdd3', borderRadius: '20px', padding: '28px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
-              <ShieldAlert size={18} style={{ color: '#e11d48' }} />
-              <h4 style={{ fontSize: '1rem', fontWeight: 800, color: '#9f1239', margin: 0 }}>
-                The Fragmented Status Quo
-              </h4>
+          <div className="aiads-convergence-card aiads-convergence-card-left">
+            <div className="aiads-convergence-card-header">
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', minWidth: 0 }}>
+                <ShieldAlert size={18} style={{ color: '#e11d48', flexShrink: 0 }} />
+                <h4 style={{ fontSize: '1rem', fontWeight: 800, color: '#9f1239', margin: 0 }}>
+                  The Fragmented Status Quo
+                </h4>
+              </div>
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
@@ -68,15 +66,15 @@ export default function ConvergenceSection() {
           </div>
 
           {/* RIGHT: Unified AI Ads Workspace */}
-          <div style={{ background: '#f5f3ff', border: '1px solid #ddd6fe', borderRadius: '20px', padding: '28px', position: 'relative', boxShadow: '0 10px 30px rgba(124, 58, 237, 0.1)' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <Sparkles size={18} style={{ color: '#7c3aed' }} />
-                <h4 style={{ fontSize: '1rem', fontWeight: 800, color: '#5b21b6', margin: 0 }}>
+          <div className="aiads-convergence-card aiads-convergence-card-right">
+            <div className="aiads-convergence-card-header">
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', minWidth: 0 }}>
+                <Sparkles size={18} style={{ color: '#7c3aed', flexShrink: 0 }} />
+                <h4 style={{ fontSize: '1rem', fontWeight: 800, color: '#5b21b6', margin: 0, letterSpacing: '-0.01em' }}>
                   AI Ads™ Unified Workspace
                 </h4>
               </div>
-              <span style={{ fontSize: '0.66rem', fontWeight: 700, background: '#7c3aed', color: '#ffffff', padding: '2px 8px', borderRadius: '9999px' }}>
+              <span className="aiads-convergence-badge">
                 ALL-IN-ONE
               </span>
             </div>
